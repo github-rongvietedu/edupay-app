@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/networkservice.dart';
+import '../../config/DataService.dart';
 import '../../constants.dart';
 import '../../utils.dart';
 import '../../widget/custom_button.dart';

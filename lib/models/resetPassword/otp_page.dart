@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numeric_keyboard/numeric_keyboard.dart';
 
 import '../../ChangePassword/change_password.dart';
-import '../../config/networkservice.dart';
+import '../../config/DataService.dart';
 import '../../constants.dart';
 import '../../utils.dart';
 import '../resetpasswordmodel.dart';

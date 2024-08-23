@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/networkservice.dart';
+import '../../../../config/DataService.dart';
 import '../../../../models/invoice/invoice.dart';
 import '../../../../models/student.dart';
 import 'invoice_event.dart';

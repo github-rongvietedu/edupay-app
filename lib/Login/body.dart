@@ -10,7 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../HomePageTeacher/homepage_tearcher.dart';
 import '../Homepage/homepage.dart';
 import '../Register/register_screen.dart';
-import '../config/networkservice.dart';
+import '../config/DataService.dart';
 import '../constants.dart';
 import '../models/configuration.dart';
 import '../models/profile.dart';

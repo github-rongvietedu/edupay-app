@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/networkservice.dart';
+import '../../../../config/DataService.dart';
 import '../../../../models/profile.dart';
 import '../../../../models/schoolYear/school_year.dart';
 import '../../../../models/schoolYear/school_year_result.dart';

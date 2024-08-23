@@ -31,15 +31,13 @@ import '../models/student.dart';
 
 class NetworkService {
   static String devChannel = 'prod';
-  static String baseAddress = devChannel == 'dev'
-      ? 'http://localhost:44351/'
-      : 'https://apiserver.rveapp.com/api/hts/';
-  static String baseSocket = devChannel == 'dev'
-      ? 'http://192.168.0.199:3000'
-      : 'http://onesys.vn:3054';
-  static String apiKey = 'b99c40ed7fbb63748e578bdaa6220d100513eaae';
-  static String username = "GtsApp";
-  static String password = "GTSApp-RVE@2022";
+  static String baseAddress = 'https://apidev-edupay.rveapp.com';
+  static String baseSocket = 'http://apidev-edupay.rveapp.com';
+  static String apiKey =
+      'Qyu3lS+WYmhFrPtysA9Qwam+CQAjjDTIZpYT2EtMO7DvVZ7W/pk767nW7LuNP5BXBHAHN29oo1qyAJO8ms7YJA==';
+  static String username = "edupay";
+  static String password =
+      "FyHWYbi2P6lPuP1FOtqPxMKqmgS1OkIE7Ra6UF8okAuQT+a4izndkdFtbc+DvVshAboy9NFSkavQrW7xT";
   static String basicAuth =
       "Basic " + utf8.fuse(base64).encode('$username:$password');
 
@@ -47,7 +45,7 @@ class NetworkService {
   Future<LoginModelResult> login(LoginModel loginModel) async {
     var loginModelInfo = json.encode(loginModel);
     http.Response response =
-        await http.post(Uri.parse(baseAddress + 'User/login'),
+        await http.post(Uri.parse(baseAddress + 'Parent/login'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
