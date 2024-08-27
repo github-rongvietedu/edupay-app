@@ -10,7 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rive/rive.dart';
 
 import '../Homepage/homepage.dart';
-import '../config/DataService.dart';
+import '../config/networkservice.dart';
 import '../constants.dart';
 import '../models/configuration.dart';
 import '../models/profile.dart';

@@ -30,6 +30,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
         obscureText: _isHidden,
         controller: widget.controller,
         onChanged: widget.onChanged,
+        textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
             hintText: widget.hintText,
             icon: Icon(widget.icon, color: kPrimaryColor),

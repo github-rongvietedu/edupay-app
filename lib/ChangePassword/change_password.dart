@@ -14,7 +14,7 @@ import 'bloc/change_password_event.dart';
 import 'bloc/change_password_state.dart';
 
 class ChangePassword extends StatefulWidget {
-  const ChangePassword({Key? key, required String userLogin, required String screenType}) : super(key: key);
+  const ChangePassword({Key? key}) : super(key: key);
 
   @override
   State<ChangePassword> createState() => _ChangePasswordState();

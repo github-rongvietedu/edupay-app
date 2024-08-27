@@ -12,7 +12,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../config/DataService.dart';
+import '../../config/networkservice.dart';
 import '../../models/StudentClassRoom/StudentClassInfo.dart';
 import 'package:socket_io_client/socket_io_client.dart' as realtime;
 

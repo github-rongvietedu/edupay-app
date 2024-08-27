@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/DataService.dart';
+import '../../../../config/networkservice.dart';
 import '../../../../models/BusToSchool/movement.dart';
 import 'movement_event.dart';
 import 'movement_state.dart';

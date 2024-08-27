@@ -283,14 +283,26 @@ Padding _appoinmentCard(News news, int index) {
                   Flexible(
                     child: Html(
                         data: news.content,
-                        onLinkTap: (String? url, RenderContext context,
-                            Map<String, String> attributes, element) async {
-                          Uri _url = Uri.parse('https://flutter.dev');
-                          await launchUrl(
-                            _url,
-                          );
-                          //open URL in webview, or launch URL in browser, or any other logic here
-                        }),
+                        onLinkTap: (url, attributes, element) async {
+                          if (url != null) {
+                            Uri _url = Uri.parse(url);
+                            await launchUrl(
+                              _url,
+                            );
+                          }
+                        }
+                        // onLinkTap: (String? url, RenderContext context,
+                        //     Map<String, String> attributes) async {
+                        //   if (url != null) {
+                        //     Uri _url = Uri.parse(url);
+                        //     await launchUrl(
+                        //       _url,
+                        //     );
+                        //     // open URL in webview, or launch URL in browser, or any other logic here
+                        //   }
+                        // },
+
+                        ),
 
                     // Text(
                     //   news.content,
