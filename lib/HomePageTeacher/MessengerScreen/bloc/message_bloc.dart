@@ -5,7 +5,7 @@ import 'package:bts_app/models/profile.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/DataService.dart';
+import '../../../config/networkservice.dart';
 import '../../../models/convesationMessage/conversation.dart';
 import '../../../models/convesationMessage/conversationmessage.dart';
 import '../../../models/data_response.dart';

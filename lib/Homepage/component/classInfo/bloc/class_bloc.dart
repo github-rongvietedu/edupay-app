@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/DataService.dart';
+import '../../../../config/networkservice.dart';
 import '../../../../models/classRoom/class_info.dart';
 import '../../../../models/classRoom/class_info_result.dart';
 import '../../../../models/student.dart';

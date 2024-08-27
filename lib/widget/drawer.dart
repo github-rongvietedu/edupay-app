@@ -6,7 +6,7 @@ import '../Homepage/homepage.dart';
 import '../Login/body.dart';
 import '../Login/login.dart';
 import '../PersonInfo/person_info.dart';
-import '../config/DataService.dart';
+import '../config/networkservice.dart';
 import '../constants.dart';
 import '../leave_application.dart';
 import '../listnews.dart';

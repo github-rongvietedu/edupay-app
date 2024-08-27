@@ -180,6 +180,8 @@ class _HomePageScreenState extends State<HomePageScreen>
       case AppLifecycleState.detached:
         print("detached");
         break;
+      case AppLifecycleState.hidden:
+      // TODO: Handle this case.
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:bts_app/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:darq/darq.dart';
-import '../../../../config/DataService.dart';
+import '../../../../config/networkservice.dart';
 import '../../../../models/TimeTable/time_table.dart';
 import '../../../../models/student.dart';
 import 'time_table_event.dart';

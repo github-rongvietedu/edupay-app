@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../config/DataService.dart';
+import '../../config/networkservice.dart';
 import '../../models/loginModel/loginModel.dart';
 import '../../models/loginModel/loginmodelresult.dart';
 import '../../models/profile.dart';
