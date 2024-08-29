@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../config/networkservice.dart';
+import '../../config/DataService.dart';
 import '../../models/changePassword/change_password_model.dart';
 import '../../models/changePassword/change_password_result.dart';
 import '../../models/secure_store.dart';
@@ -54,7 +54,7 @@ class ChangePasswordBloc
     } else {
       try {
         changePasswordModelResult = await loadingDialog.showLoadingPopup(
-            context, NetworkService().changePassword(changePasswordModel));
+            context, DataService().changePassword(changePasswordModel));
 
         if (changePasswordModelResult.status == 2) {
           Codec<String, String> stringToBase64 = utf8.fuse(base64);

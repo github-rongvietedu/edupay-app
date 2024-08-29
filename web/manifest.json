@@ -1,6 +1,6 @@
 {
-    "name": "minhduc_app",
-    "short_name": "minhduc_app",
+    "name": "edupay",
+    "short_name": "edupay",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../Login/body.dart';
-import '../config/networkservice.dart';
+import '../config/DataService.dart';
 import '../constants.dart';
 import '../models/profile.dart';
 import '../models/secure_store.dart';
@@ -103,7 +103,7 @@ class _ConfirmDeleteState extends State<ConfirmDelete> {
                   enable: isAgree,
                   text: "Xoá tài khoản",
                   press: () async {
-                    final deleteSuccess = await NetworkService().deleteAccount(
+                    final deleteSuccess = await DataService().deleteAccount(
                         Profile.phoneNumber ?? "", Profile.companyCode);
                     if (deleteSuccess == false) {
                       // ScaffoldMessenger.of(context)

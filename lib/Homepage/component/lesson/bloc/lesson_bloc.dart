@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/networkservice.dart';
+import '../../../../config/DataService.dart';
 import '../../../../models/classRoom/class_lesson_detail.dart';
 import '../../../../models/student.dart';
 import 'lesson_event.dart';
@@ -21,7 +21,7 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     List<ClassLessonDetail> listLesson = [];
     try {
       // listLesson =
-      await NetworkService()
+      await DataService()
           .getLessonByStudentID(event.student.id)
           .then((value) => listLesson = value);
 

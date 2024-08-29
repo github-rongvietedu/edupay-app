@@ -3,7 +3,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../config/networkservice.dart';
+import '../../config/DataService.dart';
 import '../../constants.dart';
 import '../../models/foodmenu/foodmenu.dart';
 import '../../models/foodmenu/foodmenu_detail.dart';
@@ -53,7 +53,7 @@ class _MenuWeekState extends State<MenuWeek> with TickerProviderStateMixin {
 
   Future<FoodMenu> getMenuDayOfWeek(int currentDateOfWeek) async {
     FoodMenuResult listMenu = FoodMenuResult();
-    await NetworkService().getAllMenu().then((value) => listMenu = value);
+    await DataService().getAllMenu().then((value) => listMenu = value);
     FoodMenu temp = listMenu.data!
         .where((element) => element.menuName
             .toUpperCase()

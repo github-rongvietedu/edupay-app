@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bts_app/otp_page.dart';
-import 'package:bts_app/widget/rounded_password_field.dart';
+import 'package:edupay/otp_page.dart';
+import 'package:edupay/widget/rounded_password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart' as gradient;
 import 'package:flutter/services.dart';

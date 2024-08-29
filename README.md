@@ -1,4 +1,4 @@
-# minhduc_app
+# edupay
 
 A new Flutter project.
 

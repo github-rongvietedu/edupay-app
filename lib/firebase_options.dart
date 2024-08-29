@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '445208803881',
     projectId: 'hts-nguyen-tri-phuong',
     storageBucket: 'hts-nguyen-tri-phuong.appspot.com',
-    iosClientId: '445208803881-ilkdmi6fse8m182cgnoo055j8t0a8brj.apps.googleusercontent.com',
-    iosBundleId: 'com.hts.nguyentriphuong',
+    iosClientId:
+        '445208803881-ilkdmi6fse8m182cgnoo055j8t0a8brj.apps.googleusercontent.com',
+    iosBundleId: 'com.hdg.edupay',
   );
 }

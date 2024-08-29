@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bts_app/Homepage/component/timeTable/bloc/time_table_event.dart';
+import 'package:edupay/Homepage/component/timeTable/bloc/time_table_event.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

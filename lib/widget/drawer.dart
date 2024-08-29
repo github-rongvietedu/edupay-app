@@ -1,4 +1,4 @@
-import 'package:bts_app/about_us.dart';
+import 'package:edupay/about_us.dart';
 import 'package:flutter/material.dart';
 
 import '../ChangePassword/change_password.dart';
@@ -6,7 +6,7 @@ import '../Homepage/homepage.dart';
 import '../Login/body.dart';
 import '../Login/login.dart';
 import '../PersonInfo/person_info.dart';
-import '../config/networkservice.dart';
+import '../config/DataService.dart';
 import '../constants.dart';
 import '../leave_application.dart';
 import '../listnews.dart';

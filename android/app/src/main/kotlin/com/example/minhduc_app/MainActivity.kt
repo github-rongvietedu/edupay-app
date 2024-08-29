@@ -1,4 +1,4 @@
-package com.hts.nguyentriphuong
+package com.hdg.edupay
 
 import io.flutter.embedding.android.FlutterActivity
 

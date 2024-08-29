@@ -1,4 +1,4 @@
-import 'package:bts_app/models/profile.dart';
+import 'package:edupay/models/profile.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';

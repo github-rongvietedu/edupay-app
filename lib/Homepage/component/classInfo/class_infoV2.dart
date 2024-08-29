@@ -1,4 +1,4 @@
-import 'package:bts_app/HomePageTeacher/MessengerScreen/messenger_screen_student.dart';
+import 'package:edupay/HomePageTeacher/MessengerScreen/messenger_screen_student.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';

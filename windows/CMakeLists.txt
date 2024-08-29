@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(minhduc_app LANGUAGES CXX)
+project(edupay LANGUAGES CXX)
 
-set(BINARY_NAME "minhduc_app")
+set(BINARY_NAME "edupay")
 
 cmake_policy(SET CMP0063 NEW)
 

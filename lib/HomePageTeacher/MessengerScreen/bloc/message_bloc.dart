@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:bts_app/models/profile.dart';
+import 'package:edupay/models/profile.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/networkservice.dart';
+import '../../../config/DataService.dart';
 import '../../../models/convesationMessage/conversation.dart';
 import '../../../models/convesationMessage/conversationmessage.dart';
 import '../../../models/data_response.dart';
@@ -19,7 +19,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     on<MessageFetched>(_onFetchMessage);
   }
   // final Logger logger = Logger(level: Level.info);
-  final NetworkService networkService = NetworkService();
+  final DataService dataService = DataService();
   // final Conversation conversation;
   final ScrollController scrollController = ScrollController();
 
@@ -106,7 +106,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       [int startIndex = 0]) async {
     List<ConversationMessage> messages = [];
     try {
-      final DataResponse dataResponse = await NetworkService()
+      final DataResponse dataResponse = await DataService()
           .getAllMessage(conversation.iD ?? "", Profile.parentID);
 
       if (dataResponse.data != null) {
@@ -124,7 +124,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
 
   // Future<ConversationMessage> addMessage(
   //     ConversationMessage conversationMessage) async {
-  //   final message = networkService.addMessage(conversationMessage);
+  //   final message = DataService.addMessage(conversationMessage);
 
   //   return message;
   // }
