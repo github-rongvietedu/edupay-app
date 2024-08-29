@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../config/networkservice.dart';
+import '../../config/DataService.dart';
 import '../../models/register.dart';
 import '../../models/secure_store.dart';
 import '../../utils.dart';
@@ -43,7 +43,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       String passwordEncoded = stringToBase64.encode(state.password);
       registerResult = await loadingDialog.showLoadingPopup(
           context,
-          NetworkService().register(state.phoneNumber, state.companyCode,
+          DataService().register(state.phoneNumber, state.companyCode,
               state.partnerName, state.address, passwordEncoded));
 
       if (registerResult.status == 2) {

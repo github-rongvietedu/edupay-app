@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:bts_app/HomePageTeacher/MessengerScreen/widget/message_list_item.dart';
-import 'package:bts_app/constants.dart';
-import 'package:bts_app/models/classRoom/class_info.dart';
-import 'package:bts_app/models/convesationMessage/conversation.dart';
-import 'package:bts_app/models/profile.dart';
+import 'package:edupay/HomePageTeacher/MessengerScreen/widget/message_list_item.dart';
+import 'package:edupay/constants.dart';
+import 'package:edupay/models/classRoom/class_info.dart';
+import 'package:edupay/models/convesationMessage/conversation.dart';
+import 'package:edupay/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../config/networkservice.dart';
+import '../../config/DataService.dart';
 import '../../models/StudentClassRoom/StudentClassInfo.dart';
 import 'package:socket_io_client/socket_io_client.dart' as realtime;
 
@@ -41,7 +41,7 @@ class _MessgenrScreenState extends State<MessengerScreenStudent> {
   late ClassInfo info;
   String baseSocket = 'http://192.168.1.244:3000';
   String user = Profile.parentID;
-  String projectID = 'com.hts.nguyentriphuong';
+  String projectID = 'com.hdg.edupay';
   // String companyCode = 'NTP';
   String conversationID = "";
 
@@ -56,7 +56,7 @@ class _MessgenrScreenState extends State<MessengerScreenStudent> {
     schoolYearID = widget.schoolYearID;
     info = widget.info;
 
-    socketConnect();
+    // socketConnect();
     _messageBloc.scrollController.addListener(_onScroll);
 
     WidgetsBinding.instance
@@ -74,8 +74,8 @@ class _MessgenrScreenState extends State<MessengerScreenStudent> {
     // print(screenState.value);
     // page = 1;
     // listStudent = [];
-    NetworkService networkService = NetworkService();
-    final DataResponse dataResponse = await networkService.getConvertion(
+    DataService dataService = DataService();
+    final DataResponse dataResponse = await dataService.getConvertion(
         schoolYearID,
         Profile.parentID, ///////
         Profile.companyCode,
@@ -277,7 +277,7 @@ class _MessgenrScreenState extends State<MessengerScreenStudent> {
                                 _messageControler.text = "";
 
                                 final DataResponse response =
-                                    await NetworkService()
+                                    await DataService()
                                         .newMessage(newConversationMessage);
 
                                 if (response.status == 2) {

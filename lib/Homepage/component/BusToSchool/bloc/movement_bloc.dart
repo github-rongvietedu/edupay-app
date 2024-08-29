@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/networkservice.dart';
+import '../../../../config/DataService.dart';
 import '../../../../models/BusToSchool/movement.dart';
 import 'movement_event.dart';
 import 'movement_state.dart';
@@ -18,7 +18,7 @@ class MovementBloc extends Bloc<MovementEvent, MovementState> {
     List<Movement> listMovement = [];
     try {
       // listMovement =
-      await NetworkService()
+      await DataService()
           .getAllMovementByParentPhone(
               event.phoneNumber, event.companyCode, event.date)
           .then((value) => listMovement = value);

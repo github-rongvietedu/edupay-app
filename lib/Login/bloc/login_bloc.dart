@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../config/networkservice.dart';
+import '../../config/DataService.dart';
 import '../../models/loginModel/loginModel.dart';
 import '../../models/loginModel/loginmodelresult.dart';
 import '../../models/profile.dart';
@@ -49,27 +49,34 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     loginModel.registrationToken = await FirebaseMessaging.instance.getToken();
     loginModel.companyCode = Profile.companyCode;
     print(loginModel.registrationToken);
-    LoginModelResult loginModelResult = LoginModelResult();
-    loginModelResult.loginStatus = false;
-    loginModelResult.message = "Đăng nhập thất bại !!";
-    loginModelResult.phoneNumber = "";
-    loginModelResult.deviceID = "";
-    loginModelResult.fullName = "";
-    loginModelResult.listStudent = [];
+    // LoginModelResult loginModelResult = LoginModelResult();
+    // loginModelResult.loginStatus = false;
+    // loginModelResult.message = "Đăng nhập thất bại !!";
+    // loginModelResult.phoneNumber = "";
+    // loginModelResult.deviceID = "";
+    // loginModelResult.fullName = "";
+    // loginModelResult.listStudent = [];
 
     if (loginModel.userValue == '') {
       emit(state.copyWith(
           formStatus: const FormSubmitFailed(),
-          message: loginModelResult.message));
+          message: 'Tên đăng nhập để trống'));
     } else {
       try {
-        loginModelResult = await loadingDialog.showLoadingPopup(
-            context, NetworkService().login(loginModel),
+        DataService dataService = DataService();
+        final dataResponse = await loadingDialog.showLoadingPopup(
+            context,
+            dataService.login(
+                phoneNumber: state.userName,
+                password: state.password,
+                firebaseToken: await FirebaseMessaging.instance.getToken(),
+                appVersion: ''),
             loadingText: "test");
-        if (loginModelResult.loginStatus == true) {
+        final message = dataResponse['message'] ?? '';
+        if (dataResponse['status'] == 2) {
           secureStore.writeSecureData('userlogin', loginModel.userValue ?? "");
           Codec<String, String> stringToBase64 = utf8.fuse(base64);
-          Profile.parentID = loginModelResult.parent as String;
+          Profile.parentID = dataResponse['user']['ID'];
           String passwordEncoded =
               stringToBase64.encode(loginModel.passValue ?? "");
           secureStore.writeSecureData('password', passwordEncoded);
@@ -80,7 +87,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           // prefs.setString('LastLoginDate', valueDate);
           // lastDate = DateTime.parse(valueDate);
           // bool isNoImage = false;
-          loginModelResult.message = "Đăng nhập thành công !!!";
+          // loginModelResult.message = "Đăng nhập thành công !!!";
           // if (loginModelResult.listStudent!.isNotEmpty) {
           //   loginModelResult.listStudent?.forEach((element) {
           //     if (element.faceImageURL == "" || element.faceImageURL == null) {
@@ -99,22 +106,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           // } else {
 
           // }
-          if (loginModelResult.employeeCode != "") {
-            emit(state.copyWith(
-                formStatus: const FormSubmitSuccessTeacher(),
-                message: loginModelResult.message));
-          } else {
-            emit(state.copyWith(
-                formStatus: const FormSubmitSuccess(),
-                message: loginModelResult.message));
-          }
-        } else {
+
           emit(state.copyWith(
-              formStatus: const FormSubmitFailed(),
-              message: loginModelResult.message));
+              formStatus: const FormSubmitSuccessTeacher(), message: message));
+        } else {
+          // emit(state.copyWith(formStatus: const FormSubmitSuccess(), message: message));
+          emit(state.copyWith(
+              formStatus: const FormSubmitFailed(), message: 'Lỗi kết nối'));
+          // }else{
+          //  emit(state.copyWith(formStatus: const FormSubmitFailed(),message: 'Lỗi kết nối'));
         }
       } catch (ex) {
-        emit(state.copyWith(formStatus: const FormSubmitFailed()));
+        emit(state.copyWith(
+            formStatus: const FormSubmitFailed(), message: 'Lỗi kết nối'));
       }
     }
   }

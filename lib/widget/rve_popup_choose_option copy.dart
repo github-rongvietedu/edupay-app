@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:minhduc_app/constants.dart';
-import 'package:minhduc_app/models/profile.dart';
-import 'package:minhduc_app/models/student.dart';
-import 'package:minhduc_app/widget/text_with_space.dart';
+import 'package:edupay/constants.dart';
+import 'package:edupay/models/profile.dart';
+import 'package:edupay/models/student.dart';
+import 'package:edupay/widget/text_with_space.dart';
 
 class RVEPopupChooseOption extends StatefulWidget {
   RVEPopupChooseOption(

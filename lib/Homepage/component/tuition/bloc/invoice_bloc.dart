@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/networkservice.dart';
+import '../../../../config/DataService.dart';
 import '../../../../models/invoice/invoice.dart';
 import '../../../../models/student.dart';
 import 'invoice_event.dart';
@@ -21,7 +21,7 @@ class InvoiceBloc extends Bloc<InvoiceEvent, InvoiceState> {
     List<Invoice> listInvoice = [];
     try {
       // listInvoice =
-      await NetworkService()
+      await DataService()
           .getAllInvoice(event.student.id)
           .then((value) => listInvoice = value.data!);
 

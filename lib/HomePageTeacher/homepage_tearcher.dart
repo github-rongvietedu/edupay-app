@@ -1,10 +1,10 @@
-import 'package:bts_app/models/schoolYear/school_year_result.dart';
+import 'package:edupay/models/schoolYear/school_year_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../config/networkservice.dart';
+import '../config/DataService.dart';
 import '../constants.dart';
 import '../models/StudentClassRoom/StudentClassInfo.dart';
 import '../models/classRoom/class_info.dart';
@@ -43,9 +43,9 @@ class _HomePageTeacherScreenState extends State<HomePageTeacherScreen> {
 
   Future<void> getAllSchoolYear() async {
     schoolYearState.value = 'Loading';
-    NetworkService networkService = NetworkService();
+    DataService dataService = DataService();
     final SchoolYearResult dataResponse =
-        await networkService.getAllSchoolYearByCompanyCode(Profile.companyCode);
+        await dataService.getAllSchoolYearByCompanyCode(Profile.companyCode);
     List<SchoolYear> tempList = [];
     if (dataResponse.schoolYear!.isNotEmpty) {
       tempList = dataResponse.schoolYear!;
@@ -63,9 +63,9 @@ class _HomePageTeacherScreenState extends State<HomePageTeacherScreen> {
   Future<void> getAllClassRoom() async {
     classRoomState.value = 'Loading';
     currentClassroom = ClassInfo();
-    NetworkService networkService = NetworkService();
-    final DataResponse dataResponse = await networkService
-        .getClassInfoByTeacher(Profile.companyCode, Profile.employeeCode);
+    DataService dataService = DataService();
+    final DataResponse dataResponse = await dataService.getClassInfoByTeacher(
+        Profile.companyCode, Profile.employeeCode);
     // List<ClassInfo> tempList = [];
     List<ClassInfo> listClassRoom = [];
     if (dataResponse.data.isNotEmpty) {
@@ -97,10 +97,10 @@ class _HomePageTeacherScreenState extends State<HomePageTeacherScreen> {
     // print(screenState.value);
     // page = 1;
     listStudent = [];
-    NetworkService networkService = NetworkService();
+    DataService dataService = DataService();
 
     final DataResponse dataResponse =
-        await networkService.getAllStudentByClassRoom(classRoomID);
+        await dataService.getAllStudentByClassRoom(classRoomID);
     List<StudentClassInfo> tempList = [];
     if (dataResponse.data != null) {
       for (var info in dataResponse.data) {

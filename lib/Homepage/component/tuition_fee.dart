@@ -1,8 +1,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
-// import 'package:minhduc_app/constants.dart';
-// import 'package:minhduc_app/widget/text_with_dot.dart';
-// import 'package:minhduc_app/widget/text_with_space.dart';
+// import 'package:edupay/constants.dart';
+// import 'package:edupay/widget/text_with_dot.dart';
+// import 'package:edupay/widget/text_with_space.dart';
 
 // class TuitionFeeScreen extends StatefulWidget {
 //   const TuitionFeeScreen({Key? key, this.scrollController}) : super(key: key);

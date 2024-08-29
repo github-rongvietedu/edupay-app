@@ -1,4 +1,4 @@
-import 'package:bts_app/constants.dart';
+import 'package:edupay/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';

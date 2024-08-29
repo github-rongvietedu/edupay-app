@@ -1,5 +1,5 @@
-import 'package:bts_app/Login/login.dart';
-import 'package:bts_app/constants.dart';
+import 'package:edupay/Login/login.dart';
+import 'package:edupay/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric_keyboard/numeric_keyboard.dart';
 
@@ -160,7 +160,7 @@ class _OtpPageState extends State<OtpPage> {
                             // loginStore.validateOtpAndLogin(context, text);
                             if (text.length == 6) {
                               // ResetPasswordResultModel result =
-                              //     await NetworkService().verifyCode(
+                              //     await DataService().verifyCode(
                               //         email: widget.email,
                               //         pincode: text,
                               //         verifyType: 'ChangePassword');

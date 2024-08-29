@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../config/networkservice.dart';
+import '../../../../config/DataService.dart';
 import '../../../../models/face_attendance_result.dart';
 import '../../../../models/student.dart';
 import 'attendance_event.dart';
@@ -26,7 +26,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
     FaceAttendanceResult faceAttendaceResult = FaceAttendanceResult();
     try {
-      faceAttendaceResult = await NetworkService().faceAttendance(
+      faceAttendaceResult = await DataService().faceAttendance(
           event.student.studentCode, event.student.companyCode, event.date);
 
       print("Ngày Điểm danh:" + event.date.toString());
@@ -59,7 +59,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
     FaceAttendanceResult faceAttendaceResult = FaceAttendanceResult();
     try {
-      faceAttendaceResult = await NetworkService().faceAttendanceDateRange(
+      faceAttendaceResult = await DataService().faceAttendanceDateRange(
           event.student.studentCode,
           event.student.companyCode,
           event.firstDate,

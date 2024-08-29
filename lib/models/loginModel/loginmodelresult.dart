@@ -1,10 +1,10 @@
-import 'package:bts_app/models/loginModel/employee_model.dart';
+import 'package:edupay/models/loginModel/employee_model.dart';
 
 import '../student.dart';
 
 class LoginModelResult {
   String? parent;
-  bool? loginStatus;
+  int? status;
   String? message;
   String? fullName;
   String? deviceID;
@@ -14,7 +14,7 @@ class LoginModelResult {
   Employee? employeeInfo;
   LoginModelResult(
       {this.parent,
-      this.loginStatus,
+      this.status,
       this.message,
       this.deviceID,
       this.fullName,
@@ -25,8 +25,8 @@ class LoginModelResult {
 
   factory LoginModelResult.fromJson(Map<String, dynamic> json) {
     LoginModelResult loginModel = LoginModelResult();
-    loginModel.loginStatus = json['LoginStatus'];
-    loginModel.message = json['Message'];
+    loginModel.status = json['status'];
+    loginModel.message = json['message'];
     loginModel.fullName = json['FullName'];
     loginModel.deviceID = json['DeviceID'];
     loginModel.phoneNumber = json['PhoneNumber'];
@@ -47,9 +47,9 @@ class LoginModelResult {
   }
 
   Map<String, dynamic> toJson() => {
-        "LoginStatus": loginStatus,
-        "Message": message,
-        "FullName": fullName,
+        "status": status,
+        "message": message,
+        "accessToken": fullName,
         "DeviceID": deviceID,
         "PhoneNumber": phoneNumber,
         "ListStudent": listStudent

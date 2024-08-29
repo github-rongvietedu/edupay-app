@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:bts_app/models/SchoolLeaveOfAbsence/student_leave_of_absence.dart';
-import 'package:bts_app/models/convesationMessage/conversationmessage.dart';
-import 'package:bts_app/models/data_response.dart';
+import 'package:edupay/models/SchoolLeaveOfAbsence/student_leave_of_absence.dart';
+import 'package:edupay/models/convesationMessage/conversationmessage.dart';
+import 'package:edupay/models/data_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -29,74 +29,116 @@ import '../models/schoolYear/school_year.dart';
 import '../models/schoolYear/school_year_result.dart';
 import '../models/student.dart';
 
-class NetworkService {
+class DataService {
   static String devChannel = 'prod';
   static String baseAddress = 'https://apidev-edupay.rveapp.com';
-  static String baseSocket = 'http://apidev-edupay.rveapp.com';
+  static String baseSocket = 'http://rveapp.com';
   static String apiKey =
       'Qyu3lS+WYmhFrPtysA9Qwam+CQAjjDTIZpYT2EtMO7DvVZ7W/pk767nW7LuNP5BXBHAHN29oo1qyAJO8ms7YJA==';
-  static String username = "edupay";
-  static String password =
+  static String authUserName = "edupay";
+  static String authPassword =
       "FyHWYbi2P6lPuP1FOtqPxMKqmgS1OkIE7Ra6UF8okAuQT+a4izndkdFtbc+DvVshAboy9NFSkavQrW7xT";
   static String basicAuth =
-      "Basic " + utf8.fuse(base64).encode('$username:$password');
+      "Basic " + utf8.fuse(base64).encode('$authUserName:$authPassword');
 
 ///////////////////////// LOGIN //////////////////////////////////
-  Future<LoginModelResult> login(LoginModel loginModel) async {
-    var loginModelInfo = json.encode(loginModel);
-    http.Response response =
-        await http.post(Uri.parse(baseAddress + 'Parent/login'),
-            headers: <String, String>{
-              "content-type": "application/json",
-              "accept": "application/json",
-              "authorization": basicAuth,
-              "api_key": apiKey
-            },
-            body: loginModelInfo);
-    var loginModelResult = LoginModelResult();
-    // loginModelResult.authentication = false;
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-      loginModelResult = LoginModelResult.fromJson(jsonData);
-      Profile.listStudent = {};
+  // Future<LoginModelResult> login(
+  //     {phoneNumber, password, firebaseToken, versionApp}) async {
+  //   final data = json.encode({
+  //     "UserName": phoneNumber,
+  //     "Password": password,
+  //     "FirebaseToken": firebaseToken,
+  //     "VersionApp": versionApp
+  //   });
 
-      if (loginModelResult.loginStatus == true) {
-        if (loginModelResult.employeeCode!.isNotEmpty) ///// neu co ma nhan vien
-        {
-          loginModelResult.loginStatus = true;
-          Profile.employeeCode = loginModelResult.employeeInfo!.iD ?? "";
-          return loginModelResult;
-        }
+  //   http.Response response =
+  //       await http.post(Uri.parse(baseAddress + '/Parent/login'),
+  //           headers: <String, String>{
+  //             "content-type": "application/json",
+  //             "accept": "application/json",
+  //             "authorization": basicAuth,
+  //             "api_key": apiKey
+  //           },
+  //           body: data);
+  //   var loginModelResult = LoginModelResult();
+  //   // loginModelResult.authentication = false;
+  //   if (response.statusCode == 200) {
+  //     final jsonData = json.decode(response.body);
+  //     loginModelResult = LoginModelResult.fromJson(jsonData);
+  //     Profile.listStudent = {};
 
-        if (loginModelResult.listStudent!.isNotEmpty) {
-          Profile.phoneNumber = loginModelResult.phoneNumber;
-          if (Profile.selectedStudent < loginModelResult.listStudent!.length) {
-            Profile.currentStudent =
-                loginModelResult.listStudent![Profile.selectedStudent];
-          } else {
-            Profile.currentStudent = loginModelResult.listStudent![0];
-            Profile.selectedStudent = 0;
-          }
-          if (Profile.currentStudent.classRoom.isNotEmpty) {
-            if (Profile.currentStudent.classRoom[0].listTimeTable!.isNotEmpty) {
-              Profile.listTimeTable = Profile
-                  .currentStudent.classRoom[0].listTimeTable as List<TimeTable>;
-            }
-          }
+  //     if (loginModelResult.loginStatus == true) {
+  //       if (loginModelResult.employeeCode!.isNotEmpty) ///// neu co ma nhan vien
+  //       {
+  //         loginModelResult.loginStatus = true;
+  //         Profile.employeeCode = loginModelResult.employeeInfo!.iD ?? "";
+  //         return loginModelResult;
+  //       }
 
-          int length = loginModelResult.listStudent!.length;
-          for (int i = 0; i < length; i++) {
-            Profile.listStudent[i] = loginModelResult.listStudent![i];
-          }
-        } else {
-          loginModelResult.loginStatus = false;
-          loginModelResult.message =
-              "Tài khoản phụ huynh chưa liên kết với học viên. Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất !!!";
-        }
-        // return loginModelResult;/
-      }
+  //       if (loginModelResult.listStudent!.isNotEmpty) {
+  //         Profile.phoneNumber = loginModelResult.phoneNumber;
+  //         if (Profile.selectedStudent < loginModelResult.listStudent!.length) {
+  //           Profile.currentStudent =
+  //               loginModelResult.listStudent![Profile.selectedStudent];
+  //         } else {
+  //           Profile.currentStudent = loginModelResult.listStudent![0];
+  //           Profile.selectedStudent = 0;
+  //         }
+  //         if (Profile.currentStudent.classRoom.isNotEmpty) {
+  //           if (Profile.currentStudent.classRoom[0].listTimeTable!.isNotEmpty) {
+  //             Profile.listTimeTable = Profile
+  //                 .currentStudent.classRoom[0].listTimeTable as List<TimeTable>;
+  //           }
+  //         }
+
+  //         int length = loginModelResult.listStudent!.length;
+  //         for (int i = 0; i < length; i++) {
+  //           Profile.listStudent[i] = loginModelResult.listStudent![i];
+  //         }
+  //       } else {
+  //         loginModelResult.loginStatus = false;
+  //         loginModelResult.message =
+  //             "Tài khoản phụ huynh chưa liên kết với học viên. Vui lòng liên hệ với quản trị viên để được hỗ trợ sớm nhất !!!";
+  //       }
+  //       // return loginModelResult;/
+  //     }
+  //   }
+  //   return loginModelResult;
+  // }
+
+  Future<dynamic> login(
+      {phoneNumber, password, firebaseToken, appVersion}) async {
+    Map<String, dynamic> data = {
+      "UserName": phoneNumber,
+      "Password": password,
+      'FirebaseToken': firebaseToken,
+      'AppVersion': appVersion
+    };
+    // Tạo các header cho yêu cầu
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': basicAuth,
+      'api_key': apiKey,
+    };
+    String url = '${baseAddress}/Parent/login';
+    // Gửi yêu cầu POST
+    print('fecting data');
+    print(json.encode(data));
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: headers,
+        body: json.encode(data),
+      );
+      print(response.statusCode);
+      print(response.body);
+      var responseBody = json.decode(response.body);
+      return responseBody;
+    } catch (e) {
+      print('Lỗi: $e');
+      // throw e;
     }
-    return loginModelResult;
+    return null;
   }
 
   Future<RegisterResult> register(String phoneNumber, String companyCode,
@@ -110,7 +152,7 @@ class NetworkService {
     });
 
     http.Response response =
-        await http.post(Uri.parse(baseAddress + 'User/Register'),
+        await http.post(Uri.parse(baseAddress + '/User/Register'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
@@ -134,7 +176,7 @@ class NetworkService {
     });
 
     http.Response response =
-        await http.post(Uri.parse(baseAddress + 'User/disableAccount'),
+        await http.post(Uri.parse(baseAddress + '/User/disableAccount'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
@@ -159,7 +201,7 @@ class NetworkService {
       ChangePasswordModel changePassModel) async {
     var changePassInfo = json.encode(changePassModel);
     http.Response response =
-        await http.post(Uri.parse(baseAddress + 'User/Changepassword'),
+        await http.post(Uri.parse(baseAddress + '/User/Changepassword'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
@@ -196,7 +238,7 @@ class NetworkService {
         "Basic " + utf8.fuse(base64).encode('$_username:$_password');
 
     http.Response response =
-        await http.post(Uri.parse(_baseAddress + 'FaceLogs/getAllByDay'),
+        await http.post(Uri.parse(_baseAddress + '/FaceLogs/getAllByDay'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
@@ -232,7 +274,7 @@ class NetworkService {
         "Basic " + utf8.fuse(base64).encode('$_username:$_password');
 
     http.Response response =
-        await http.post(Uri.parse(_baseAddress + 'FaceLogs/getAllByRangeDay'),
+        await http.post(Uri.parse(_baseAddress + '/FaceLogs/getAllByRangeDay'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
@@ -253,7 +295,7 @@ class NetworkService {
 //////////////////////// STUDENT //////////////
   Future<Student> getStudentByID(String id) async {
     http.Response response = await http.get(
-      Uri.parse(baseAddress + 'Student/getStudentByID?$id'),
+      Uri.parse(baseAddress + '/Student/getStudentByID?$id'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",
@@ -275,7 +317,7 @@ class NetworkService {
   Future<List<ClassLessonDetail>> getLessonByStudentID(String studentID) async {
     http.Response response = await http.get(
       Uri.parse(
-          baseAddress + 'Class/getLessonByStudentID?studentID=$studentID'),
+          baseAddress + '/Class/getLessonByStudentID?studentID=$studentID'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",
@@ -320,7 +362,7 @@ class NetworkService {
   ///
   Future<FoodMenuResult> getAllMenu() async {
     http.Response response = await http.get(
-      Uri.parse(baseAddress + 'FoodMenu/getAllByCompanyCode?companyCode=MDC'),
+      Uri.parse(baseAddress + '/FoodMenu/getAllByCompanyCode?companyCode=MDC'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",
@@ -339,7 +381,7 @@ class NetworkService {
 
   Future<List<FoodMenu>> getAllFoodMenu() async {
     http.Response response = await http.get(
-      Uri.parse(baseAddress + 'FoodMenu/getAll'),
+      Uri.parse(baseAddress + '/FoodMenu/getAll'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",
@@ -364,7 +406,7 @@ class NetworkService {
 
   Future<List<SchoolYear>> getAllSchoolYear(String companyCode) async {
     http.Response response = await http.get(
-      Uri.parse(baseAddress + 'SchoolYear/getAll?companyCode=${companyCode}'),
+      Uri.parse(baseAddress + '/SchoolYear/getAll?companyCode=${companyCode}'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",
@@ -407,7 +449,7 @@ class NetworkService {
   Future<SchoolYearResult> getAllSchoolYearByCompanyCode(
       String companyCode) async {
     http.Response response = await http.get(
-      Uri.parse(baseAddress + 'SchoolYear/getAll?companyCode=${companyCode}'),
+      Uri.parse(baseAddress + '/SchoolYear/getAll?companyCode=${companyCode}'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",
@@ -484,7 +526,7 @@ class NetworkService {
   ///
   Future<InvoiceResult> getAllInvoice(String studentID) async {
     http.Response response = await http.get(
-      Uri.parse(baseAddress + 'Invoice/getAllInvoice?StudentID=$studentID'),
+      Uri.parse(baseAddress + '/Invoice/getAllInvoice?StudentID=$studentID'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",
@@ -559,15 +601,15 @@ class NetworkService {
       "Student": model.student,
       "Parent": model.parent
     });
-    http.Response response =
-        await http.post(Uri.parse(baseAddress + 'StudentLeaveOfAbsence/create'),
-            headers: <String, String>{
-              "content-type": "application/json",
-              "accept": "application/json",
-              "authorization": basicAuth,
-              "api_key": apiKey
-            },
-            body: msg);
+    http.Response response = await http.post(
+        Uri.parse(baseAddress + '/StudentLeaveOfAbsence/create'),
+        headers: <String, String>{
+          "content-type": "application/json",
+          "accept": "application/json",
+          "authorization": basicAuth,
+          "api_key": apiKey
+        },
+        body: msg);
     Result result = Result();
     // loginModelResult.authentication = false;
     if (response.statusCode == 200) {
@@ -609,7 +651,7 @@ class NetworkService {
       "Sender": sender,
     });
     http.Response response =
-        await http.post(Uri.parse(baseAddress + 'chat/getConversation'),
+        await http.post(Uri.parse(baseAddress + '/chat/getConversation'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
@@ -637,7 +679,7 @@ class NetworkService {
       "Sender": message.sender
     });
     http.Response response =
-        await http.post(Uri.parse(baseAddress + 'chat/newMessage'),
+        await http.post(Uri.parse(baseAddress + '/chat/newMessage'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",
@@ -663,7 +705,7 @@ class NetworkService {
       // "Sender": sender,
     });
     http.Response response =
-        await http.post(Uri.parse(baseAddress + 'chat/getAllMessage'),
+        await http.post(Uri.parse(baseAddress + '/chat/getAllMessage'),
             headers: <String, String>{
               "content-type": "application/json",
               "accept": "application/json",

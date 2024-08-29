@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bts_app/config/networkservice.dart';
-import 'package:bts_app/constants.dart';
-import 'package:bts_app/models/SchoolLeaveOfAbsence/student_leave_of_absence.dart';
-import 'package:bts_app/widget/date_picker.dart';
-import 'package:bts_app/widget/rounded_button.dart';
+import 'package:edupay/config/DataService.dart';
+import 'package:edupay/constants.dart';
+import 'package:edupay/models/SchoolLeaveOfAbsence/student_leave_of_absence.dart';
+import 'package:edupay/widget/date_picker.dart';
+import 'package:edupay/widget/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -51,7 +51,7 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
   Reason? dropdownValue;
 
   // Future<List<Reason>> getDataReason() async {
-  //   await NetworkService()
+  //   await DataService()
   //       .getAllReason(Profile.phoneNumber ?? "", Profile.companyCode)
   //       .then((value) => listReason = value);
   //   return listReason;
@@ -105,7 +105,7 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
 
     getPassword();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      NetworkService()
+      DataService()
           .getAllReason(Profile.phoneNumber ?? "", Profile.companyCode)
           .then((value) => listReason = value);
       // dropdownValue = listReason.first;
@@ -401,7 +401,7 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                                   temp.parent = Profile.parentID;
                                   temp.reasonDescription =
                                       _soNgayNghiController.text;
-                                  await NetworkService()
+                                  await DataService()
                                       .createLeaveOfAbsence(temp)
                                       .then((value) {
                                     if (value.status == 2) {

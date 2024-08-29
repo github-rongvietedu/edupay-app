@@ -1,5 +1,5 @@
-import 'package:bts_app/Homepage/component/timeTable/bloc/time_table_event.dart';
-import 'package:bts_app/constants.dart';
+import 'package:edupay/Homepage/component/timeTable/bloc/time_table_event.dart';
+import 'package:edupay/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -58,9 +58,7 @@ class _TimeTableState extends State<TimeTableScreen>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return
-
-        BlocBuilder<TimeTableBloc, TimeTableState>(
+    return BlocBuilder<TimeTableBloc, TimeTableState>(
       builder: (context, state) {
         if (state.scheduleDay.isNotEmpty) {
           tabController = TabController(
@@ -191,7 +189,8 @@ class _TimeTableState extends State<TimeTableScreen>
                   )))
         ]);
   }
-Widget buildWidgetNotHasTimeTable() {
+
+  Widget buildWidgetNotHasTimeTable() {
     Size size = MediaQuery.of(context).size;
     DateFormat dateFormatDay = DateFormat("dd/MM/yyyy");
     return Card(
@@ -234,6 +233,7 @@ Widget buildWidgetNotHasTimeTable() {
       ),
     );
   }
+
   Container buildTimeTable(Size size, List<TimeTable> display, int index) {
     int countTypeMorning =
         display.where((element) => element.lessonType == 0).toList().length;

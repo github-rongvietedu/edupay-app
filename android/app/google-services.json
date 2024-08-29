@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:445208803881:android:980e46ae431055daa73a38",
         "android_client_info": {
-          "package_name": "com.hts.nguyentriphuong"
+          "package_name": "com.hdg.edupay"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "445208803881-ilkdmi6fse8m182cgnoo055j8t0a8brj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.hts.nguyentriphuong"
+                "bundle_id": "com.hdg.edupay"
               }
             }
           ]

@@ -1,4 +1,4 @@
-import 'package:bts_app/models/StudentClassRoom/StudentClassInfo.dart';
+import 'package:edupay/models/StudentClassRoom/StudentClassInfo.dart';
 import 'package:intl/intl.dart';
 
 import 'conversation.dart';

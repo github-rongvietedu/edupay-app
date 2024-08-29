@@ -10,7 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../HomePageTeacher/homepage_tearcher.dart';
 import '../Homepage/homepage.dart';
 import '../Register/register_screen.dart';
-import '../config/networkservice.dart';
+import '../config/DataService.dart';
 import '../constants.dart';
 import '../models/configuration.dart';
 import '../models/profile.dart';
@@ -60,7 +60,7 @@ class _BodyLoginState extends State<BodyLogin> with TickerProviderStateMixin {
 
     appVersion = version + "+" + code;
     if (Platform.isAndroid) {
-      await NetworkService()
+      await DataService()
           .getVersion("Android", Profile.companyCode)
           .then((value) {
         if (value.data != null) {
@@ -71,9 +71,7 @@ class _BodyLoginState extends State<BodyLogin> with TickerProviderStateMixin {
         }
       });
     } else {
-      await NetworkService()
-          .getVersion("iOS", Profile.companyCode)
-          .then((value) {
+      await DataService().getVersion("iOS", Profile.companyCode).then((value) {
         if (value.data != null) {
           configuration = value.data!;
           if (appVersion != value.data!.configurationValue) {
@@ -153,12 +151,12 @@ class _BodyLoginState extends State<BodyLogin> with TickerProviderStateMixin {
                           warningLog: warningVersion,
                         )));
           }
-             if (formStatus is FormSubmitSuccessTeacher) {
+          if (formStatus is FormSubmitSuccessTeacher) {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomePageTeacherScreen(
-                          // warningLog: warningVersion,
+                        // warningLog: warningVersion,
                         )));
           }
         },

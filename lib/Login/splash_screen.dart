@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bts_app/HomePageTeacher/homepage_tearcher.dart';
+import 'package:edupay/HomePageTeacher/homepage_tearcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart' as gradient;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rive/rive.dart';
 
 import '../Homepage/homepage.dart';
-import '../config/networkservice.dart';
+import '../config/DataService.dart';
 import '../constants.dart';
 import '../models/configuration.dart';
 import '../models/profile.dart';
@@ -53,9 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
     code = packageInfo.buildNumber;
 
     appVersion = version + "+" + code;
-    await NetworkService()
-        .getVersion(platform, Profile.companyCode)
-        .then((value) {
+    await DataService().getVersion(platform, Profile.companyCode).then((value) {
       if (value.data != null) {
         configuration = value.data!;
         if (appVersion != value.data!.configurationValue) {
@@ -149,7 +147,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomePageTeacherScreen(
-                          // warningLog: warningVersion,
+                        // warningLog: warningVersion,
                         )));
           }
         },
