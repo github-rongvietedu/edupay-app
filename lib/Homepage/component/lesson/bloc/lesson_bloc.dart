@@ -9,39 +9,39 @@ import 'lesson_state.dart';
 
 class LessonBloc extends Bloc<LessonEvent, LessonState> {
   final BuildContext context;
-  final Student student;
-  LessonBloc(this.context, this.student)
-      : super(LessonState(student: student, listLessonDetail: const [])) {
+  final String grade;
+  LessonBloc(this.context, this.grade)
+      : super(LessonState(grade: grade, listLessonDetail: const [])) {
     on<LoadLesson>(_onLoadLesson);
   }
   void _onLoadLesson(LoadLesson event, Emitter<LessonState> emit) async {
-    emit(state.copyWith(student: event.student, status: LessonStatus.changed));
+    emit(state.copyWith(grade: event.grade, status: LessonStatus.changed));
 
     // FaceAttendanceResult faceAttendaceResult = FaceAttendanceResult();
     List<ClassLessonDetail> listLesson = [];
     try {
       // listLesson =
       await DataService()
-          .getLessonByStudentID(event.student.id)
+          .getAllLessonByGrade(event.grade)
           .then((value) => listLesson = value);
 
       // print("Ngày Điểm danh:" + event.date.toString());
 
       if (listLesson.isNotEmpty) {
         emit(state.copyWith(
-            student: event.student,
+            grade: event.grade,
             listLessonDetail: listLesson,
             status: LessonStatus.success,
             message: "Lấy danh sách giáo trình thành công !!!"));
       } else {
         emit(state.copyWith(
-            student: event.student,
+            grade: event.grade,
             status: LessonStatus.failure,
             message: "Lấy danh sách giáo trình thất bại!!!"));
       }
     } catch (ex) {
       emit(state.copyWith(
-          student: event.student,
+          grade: event.grade,
           status: LessonStatus.failure,
           message: "Lấy danh sách giáo trình thất bại!!!"));
     }

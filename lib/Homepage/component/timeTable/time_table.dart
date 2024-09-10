@@ -80,6 +80,7 @@ class _TimeTableState extends State<TimeTableScreen>
         switch (state.status) {
           case TimeTableStatus.failure:
             return Card(
+              color: Colors.white,
               elevation: 2,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(14.0),
@@ -203,6 +204,7 @@ class _TimeTableState extends State<TimeTableScreen>
           maxHeight: double.infinity,
         ),
         child: Container(
+            color: Colors.white,
             padding:
                 const EdgeInsets.only(left: 12, top: 8, bottom: 8, right: 12),
             child: Column(

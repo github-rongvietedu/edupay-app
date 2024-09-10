@@ -98,7 +98,7 @@ class _RVEPopupChooseOptionState extends State<RVEPopupChooseOption> {
                                                   Navigator.of(context).pop();
                                                 },
                                                 child: Container(
-                                                  height: 60,
+                                                  // height: 60,
                                                   padding:
                                                       const EdgeInsets.all(10),
                                                   margin: const EdgeInsets.only(

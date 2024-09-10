@@ -72,6 +72,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                 firebaseToken: await FirebaseMessaging.instance.getToken(),
                 appVersion: ''),
             loadingText: "test");
+
+        LoginModelResult loginModelResult =
+            LoginModelResult.fromJson(dataResponse);
         final message = dataResponse['message'] ?? '';
         if (dataResponse['status'] == 2) {
           secureStore.writeSecureData('userlogin', loginModel.userValue ?? "");
@@ -87,17 +90,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           // prefs.setString('LastLoginDate', valueDate);
           // lastDate = DateTime.parse(valueDate);
           // bool isNoImage = false;
-          // loginModelResult.message = "Đăng nhập thành công !!!";
-          // if (loginModelResult.listStudent!.isNotEmpty) {
-          //   loginModelResult.listStudent?.forEach((element) {
-          //     if (element.faceImageURL == "" || element.faceImageURL == null) {
-          //       isNoImage = true;
-          //     } else {
-          //       isNoImage = false;
-          //       // throw 'Stop this immediately';
-          //     }
-          //   });
-          // }
+          loginModelResult.message = "Đăng nhập thành công !!!";
+          if (loginModelResult.listStudent!.isNotEmpty) {
+            int index = 0;
+            loginModelResult.listStudent?.forEach((element) {
+              Profile.listStudent[index++] = element;
+            });
+          }
           // if (isNoImage == true) {
           //   emit(state.copyWith(
           //       formStatus: const FormSubmitFailed(),
@@ -108,7 +107,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           // }
 
           emit(state.copyWith(
-              formStatus: const FormSubmitSuccessTeacher(), message: message));
+              formStatus: const FormSubmitSuccess(), message: message));
         } else {
           // emit(state.copyWith(formStatus: const FormSubmitSuccess(), message: message));
           emit(state.copyWith(

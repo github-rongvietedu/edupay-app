@@ -26,11 +26,12 @@ import 'component/BusToSchool/bus_to_school.dart';
 import 'component/attendance/bloc/attendance_bloc.dart';
 import 'component/attendance/bloc/attendance_event.dart';
 import 'component/classInfo/bloc/class_bloc.dart';
+import 'component/classInfo/bloc/class_event.dart';
 import 'component/classInfo/class_infoV2.dart';
+import 'component/foodMenu/menu_week.dart';
 import 'component/lesson/bloc/lesson_bloc.dart';
 import 'component/lesson/bloc/lesson_event.dart';
 import 'component/lesson/lessonV2.dart';
-import 'component/menu_week.dart';
 import 'component/schoolYear/bloc/school_year_bloc.dart';
 import 'component/schoolYear/bloc/school_year_event.dart';
 import 'component/timeTable/bloc/time_table_bloc.dart';
@@ -54,16 +55,20 @@ class _HomePageScreenState extends State<HomePageScreen>
 
   late final AttendanceBloc _attendanceBloc =
       AttendanceBloc(context, Profile.currentStudent, DateTime.now());
-  late final LessonBloc _lessonBloc =
-      LessonBloc(context, Profile.currentStudent);
+
+  late final LessonBloc _lessonBloc = LessonBloc(context, '');
   late final ClassBloc _classBloc = ClassBloc(context, Profile.currentStudent);
 
   late final SchoolYearBloc _schoolYearBloc =
       SchoolYearBloc(context, Profile.currentStudent.companyCode);
+
   late final InvoiceBloc _invoiceBloc =
       InvoiceBloc(context, Profile.currentStudent);
+
   late final MovementBloc _movementBloc = MovementBloc(context);
+
   late final TimeTableBloc _timeTableBloc = TimeTableBloc(context);
+
   final secureStore = SecureStore();
   late Student currentStudent;
   int _selectedIndex = 0;
@@ -71,6 +76,7 @@ class _HomePageScreenState extends State<HomePageScreen>
   late PageController _pageController;
   ValueNotifier<int> selectedStudent =
       ValueNotifier<int>(Profile.selectedStudent);
+
   final _scrollControllerGroup = LinkedScrollControllerGroup();
   late ScrollController _scrollController1;
   late ScrollController _scrollController2;
@@ -149,8 +155,12 @@ class _HomePageScreenState extends State<HomePageScreen>
         });
       }
     });
-
+    if (Profile.listStudent.isNotEmpty) {
+      Profile.currentStudent = Profile.listStudent[0] as Student;
+    }
     _selectedIndex = 0;
+    _classBloc
+        .add(LoadClass(Profile.currentYear, student: Profile.currentStudent));
     _pageController = PageController(initialPage: _selectedIndex);
 
     _scrollController1 = ScrollController();
@@ -203,8 +213,9 @@ class _HomePageScreenState extends State<HomePageScreen>
 
     List<Widget> _widgetOptions = <Widget>[
       ClassInfoV2(scrollController: _scrollController1),
-      BusToSchoolScreen(scrollController: _scrollControllerBus),
+      // BusToSchoolScreen(scrollController: _scrollControllerBus),
       LessonScreenV2(student: Profile.currentStudent),
+      MenuWeek(scrollController: _scrollController3),
       TimeTableScreen(),
       TuitionFeeScreen(scrollController: _scrollController4)
     ];
@@ -252,17 +263,18 @@ class _HomePageScreenState extends State<HomePageScreen>
                           Profile.currentStudent =
                               Profile.listStudent[value] as Student;
                           Profile.listTimeTable = [];
-                          if (Profile.currentStudent.classRoom.isNotEmpty) {
-                            if (Profile.currentStudent.classRoom[0]
-                                .listTimeTable!.isNotEmpty) {
-                              Profile.listTimeTable = Profile
-                                  .currentStudent
-                                  .classRoom[0]
-                                  .listTimeTable as List<TimeTable>;
-                            }
-                            _timeTableBloc.add(
-                                LoadTimeTable(dayWeek: DateTime.now().weekday));
-                          }
+
+                          // if (Profile.currentStudent.classRoom.isNotEmpty) {
+                          //   if (Profile.currentStudent.classRoom[0]
+                          //       .listTimeTable!.isNotEmpty) {
+                          //     Profile.listTimeTable = Profile
+                          //         .currentStudent
+                          //         .classRoom[0]
+                          //         .listTimeTable as List<TimeTable>;
+                          //   }
+                          //   _timeTableBloc.add(
+                          //       LoadTimeTable(dayWeek: DateTime.now().weekday));
+                          // }
 
                           secureStore.writeSecureData(
                               'selectedStudent', value.toString());
@@ -271,26 +283,28 @@ class _HomePageScreenState extends State<HomePageScreen>
                           if (_selectedIndex == 0) {
                             Profile.currentYear = "";
                             _schoolYearBloc.add(LoadSchoolYear());
-                            // _classBloc.add(LoadClass(Profile.currentYear,
-                            //     student: Profile.currentStudent));
+                            _classBloc.add(LoadClass(Profile.currentYear,
+                                student: Profile.currentStudent));
                             _attendanceBloc.add(LoadAttendance(
                                 Profile.currentDateAtten,
                                 student: Profile.currentStudent));
                           }
 
+                          // if (_selectedIndex == 1) {
+                          //   _movementBloc.add(LoadMovement(
+                          //       Profile.phoneNumber ?? "",
+                          //       Profile.companyCode,
+                          //       DateTime.now()));
+                          // }
+
                           if (_selectedIndex == 1) {
-                            _movementBloc.add(LoadMovement(
-                                Profile.phoneNumber ?? "",
-                                Profile.companyCode,
-                                DateTime.now()));
+                            _lessonBloc.add(LoadLesson(
+                                grade: Profile.currentClassRoom.gradeCode));
                           }
+
                           if (_selectedIndex == 3) {
                             _timeTableBloc.add(
                                 LoadTimeTable(dayWeek: DateTime.now().weekday));
-                          }
-                          if (_selectedIndex == 2) {
-                            _lessonBloc.add(
-                                LoadLesson(student: Profile.currentStudent));
                           }
                           if (_selectedIndex == 4) {
                             _invoiceBloc.add(
@@ -342,15 +356,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                   // backgroundColor: Colors.red,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.directions_bus_sharp,
-                    size: 30,
-                  ),
-                  label: 'BUS',
-                  // backgroundColor: Colors.red,
-                ),
-                BottomNavigationBarItem(
-                  icon: _selectedIndex == 2
+                  icon: _selectedIndex == 1
                       ? Image.asset(
                           "images/icon/giao_trinh.png",
                           height: 30,
@@ -359,6 +365,22 @@ class _HomePageScreenState extends State<HomePageScreen>
                       : Icon(Icons.book_outlined, size: 30),
 
                   label: 'Báo bài',
+                  // backgroundColor: Colors.pink,
+                ),
+                // BottomNavigationBarItem(
+                //   icon: Icon(
+                //     Icons.directions_bus_sharp,
+                //     size: 30,
+                //   ),
+                //   label: 'BUS',
+                //   // backgroundColor: Colors.red,
+                // ),
+                BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage("images/icon/TD.png"),
+                    size: 30,
+                  ),
+                  label: 'Thực đơn',
                   // backgroundColor: Colors.pink,
                 ),
                 BottomNavigationBarItem(
@@ -373,7 +395,6 @@ class _HomePageScreenState extends State<HomePageScreen>
                             "images/icon/TKB.png",
                           ),
                           size: 30),
-
                   label: 'TKB',
                   // backgroundColor: Colors.pink,
                 ),

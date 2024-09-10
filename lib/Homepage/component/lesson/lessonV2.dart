@@ -28,7 +28,7 @@ class _LessonScreenV2State extends State<LessonScreenV2>
   void initState() {
     super.initState();
     _lessonBloc = context.read<LessonBloc>()
-      ..add(LoadLesson(student: Profile.currentStudent));
+      ..add(LoadLesson(grade: Profile.currentClassRoom.gradeCode));
   }
 
   @override
@@ -199,10 +199,10 @@ class _LessonScreenV2State extends State<LessonScreenV2>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    "Từ ngày ${dateFormatDay.format(Lesson[index].fromDate ?? DateTime.now())} đến ngày ${dateFormatDay.format(Lesson[index].toDate ?? DateTime.now())} ",
+                    "Từ ngày ${dateFormatDay.format(Lesson[index].startDate ?? DateTime.now())} đến ngày ${dateFormatDay.format(Lesson[index].endDate ?? DateTime.now())} ",
                     style: kTextStyleTable),
-                Text(Lesson[index].lessonName, style: kTextStyleNomal),
-                Text(Lesson[index].lessonContent, style: kTextStyleNomal)
+                Text(Lesson[index].lessonName ?? '', style: kTextStyleNomal),
+                Text(Lesson[index].content ?? '', style: kTextStyleNomal)
               ],
             )),
       ),

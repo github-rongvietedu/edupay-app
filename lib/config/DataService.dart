@@ -31,7 +31,7 @@ import '../models/student.dart';
 
 class DataService {
   static String devChannel = 'prod';
-  static String baseAddress = 'https://apidev-edupay.rveapp.com';
+  static String baseAddress = 'https://apidev-edupay.rveapp.com/';
   static String baseSocket = 'http://rveapp.com';
   static String apiKey =
       'Qyu3lS+WYmhFrPtysA9Qwam+CQAjjDTIZpYT2EtMO7DvVZ7W/pk767nW7LuNP5BXBHAHN29oo1qyAJO8ms7YJA==';
@@ -314,21 +314,24 @@ class DataService {
 
   //////////////////////////////////////////////////////////////////////////////////////
 //////////////////////// CLASSROOM /////////////////
-  Future<List<ClassLessonDetail>> getLessonByStudentID(String studentID) async {
-    http.Response response = await http.get(
-      Uri.parse(
-          baseAddress + '/Class/getLessonByStudentID?studentID=$studentID'),
-      headers: <String, String>{
-        "content-type": "application/json",
-        "accept": "application/json",
-        "authorization": basicAuth,
-        "api_key": apiKey
-      },
-    );
+  Future<List<ClassLessonDetail>> getAllLessonByGrade(String studentID) async {
+    final body = jsonEncode({
+      "Grade": studentID,
+    });
+
+    http.Response response =
+        await http.post(Uri.parse(baseAddress + '/Class/getAllLessonByGrade'),
+            headers: <String, String>{
+              "content-type": "application/json",
+              "accept": "application/json",
+              "authorization": basicAuth,
+              "api_key": apiKey
+            },
+            body: body);
     List<ClassLessonDetail> listLesson = [];
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      for (var lesson in jsonData) {
+      for (var lesson in jsonData["data"]) {
         listLesson.add(ClassLessonDetail.fromJson(lesson));
       }
     }
@@ -337,17 +340,21 @@ class DataService {
 
   Future<ClassInfoResult> getClassInfo(
       String companyCode, String studentCode, String schoolYearID) async {
-    http.Response response = await http.get(
-      Uri.parse(baseAddress +
-          // ignore: unnecessary_brace_in_string_interps
-          'Class/getClassRoomInfo?StudentCode=${studentCode}&SchoolYearID=${schoolYearID}&CompanyCode=${companyCode}'),
-      headers: <String, String>{
-        "content-type": "application/json",
-        "accept": "application/json",
-        "authorization": basicAuth,
-        "api_key": apiKey
-      },
-    );
+    final body = jsonEncode({
+      "StudentCode": studentCode,
+      "SchoolYear": schoolYearID,
+    });
+    http.Response response = await http.post(
+        Uri.parse(baseAddress +
+            // ignore: unnecessary_brace_in_string_interps
+            'Class/getClassRoomInfo'),
+        headers: <String, String>{
+          "content-type": "application/json",
+          "accept": "application/json",
+          "authorization": basicAuth,
+          "api_key": apiKey
+        },
+        body: body);
 
     ClassInfoResult result = ClassInfoResult();
     if (response.statusCode == 200) {
@@ -358,46 +365,49 @@ class DataService {
     return result;
   }
 
-///////////////////////////////////////////////////
-  ///
-  Future<FoodMenuResult> getAllMenu() async {
-    http.Response response = await http.get(
-      Uri.parse(baseAddress + '/FoodMenu/getAllByCompanyCode?companyCode=MDC'),
-      headers: <String, String>{
-        "content-type": "application/json",
-        "accept": "application/json",
-        "authorization": basicAuth,
-        "api_key": apiKey
-      },
-    );
-    FoodMenuResult foodmenu = FoodMenuResult();
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-
-      foodmenu = FoodMenuResult.fromJson(jsonData);
+  Future<dynamic> getAllMenu({String? CompanyCode}) async {
+    Map<String, dynamic> data = {"CompanyCode": CompanyCode};
+    print('fecting data');
+    try {
+      http.Response response = await http.post(
+        Uri.parse(baseAddress + 'FoodMenu/GetAllMenu'),
+        headers: <String, String>{
+          "content-type": "application/json",
+          "accept": "application/json",
+          "authorization": basicAuth,
+          "api_key": apiKey
+        },
+        body: json.encode(data),
+      );
+      print(response.statusCode);
+      print(response.body);
+      var responseBody = json.decode(response.body);
+      return responseBody;
+    } catch (e) {
+      print('Lỗi: $e');
+      throw e;
     }
-    return foodmenu;
   }
 
-  Future<List<FoodMenu>> getAllFoodMenu() async {
-    http.Response response = await http.get(
-      Uri.parse(baseAddress + '/FoodMenu/getAll'),
-      headers: <String, String>{
-        "content-type": "application/json",
-        "accept": "application/json",
-        "authorization": basicAuth,
-        "api_key": apiKey
-      },
-    );
-    List<FoodMenu> listMenu = [];
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-      for (var menu in jsonData) {
-        listMenu.add(FoodMenu.fromJson(menu));
-      }
-    }
-    return listMenu;
-  }
+  // Future<List<FoodMenu>> getAllFoodMenu() async {
+  //   http.Response response = await http.get(
+  //     Uri.parse(baseAddress + '/FoodMenu/getAll'),
+  //     headers: <String, String>{
+  //       "content-type": "application/json",
+  //       "accept": "application/json",
+  //       "authorization": basicAuth,
+  //       "api_key": apiKey
+  //     },
+  //   );
+  //   List<FoodMenu> listMenu = [];
+  //   if (response.statusCode == 200) {
+  //     final jsonData = json.decode(response.body);
+  //     for (var menu in jsonData) {
+  //       listMenu.add(FoodMenu.fromJson(menu));
+  //     }
+  //   }
+  //   return listMenu;
+  // }
 
 ///////////////////// SchoolYear ////////////////
   ///
@@ -428,7 +438,7 @@ class DataService {
       String companyCode, String studentID) async {
     http.Response response = await http.get(
       Uri.parse(baseAddress +
-          'SchoolYear/getAll?companyCode=${companyCode}&studentID=${studentID}'),
+          'School/GetAllSchoolYear?companyCode=${companyCode}&studentID=${studentID}'),
       headers: <String, String>{
         "content-type": "application/json",
         "accept": "application/json",

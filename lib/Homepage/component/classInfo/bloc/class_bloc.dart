@@ -1,3 +1,4 @@
+import 'package:edupay/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,6 +32,8 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
       // print("Ngày Điểm danh:" + event.date.toString());
 
       if (result.status == 2) {
+        Profile.currentClassRoom = result.data!;
+        // ClassInfo.fromJson(result.data as Map<String, dynamic>);
         emit(state.copyWith(
             student: event.student,
             classInfo: result.data,

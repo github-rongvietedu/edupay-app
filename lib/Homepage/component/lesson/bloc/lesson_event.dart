@@ -9,10 +9,11 @@ abstract class LessonEvent extends Equatable {
 }
 
 class LoadLesson extends LessonEvent {
-  final Student student;
+  // final Student student;
+  final String grade;
   // final DateTime date;
 
-  const LoadLesson({required this.student});
+  const LoadLesson({required this.grade});
   @override
-  List<Object> get props => [student];
+  List<Object> get props => [grade];
 }

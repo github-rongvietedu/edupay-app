@@ -102,6 +102,7 @@ class _ClassInfoState extends State<TuitionFeeScreen> {
                           switch (state.status) {
                             case InvoiceStatus.failure:
                               return Card(
+                                color: Colors.white,
                                 elevation: 2,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(14.0),
