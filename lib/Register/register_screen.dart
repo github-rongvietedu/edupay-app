@@ -224,7 +224,7 @@ class _BodyLoginState extends State<RegisterScreen>
                                       builder: (context) => const WebViewPage(
                                           title: 'CHÍNH SÁCH QUYỀN RIÊNG TƯ',
                                           url:
-                                              'https://gadt.rongvietedu.vn/publicinfo/App_PrivacyPolicyVN.html'),
+                                              'https://edupay.vn/chinh-sach-va-dieu-khoan-su-dung-edupay/'),
                                     ),
                                   );
                                 },

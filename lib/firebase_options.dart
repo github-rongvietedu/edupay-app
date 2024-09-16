@@ -50,21 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAPHMzwgv8P94uPH1eTE3d9TRdoTbwcMos',
-    appId: '1:445208803881:android:980e46ae431055daa73a38',
-    messagingSenderId: '445208803881',
-    projectId: 'hts-nguyen-tri-phuong',
-    storageBucket: 'hts-nguyen-tri-phuong.appspot.com',
+    apiKey: 'AIzaSyAT-9rDUj-r6P9hypct5McMfgJk410z1L8',
+    appId: '1:673243934437:android:08a0c31789eb7e8518ae0c',
+    messagingSenderId: '673243934437',
+    projectId: 'edupay-b68dd',
+    storageBucket: 'edupay-b68dd.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAlTKuH50i1Sqo0ja3eShUbadpEExjjBxY',
-    appId: '1:445208803881:ios:02cb51d4490fbcfda73a38',
-    messagingSenderId: '445208803881',
-    projectId: 'hts-nguyen-tri-phuong',
-    storageBucket: 'hts-nguyen-tri-phuong.appspot.com',
-    iosClientId:
-        '445208803881-ilkdmi6fse8m182cgnoo055j8t0a8brj.apps.googleusercontent.com',
-    iosBundleId: 'com.hdg.edupay',
+    apiKey: 'AIzaSyDNnsn8kRInCkeB58mw2zGqF92bPxDjoU8',
+    appId: '1:673243934437:ios:e24c17b07b3a78ce18ae0c',
+    messagingSenderId: '673243934437',
+    projectId: 'edupay-b68dd',
+    storageBucket: 'edupay-b68dd.appspot.com',
+    iosBundleId: 'com.app.edupay',
   );
 }

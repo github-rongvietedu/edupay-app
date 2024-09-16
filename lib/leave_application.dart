@@ -119,6 +119,7 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         elevation: 0,
@@ -126,7 +127,7 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
         backgroundColor: kPrimaryColor,
         title: Text(
           "Đơn xin nghỉ phép",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 16),
         ),
       ),
       body:
@@ -160,27 +161,141 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                   child: Container(
                     // padding: EdgeInsets.all(8),
                     margin: EdgeInsets.all(8),
-                    height: size.height * 0.6,
+                    height: size.height * 0.85,
                     width: size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
+
                     child: Card(
+                        color: Colors.white,
                         elevation: 2,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14.0),
                         ),
                         child: Container(
                           padding: EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          flex: 35,
+                                          child: Container(
+                                              child: Text("Từ ngày:",
+                                                  style: GoogleFonts
+                                                      .robotoCondensed(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight
+                                                              .bold)))),
+                                      Expanded(
+                                          flex: 65,
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              fromDate = await _selectDate(
+                                                  context,
+                                                  fromDate,
+                                                  DateTime(DateTime.now().year),
+                                                  DateTime(
+                                                      DateTime.now().year + 1));
+                                              // toDate =
+                                              //     fromDate.add(Duration(days: 14));
+                                              // countDate = toDate
+                                              //         .difference(fromDate)
+                                              //         .inDays +
+                                              //     1;
+                                              setState(() {});
+                                              print(fromDate);
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                    '${dateFormatDay.format(fromDate)}',
+                                                    style: GoogleFonts
+                                                        .robotoCondensed(
+                                                            fontSize: 18,
+                                                            // fontWeight:
+                                                            //     FontWeight.bold,
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.7))),
+                                                Icon(Icons.arrow_drop_down),
+                                                // Spacer(),
+                                              ],
+                                            ),
+                                          ))
+                                    ]),
+                                Divider(),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          flex: 35,
+                                          child: Container(
+                                              child: Text("Đến ngày:",
+                                                  style: GoogleFonts
+                                                      .robotoCondensed(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight
+                                                              .bold)))),
+                                      Expanded(
+                                          flex: 65,
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              toDate = await _selectDate(
+                                                  context,
+                                                  toDate,
+                                                  fromDate,
+                                                  DateTime(
+                                                      DateTime.now().year + 1));
+                                              // countDate = toDate
+                                              //         .difference(fromDate)
+                                              //         .inDays +
+                                              //     1;
+                                              setState(() {});
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                    '${dateFormatDay.format(toDate)}',
+                                                    style: GoogleFonts
+                                                        .robotoCondensed(
+                                                            fontSize: 18,
+                                                            // fontWeight:
+                                                            //     FontWeight.bold,
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.7))),
+                                                Icon(Icons.arrow_drop_down),
+                                              ],
+                                            ),
+                                          ))
+                                    ]),
+                                Divider(),
+                                // Row(
+                                //   children: [
+                                //     Expanded(
+                                //         flex: 35,
+                                //         child: Container(
+                                //             child: Text("Số ngày nghỉ:",
+                                //                 style: GoogleFonts.robotoCondensed(
+                                //                     fontSize: 18,
+                                //                     fontWeight: FontWeight.bold)))),
+                                //     Expanded(
+                                //         flex: 65,
+                                //         child: Container(
+                                //             child: Text("$countDate",
+                                //                 style: GoogleFonts.robotoCondensed(
+                                //                   fontSize: 18,
+                                //                 )))),
+                                //   ],
+                                // ),
+                                // Divider(),
+                                Row(
                                   children: [
                                     Expanded(
                                         flex: 35,
                                         child: Container(
-                                            child: Text("Từ ngày:",
+                                            child: Text("Lý do nghỉ học:",
                                                 style:
                                                     GoogleFonts.robotoCondensed(
                                                         fontSize: 18,
@@ -188,241 +303,130 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                                                             FontWeight.bold)))),
                                     Expanded(
                                         flex: 65,
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            fromDate = await _selectDate(
-                                                context,
-                                                fromDate,
-                                                DateTime(DateTime.now().year),
-                                                DateTime(
-                                                    DateTime.now().year + 1));
-                                            // toDate =
-                                            //     fromDate.add(Duration(days: 14));
-                                            // countDate = toDate
-                                            //         .difference(fromDate)
-                                            //         .inDays +
-                                            //     1;
-                                            setState(() {});
-                                            print(fromDate);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                  '${dateFormatDay.format(fromDate)}',
-                                                  style: GoogleFonts
-                                                      .robotoCondensed(
-                                                          fontSize: 18,
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          color: Colors.black
-                                                              .withOpacity(
-                                                                  0.7))),
-                                              Icon(Icons.arrow_drop_down),
-                                              // Spacer(),
-                                            ],
-                                          ),
-                                        ))
-                                  ]),
-                              Divider(),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                        flex: 35,
                                         child: Container(
-                                            child: Text("Đến ngày:",
-                                                style:
-                                                    GoogleFonts.robotoCondensed(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold)))),
-                                    Expanded(
-                                        flex: 65,
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            toDate = await _selectDate(
-                                                context,
-                                                toDate,
-                                                fromDate,
-                                                DateTime(
-                                                    DateTime.now().year + 1));
-                                            // countDate = toDate
-                                            //         .difference(fromDate)
-                                            //         .inDays +
-                                            //     1;
-                                            setState(() {});
+                                            child:
+                                                DropdownButtonFormField<Reason>(
+                                          value: dropdownValue,
+                                          decoration: InputDecoration.collapsed(
+                                              hintText: "Vui lòng chọn lý do"),
+                                          elevation: 16,
+                                          style: GoogleFonts.robotoCondensed(
+                                              fontSize: 18,
+                                              color: Colors.black87),
+                                          // underline: Container(
+                                          //   height: 1,
+                                          //   color: Colors.black38,
+                                          // ),
+                                          onChanged: (Reason? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              dropdownValue = value!;
+                                            });
                                           },
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                  '${dateFormatDay.format(toDate)}',
-                                                  style: GoogleFonts
-                                                      .robotoCondensed(
-                                                          fontSize: 18,
-                                                          // fontWeight:
-                                                          //     FontWeight.bold,
-                                                          color: Colors.black
-                                                              .withOpacity(
-                                                                  0.7))),
-                                              Icon(Icons.arrow_drop_down),
-                                            ],
-                                          ),
-                                        ))
-                                  ]),
-                              Divider(),
-                              // Row(
-                              //   children: [
-                              //     Expanded(
-                              //         flex: 35,
-                              //         child: Container(
-                              //             child: Text("Số ngày nghỉ:",
-                              //                 style: GoogleFonts.robotoCondensed(
-                              //                     fontSize: 18,
-                              //                     fontWeight: FontWeight.bold)))),
-                              //     Expanded(
-                              //         flex: 65,
-                              //         child: Container(
-                              //             child: Text("$countDate",
-                              //                 style: GoogleFonts.robotoCondensed(
-                              //                   fontSize: 18,
-                              //                 )))),
-                              //   ],
-                              // ),
-                              // Divider(),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      flex: 35,
-                                      child: Container(
-                                          child: Text("Lý do nghỉ học:",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold)))),
-                                  Expanded(
-                                      flex: 65,
-                                      child: Container(
-                                          child:
-                                              DropdownButtonFormField<Reason>(
-                                        value: dropdownValue,
-                                        decoration: InputDecoration.collapsed(
-                                            hintText: "Vui lòng chọn lý do"),
-                                        elevation: 16,
-                                        style: GoogleFonts.robotoCondensed(
-                                            fontSize: 18,
-                                            color: Colors.black87),
-                                        // underline: Container(
-                                        //   height: 1,
-                                        //   color: Colors.black38,
-                                        // ),
-                                        onChanged: (Reason? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            dropdownValue = value!;
-                                          });
-                                        },
-                                        items: listReason
-                                            .map<DropdownMenuItem<Reason>>(
-                                                (Reason value) {
-                                          return DropdownMenuItem<Reason>(
-                                            value: value,
-                                            child: Text(
-                                                value.reasonName as String),
-                                          );
-                                        }).toList(),
-                                      ))),
-                                ],
-                              ),
-                              Divider(),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  padding: EdgeInsets.all(8),
-                                  // height: size.height * 0.2,
+                                          items: listReason
+                                              .map<DropdownMenuItem<Reason>>(
+                                                  (Reason value) {
+                                            return DropdownMenuItem<Reason>(
+                                              value: value,
+                                              child: Text(
+                                                  value.reasonName as String),
+                                            );
+                                          }).toList(),
+                                        ))),
+                                  ],
+                                ),
+                                Divider(),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    padding: EdgeInsets.all(8),
+                                    // height: size.height * 0.2,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.1)),
+                                    child: TextField(
+                                      controller: _soNgayNghiController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        // hintStyle:
+                                        // TextStyle(color: Colors.black26),
+                                        hintText:
+                                            "Vui lòng nhập lý do xin nghỉ.",
+                                      ),
+                                      maxLines: 6,
+                                    )),
+                                Divider(),
+                                Container(
+                                  height: 50,
+                                  padding: EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.1)),
+                                      border: Border.all(color: Colors.black45),
+                                      borderRadius: BorderRadius.circular(8)),
                                   child: TextField(
-                                    controller: _soNgayNghiController,
+                                    obscureText: _isHidden,
+                                    controller: _passwordController,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (value == plantextPassword) {
+                                          _isEnableButton = true;
+                                        } else {
+                                          _isEnableButton = false;
+                                        }
+                                      });
+                                    },
                                     decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      // hintStyle:
-                                      // TextStyle(color: Colors.black26),
-                                      hintText: "Vui lòng nhập lý do xin nghỉ.",
-                                    ),
-                                    maxLines: 6,
-                                  )),
-                              Divider(),
-                              Container(
-                                height: 50,
-                                padding: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black45),
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: TextField(
-                                  obscureText: _isHidden,
-                                  controller: _passwordController,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (value == plantextPassword) {
-                                        _isEnableButton = true;
+                                        hintText: "Nhập mật khẩu để xác nhận.",
+                                        suffixIcon: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _isHidden = !_isHidden;
+                                            });
+                                          },
+                                          icon: !_isHidden
+                                              ? const Icon(Icons.visibility_off)
+                                              : const Icon(Icons.visibility),
+                                          color: kPrimaryColor,
+                                        ),
+                                        border: InputBorder.none),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                RoundedButton(
+                                  text: "Xác nhận",
+                                  press: () async {
+                                    StudentLeaveOfAbsenceModel temp =
+                                        StudentLeaveOfAbsenceModel();
+                                    temp.companyCode = Profile.companyCode;
+                                    temp.reason = dropdownValue?.iD;
+                                    temp.student = currentStudent.id;
+                                    temp.fromDate =
+                                        dateFormatToJson.format(fromDate);
+                                    temp.toDate =
+                                        dateFormatToJson.format(toDate);
+                                    temp.parent = Profile.parentID;
+                                    temp.reasonDescription =
+                                        _soNgayNghiController.text;
+                                    await DataService()
+                                        .createLeaveOfAbsence(temp)
+                                        .then((value) {
+                                      if (value.status == 2) {
+                                        Navigator.of(context).pop();
+                                        _showSnackBar(
+                                            context,
+                                            "Tạo đơn xin nghỉ phép thành công !!!",
+                                            Colors.green);
+                                        return;
                                       } else {
-                                        _isEnableButton = false;
+                                        _showSnackBar(
+                                            context,
+                                            "Thông tin đơn xin nghỉ phép chưa hợp lệ, vui lòng kiểm tra lại !!!",
+                                            Colors.red);
+                                        return;
                                       }
                                     });
                                   },
-                                  decoration: InputDecoration(
-                                      hintText: "Nhập mật khẩu để xác nhận.",
-                                      suffixIcon: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _isHidden = !_isHidden;
-                                          });
-                                        },
-                                        icon: !_isHidden
-                                            ? const Icon(Icons.visibility_off)
-                                            : const Icon(Icons.visibility),
-                                        color: kPrimaryColor,
-                                      ),
-                                      border: InputBorder.none),
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              RoundedButton(
-                                text: "Xác nhận",
-                                press: () async {
-                                  StudentLeaveOfAbsenceModel temp =
-                                      StudentLeaveOfAbsenceModel();
-                                  temp.companyCode = Profile.companyCode;
-                                  temp.reason = dropdownValue?.iD;
-                                  temp.student = currentStudent.id;
-                                  temp.fromDate =
-                                      dateFormatToJson.format(fromDate);
-                                  temp.toDate = dateFormatToJson.format(toDate);
-                                  temp.parent = Profile.parentID;
-                                  temp.reasonDescription =
-                                      _soNgayNghiController.text;
-                                  await DataService()
-                                      .createLeaveOfAbsence(temp)
-                                      .then((value) {
-                                    if (value.status == 2) {
-                                      Navigator.of(context).pop();
-                                      _showSnackBar(
-                                          context,
-                                          "Tạo đơn xin nghỉ phép thành công !!!",
-                                          Colors.green);
-                                      return;
-                                    } else {
-                                      _showSnackBar(
-                                          context,
-                                          "Thông tin đơn xin nghỉ phép chưa hợp lệ, vui lòng kiểm tra lại !!!",
-                                          Colors.red);
-                                      return;
-                                    }
-                                  });
-                                },
-                                enable: _isEnableButton,
-                              )
-                            ],
+                                  enable: _isEnableButton,
+                                )
+                              ],
+                            ),
                           ),
                         )),
                   ),

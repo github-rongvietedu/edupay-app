@@ -46,7 +46,11 @@ class _ChangePasswordState extends State<ChangePassword> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("ĐỔI MẬT KHẨU"),
+          iconTheme: IconThemeData(color: Colors.white),
+          title: Text(
+            "Đổi mật khẩu",
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
           centerTitle: true,
           backgroundColor: kPrimaryColor,
         ),
@@ -59,8 +63,8 @@ class _ChangePasswordState extends State<ChangePassword> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                kPrimaryColor.withOpacity(0.8),
-                kPrimaryColor.withOpacity(0.1)
+                kPrimaryColor.withOpacity(0.2),
+                Colors.white.withOpacity(0.5),
               ],
             )),
             width: double.infinity,

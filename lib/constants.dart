@@ -38,32 +38,32 @@ TextStyle kTextStyleRowBlue = GoogleFonts.robotoCondensed(
 TextStyle text12 = GoogleFonts.robotoCondensed().copyWith(
     fontSize: 12,
     color: kBlack,
-    wordSpacing: 0.5,
+    // wordSpacing: 0.5,
     overflow: TextOverflow.ellipsis);
 TextStyle text14 = GoogleFonts.robotoCondensed().copyWith(
     fontSize: 14,
     color: kBlack,
-    wordSpacing: 0.5,
+    // wordSpacing: 0.5,
     overflow: TextOverflow.ellipsis);
 TextStyle text16 = GoogleFonts.robotoCondensed().copyWith(
     fontSize: 16,
     color: kBlack,
-    wordSpacing: 0.5,
+    // wordSpacing: 0.5,
     overflow: TextOverflow.ellipsis);
 TextStyle text18 = GoogleFonts.robotoCondensed().copyWith(
     fontSize: 18,
     color: kBlack,
-    wordSpacing: 0.5,
+    // wordSpacing: 0.5,
     overflow: TextOverflow.ellipsis);
 TextStyle text20 = GoogleFonts.robotoCondensed().copyWith(
     fontSize: 20,
     color: kBlack,
-    wordSpacing: 0.5,
+    // wordSpacing: 0.5,
     overflow: TextOverflow.ellipsis);
 TextStyle text22 = GoogleFonts.robotoCondensed().copyWith(
     fontSize: 22,
     color: kBlack,
-    wordSpacing: 0.5,
+    // wordSpacing: 0.5,
     overflow: TextOverflow.ellipsis);
 
 extension TextStyleExt on TextStyle {

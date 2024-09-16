@@ -120,10 +120,9 @@ class DataService {
       'Authorization': basicAuth,
       'api_key': apiKey,
     };
-    String url = '${baseAddress}/Parent/login';
+    String url = '${baseAddress}Parent/login';
     // Gửi yêu cầu POST
-    print('fecting data');
-    print(json.encode(data));
+
     try {
       final response = await http.post(
         Uri.parse(url),

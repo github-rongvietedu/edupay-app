@@ -167,7 +167,7 @@ class MyApp extends StatelessWidget {
             Locale('vi', ''), // Vietnamese, no country code
           ],
           debugShowCheckedModeBanner: false,
-          title: 'Bus To School',
+          title: 'Edupay',
           theme: ThemeData(
             primarySwatch: Colors.orange,
           ),

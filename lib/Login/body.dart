@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart' as gradient;
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
@@ -164,14 +165,15 @@ class _BodyLoginState extends State<BodyLogin> with TickerProviderStateMixin {
           resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
             child: Container(
+              padding: EdgeInsets.only(bottom: 40),
               decoration: BoxDecoration(
                   gradient: gradient.LinearGradient(
                 // stops: [0.1, 0.8, 0.9],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  kPrimaryColor.withOpacity(0.5),
-                  kPrimaryColor.withOpacity(0.1)
+                  kPrimaryColor.withOpacity(0.2),
+                  Colors.white.withOpacity(0.5),
                 ],
               )),
               width: double.infinity,
@@ -215,49 +217,49 @@ class _BodyLoginState extends State<BodyLogin> with TickerProviderStateMixin {
                       },
                     ),
                     SizedBox(height: 20),
-                    Container(
-                        padding: EdgeInsets.symmetric(vertical: 0.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Chưa có tài khoản? ",
-                                style: TextStyle(
-                                    shadows: <Shadow>[
-                                      Shadow(
-                                        offset: Offset(0.0, 5.0),
-                                        blurRadius: 8.0,
-                                        color: Colors.white54,
-                                      ),
-                                    ],
-                                    color: Color.fromRGBO(0, 0, 0, .9),
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'OpenSans')),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const RegisterScreen()));
-                              },
-                              child: Text("Đăng ký ngay!",
-                                  style: TextStyle(
-                                      shadows: <Shadow>[
-                                        Shadow(
-                                          offset: Offset(0.0, 5.0),
-                                          blurRadius: 8.0,
-                                          color: Colors.white54,
-                                        ),
-                                      ],
-                                      color: kPrimaryColor,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'OpenSans')),
-                            )
-                          ],
-                        )),
-                    SizedBox(height: 40),
+                    // Container(
+                    //     padding: EdgeInsets.symmetric(vertical: 0.0),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: <Widget>[
+                    //         Text("Chưa có tài khoản? ",
+                    //             style: TextStyle(
+                    //                 shadows: <Shadow>[
+                    //                   Shadow(
+                    //                     offset: Offset(0.0, 5.0),
+                    //                     blurRadius: 8.0,
+                    //                     color: Colors.white54,
+                    //                   ),
+                    //                 ],
+                    //                 color: Color.fromRGBO(0, 0, 0, .9),
+                    //                 fontSize: 16.0,
+                    //                 fontWeight: FontWeight.bold,
+                    //                 fontFamily: 'OpenSans')),
+                    //         GestureDetector(
+                    //           onTap: () {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                     builder: (context) =>
+                    //                         const RegisterScreen()));
+                    //           },
+                    //           child: Text("Đăng ký ngay!",
+                    //               style: TextStyle(
+                    //                   shadows: <Shadow>[
+                    //                     Shadow(
+                    //                       offset: Offset(0.0, 5.0),
+                    //                       blurRadius: 8.0,
+                    //                       color: Colors.white54,
+                    //                     ),
+                    //                   ],
+                    //                   color: kPrimaryColor,
+                    //                   fontSize: 16.0,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   fontFamily: 'OpenSans')),
+                    //         )
+                    //       ],
+                    //     )),
+                    // SizedBox(height: 40),
                     Container(
                         padding: EdgeInsets.symmetric(vertical: 0.0),
                         child: Row(

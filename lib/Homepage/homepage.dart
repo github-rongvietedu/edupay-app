@@ -93,7 +93,7 @@ class _HomePageScreenState extends State<HomePageScreen>
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Bus To School'),
+        title: Text('Edupay'),
         content: Text('Bạn có chắc là bạn muốn thoát ứng dụng'),
         actions: <Widget>[
           TextButton(
@@ -216,7 +216,7 @@ class _HomePageScreenState extends State<HomePageScreen>
       // BusToSchoolScreen(scrollController: _scrollControllerBus),
       LessonScreenV2(student: Profile.currentStudent),
       MenuWeek(scrollController: _scrollController3),
-      TimeTableScreen(),
+      // TimeTableScreen(),
       TuitionFeeScreen(scrollController: _scrollController4)
     ];
 
@@ -302,11 +302,11 @@ class _HomePageScreenState extends State<HomePageScreen>
                                 grade: Profile.currentClassRoom.gradeCode));
                           }
 
+                          // if (_selectedIndex == 3) {
+                          //   _timeTableBloc.add(
+                          //       LoadTimeTable(dayWeek: DateTime.now().weekday));
+                          // }
                           if (_selectedIndex == 3) {
-                            _timeTableBloc.add(
-                                LoadTimeTable(dayWeek: DateTime.now().weekday));
-                          }
-                          if (_selectedIndex == 4) {
                             _invoiceBloc.add(
                                 LoadInvoice(student: Profile.currentStudent));
                           }
@@ -335,6 +335,8 @@ class _HomePageScreenState extends State<HomePageScreen>
               ),
             ),
             bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Colors.white,
+              type: BottomNavigationBarType.fixed,
               showUnselectedLabels: true,
               selectedLabelStyle:
                   GoogleFonts.montserrat(fontWeight: FontWeight.w600),
@@ -364,7 +366,7 @@ class _HomePageScreenState extends State<HomePageScreen>
                         )
                       : Icon(Icons.book_outlined, size: 30),
 
-                  label: 'Báo bài',
+                  label: 'Giáo trình',
                   // backgroundColor: Colors.pink,
                 ),
                 // BottomNavigationBarItem(
@@ -383,21 +385,21 @@ class _HomePageScreenState extends State<HomePageScreen>
                   label: 'Thực đơn',
                   // backgroundColor: Colors.pink,
                 ),
-                BottomNavigationBarItem(
-                  icon: _selectedIndex == 3
-                      ? Image.asset(
-                          "images/icon/TKB.png",
-                          height: 30,
-                          width: 30,
-                        )
-                      : ImageIcon(
-                          AssetImage(
-                            "images/icon/TKB.png",
-                          ),
-                          size: 30),
-                  label: 'TKB',
-                  // backgroundColor: Colors.pink,
-                ),
+                // BottomNavigationBarItem(
+                //   icon: _selectedIndex == 3
+                //       ? Image.asset(
+                //           "images/icon/TKB.png",
+                //           height: 30,
+                //           width: 30,
+                //         )
+                //       : ImageIcon(
+                //           AssetImage(
+                //             "images/icon/TKB.png",
+                //           ),
+                //           size: 30),
+                //   label: 'TKB',
+                //   // backgroundColor: Colors.pink,
+                // ),
                 BottomNavigationBarItem(
                   icon: _selectedIndex == 4
                       ? Image.asset(

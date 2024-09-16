@@ -34,152 +34,170 @@ class _MyDrawerState extends State<MyDrawer> {
     Size size = MediaQuery.of(context).size;
 
     return Drawer(
+        backgroundColor: Colors.white,
         child: ListView(
-      children: <Widget>[
-        Container(
-          // padding: EdgeInsets.only(top: 20),
-          height: 190,
-          // width: 500,
-          child: Center(
-            child: Image.asset(
-              "images/logo_menu.png",
-              fit: BoxFit.cover,
-              // height: 150,
-              // // width: size.width * 0.7
-              // width: 400,
-              // width: 290,
-            ),
-          ),
-        ),
-
-        activityName == "HomePage"
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                      title: Text("Học viên"),
-                      leading: Icon(
-                        Icons.supervised_user_circle,
-                        color: Color(0xE62196F3),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePageScreen(
-                              warningLog: false,
-                            ),
-                          ),
-                        );
-                      }),
-                  Divider(),
-                  ListTile(
-                      title: Text("Xin nghỉ phép"),
-                      leading: Icon(
-                        Icons.checklist,
-                        color: kPrimaryColor,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LeaveApplicationScreen(),
-                          ),
-                        );
-                      })
-                ],
-              )
-            : SizedBox(),
-
-        // SizedBox(height: 150),
-
-        Divider(),
-        ListTile(
-            title: Text("Đổi mật khẩu"),
-            leading: Icon(
-              Icons.lock,
-              color: Colors.amber,
-            ),
-            onTap: () {
-              // ShopHocCu.sourcePage = activityName;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChangePassword(),
+          children: <Widget>[
+            Container(
+              // padding: EdgeInsets.only(top: 20),
+              height: 190,
+              // width: 500,
+              child: Center(
+                child: Image.asset(
+                  "images/Logo_truong.png",
+                  fit: BoxFit.cover,
+                  // height: 150,
+                  // // width: size.width * 0.7
+                  // width: 400,
+                  // width: 290,
                 ),
-              );
-            }),
-        Divider(),
-        ListTile(
-            title: Text("Xoá tài khoản"),
-            leading: Icon(
-              Icons.disabled_by_default_rounded,
-              color: Colors.red,
+              ),
             ),
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ConfirmDelete(),
-                  ),
-                )),
 
-        Divider(),
-        ListTile(
-            title: Text("Đăng xuất"),
-            leading: Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
-            ),
-            onTap: () => _logout()),
-        Divider(),
-        // Spacer(),
-        Container(
-          height: 15,
-          // color: Colors.red,
+            activityName == "HomePage"
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                          title: Text("Học viên"),
+                          leading: Icon(
+                            Icons.supervised_user_circle,
+                            color: Color(0xE62196F3),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePageScreen(
+                                  warningLog: false,
+                                ),
+                              ),
+                            );
+                          }),
+                      // Divider(),
+                      // ListTile(
+                      //     title: Text("Xin nghỉ phép"),
+                      //     leading: Icon(
+                      //       Icons.checklist,
+                      //       color: kPrimaryColor,
+                      //     ),
+                      //     onTap: () {
+                      //       Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //           builder: (context) => LeaveApplicationScreen(),
+                      //         ),
+                      //       );
+                      //     })
+                    ],
+                  )
+                : SizedBox(),
 
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            InkWell(
-                onTap: () async {
+            // SizedBox(height: 150),
+            Divider(),
+            // ListTile(
+            //     title: Text("Tra cứu học phí"),
+            //     leading: Icon(
+            //       Icons.search,
+            //       color: Colors.green,
+            //     ),
+            //     onTap: () {
+            //       // ShopHocCu.sourcePage = activityName;
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) => const WebViewPage(
+            //                 title: 'Tra cứu học phí',
+            //                 url: 'https://tracuu.edupay.vn/home'),
+            //           ));
+            //     }),
+            // Divider(),
+            ListTile(
+                title: Text("Đổi mật khẩu"),
+                leading: Icon(
+                  Icons.lock,
+                  color: Colors.amber,
+                ),
+                onTap: () {
+                  // ShopHocCu.sourcePage = activityName;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const WebViewPage(
-                          title: 'CHÍNH SÁCH QUYỀN RIÊNG TƯ',
-                          url:
-                              'https://gadt.rongvietedu.vn/publicinfo/App_PrivacyPolicyVN.html'),
+                      builder: (context) => ChangePassword(),
                     ),
                   );
-                },
-                child: const Text(
-                  'Chính sách riêng tư',
-                  style: TextStyle(
-                      color: Color.fromRGBO(33, 150, 243, .9),
-                      // decoration: TextDecoration.underline,
-                      fontSize: 12),
-                )),
-            VerticalDivider(
-              color: Colors.black38,
-              // thickness: 1,
+                }),
+            Divider(),
+            ListTile(
+                title: Text("Xoá tài khoản"),
+                leading: Icon(
+                  Icons.disabled_by_default_rounded,
+                  color: Colors.red,
+                ),
+                onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConfirmDelete(),
+                      ),
+                    )),
+
+            Divider(),
+            ListTile(
+                title: Text("Đăng xuất"),
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
+                onTap: () => _logout()),
+            Divider(),
+            // Spacer(),
+            Container(
+              height: 15,
+              // color: Colors.red,
+
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                InkWell(
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WebViewPage(
+                              title: 'CHÍNH SÁCH QUYỀN RIÊNG TƯ',
+                              url:
+                                  'https://edupay.vn/chinh-sach-va-dieu-khoan-su-dung-edupay'),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Chính sách điều khoản',
+                      style: TextStyle(
+                          color: Color.fromRGBO(33, 150, 243, .9),
+                          // decoration: TextDecoration.underline,
+                          fontSize: 14),
+                    )),
+                // VerticalDivider(
+                //   color: Colors.black38,
+                //   // thickness: 1,
+                // ),
+                // InkWell(
+                //     onTap: () async {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => const ContactUsScreen()),
+                //       );
+                //     },
+                //     child: const Text(
+                //       'Liên hệ chúng tôi',
+                //       style: TextStyle(
+                //           color: Color.fromRGBO(33, 150, 243, .9),
+                //           // decoration: TextDecoration.underline,
+                //           fontSize: 12),
+                //     )),
+              ]),
             ),
-            InkWell(
-                onTap: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ContactUsScreen()),
-                  );
-                },
-                child: const Text(
-                  'Liên hệ chúng tôi',
-                  style: TextStyle(
-                      color: Color.fromRGBO(33, 150, 243, .9),
-                      // decoration: TextDecoration.underline,
-                      fontSize: 12),
-                )),
-          ]),
-        ),
-      ],
-    ));
+          ],
+        ));
   }
 
   Future<bool> _onWillPop() async {

@@ -1,43 +1,26 @@
 {
   "project_info": {
-    "project_number": "445208803881",
-    "project_id": "hts-nguyen-tri-phuong",
-    "storage_bucket": "hts-nguyen-tri-phuong.appspot.com"
+    "project_number": "673243934437",
+    "project_id": "edupay-b68dd",
+    "storage_bucket": "edupay-b68dd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:445208803881:android:980e46ae431055daa73a38",
+        "mobilesdk_app_id": "1:673243934437:android:08a0c31789eb7e8518ae0c",
         "android_client_info": {
-          "package_name": "com.hdg.edupay"
+          "package_name": "com.app.edupay"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "445208803881-obb46ebctudi1m3knhkch60thktjn38q.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAPHMzwgv8P94uPH1eTE3d9TRdoTbwcMos"
+          "current_key": "AIzaSyAT-9rDUj-r6P9hypct5McMfgJk410z1L8"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "445208803881-obb46ebctudi1m3knhkch60thktjn38q.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "445208803881-ilkdmi6fse8m182cgnoo055j8t0a8brj.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.hdg.edupay"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

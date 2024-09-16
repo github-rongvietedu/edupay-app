@@ -99,15 +99,23 @@ class _SplashScreenState extends State<SplashScreen> {
     _getVersion();
 
     if (expiredDate == true) {
-      await Future.delayed(const Duration(milliseconds: 2600)).then((value) =>
+      await Future.delayed(const Duration(milliseconds: 2000)).then((value) =>
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) => const BodyLogin())));
     } else {
-      await Future.delayed(const Duration(milliseconds: 2600)).then((value) =>
-          context.read<LoginBloc>().add(
-              LoginSubmitted(userName: userLogin, password: plantextPassword)));
+      if (userLogin == "" || userLogin == null) {
+        await Future.delayed(const Duration(milliseconds: 2000)).then((value) =>
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const BodyLogin())));
+      } else {
+        await Future.delayed(const Duration(milliseconds: 2000)).then((value) =>
+            context.read<LoginBloc>().add(LoginSubmitted(
+                userName: userLogin, password: plantextPassword)));
+      }
     }
   }
 
@@ -160,22 +168,23 @@ class _SplashScreenState extends State<SplashScreen> {
                 alignment: Alignment.topCenter,
                 child: Container(
                     // color: Colors.red,
+                    padding: EdgeInsets.all(20),
                     height: size.width,
                     width: size.width,
-                    child: Image.asset('images/splash_screen.gif')),
+                    child: Image.asset('images/Logo_truong.png')),
               )),
-          Positioned(
-              bottom: size.height * 0.1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  // color: Colors.red,
-                  height: size.height,
-                  width: size.width,
-                  child: RiveAnimation.asset('images/riv/text.riv',
-                      animations: [], fit: BoxFit.cover),
-                ),
-              )),
+          // Positioned(
+          //     bottom: size.height * 0.1,
+          //     child: Align(
+          //       alignment: Alignment.bottomCenter,
+          //       child: Container(
+          //         // color: Colors.red,
+          //         height: size.height,
+          //         width: size.width,
+          //         child: RiveAnimation.asset('images/riv/text.riv',
+          //             animations: [], fit: BoxFit.cover),
+          //       ),
+          //     )),
         ]),
         //  const RiveAnimation.asset('images/riv/loading1.riv',
         //     animations: [], fit: BoxFit.fill),
