@@ -111,13 +111,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else {
           // emit(state.copyWith(formStatus: const FormSubmitSuccess(), message: message));
           emit(state.copyWith(
-              formStatus: const FormSubmitFailed(), message: 'Lỗi kết nối'));
+              formStatus: const FormSubmitFailed(),
+              message: 'Tài khoản hoặc mật khẩu không chính xác !!!'));
           // }else{
           //  emit(state.copyWith(formStatus: const FormSubmitFailed(),message: 'Lỗi kết nối'));
         }
       } catch (ex) {
         emit(state.copyWith(
-            formStatus: const FormSubmitFailed(), message: 'Lỗi kết nối'));
+            formStatus: const FormSubmitFailed(),
+            message: 'Tài khoản hoặc mật khẩu không chính xác !!!'));
       }
     }
   }

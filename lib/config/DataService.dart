@@ -523,7 +523,7 @@ class DataService {
       final jsonData = json.decode(response.body);
       result = ConfigurationResult.fromJson(jsonData);
     } else {
-      result.message = "Lỗi kết nối !!!";
+      result.message = "Tài khoản hoặc mật khẩu không chính xác !!!";
       result.status = 4;
     }
 

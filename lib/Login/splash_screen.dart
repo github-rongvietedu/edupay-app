@@ -7,7 +7,6 @@ import 'package:flutter/painting.dart' as gradient;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rive/rive.dart';
 
 import '../Homepage/homepage.dart';
 import '../config/DataService.dart';
