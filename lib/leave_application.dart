@@ -163,7 +163,6 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                     margin: EdgeInsets.all(8),
                     height: size.height * 0.85,
                     width: size.width,
-
                     child: Card(
                         color: Colors.white,
                         elevation: 2,
