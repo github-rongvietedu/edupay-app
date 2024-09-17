@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "673243934437",
-    "project_id": "edupay-b68dd",
-    "storage_bucket": "edupay-b68dd.appspot.com"
+    "project_number": "617538271214",
+    "project_id": "edupay-a5f33",
+    "storage_bucket": "edupay-a5f33.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:673243934437:android:08a0c31789eb7e8518ae0c",
+        "mobilesdk_app_id": "1:617538271214:android:30ca6276a14fe142af80ff",
         "android_client_info": {
-          "package_name": "com.app.edupay"
+          "package_name": "com.gotrust.eduPay2023"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAT-9rDUj-r6P9hypct5McMfgJk410z1L8"
+          "current_key": "AIzaSyCgwUIUFcxkCes7BMMq26wKpCKPDmxfi9Y"
         }
       ],
       "services": {
