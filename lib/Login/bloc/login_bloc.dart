@@ -77,6 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             LoginModelResult.fromJson(dataResponse);
         final message = dataResponse['message'] ?? '';
         if (dataResponse['status'] == 2) {
+          Profile.phoneNumber = loginModel.userValue;
           secureStore.writeSecureData('userlogin', loginModel.userValue ?? "");
           Codec<String, String> stringToBase64 = utf8.fuse(base64);
           Profile.parentID = dataResponse['user']['ID'];

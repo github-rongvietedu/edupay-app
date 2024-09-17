@@ -171,7 +171,7 @@ class DataService {
   Future<bool> deleteAccount(String phoneNumber, String companyCode) async {
     final msg = jsonEncode({
       "PhoneNumber": phoneNumber,
-      "CompanyCode": companyCode,
+      "CompanyCode": '',
     });
 
     http.Response response =

@@ -3,7 +3,6 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../Login/body.dart';
 import '../config/DataService.dart';
 import '../constants.dart';
@@ -156,9 +155,13 @@ class _ConfirmDeleteState extends State<ConfirmDelete> {
                                     .pop();
 
                                 try {
-                                  final deleteSuccess = await DataService()
-                                      .deleteAccount(Profile.phoneNumber ?? "",
-                                          Profile.companyCode);
+                                  final deleteSuccess =
+                                      await loadingDialog.showLoadingPopup(
+                                          context,
+                                          DataService().deleteAccount(
+                                              Profile.phoneNumber ?? "",
+                                              Profile.companyCode));
+
                                   if (deleteSuccess == false) {
                                     ScaffoldMessenger.of(context)
                                       ..hideCurrentSnackBar()
