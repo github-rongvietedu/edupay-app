@@ -10,10 +10,15 @@ class Student {
   final String personCode;
   final String mappingCode;
   final String faceImageURL;
-  final DateTime dateOfBirth;
+  final DateTime? dateOfBirth;
   final bool used;
   final int gender;
-  List<ClassInfo> classRoom;
+  String? classRoom;
+  String? className;
+  String? companyName;
+  String? schoolYear;
+  String? schoolYearName;
+  List<ClassInfo>? listClassRoom;
 
   Student(
       {this.id = "",
@@ -27,29 +32,39 @@ class Student {
       this.used = false,
       this.mappingCode = "",
       this.gender = 0,
-      required this.classRoom,
-      required this.dateOfBirth});
+      this.className = '',
+      this.companyName = '',
+      this.classRoom = '',
+      this.schoolYear = '',
+      this.schoolYearName = '',
+      this.listClassRoom,
+      this.dateOfBirth});
 
   factory Student.fromJson(Map<String, dynamic> json) {
     Student student = Student(
-        id: json['ID'],
-        studentCode: json['StudentCode'] ?? "",
-        studentName: json['StudentName'] ?? "",
-        parentPhoneNumber: json['ParentPhoneNumber'] ?? "",
-        companyCode: json['CompanyCode'] ?? "",
-        personCode: json['PersonCode'] ?? "",
-        address: json['Address'] ?? "",
-        used: json['Used'] ?? "",
-        mappingCode: json['MappingCode'] ?? "",
-        gender: json['Gender'] ?? 0,
-        dateOfBirth: DateTime.parse(json['DateOfBirth']),
-        faceImageURL: json['FaceImageURL'] ?? "",
-        classRoom: []);
+      id: json['ID'],
+      studentCode: json['StudentCode'] ?? "",
+      studentName: json['StudentName'] ?? "",
+      parentPhoneNumber: json['ParentPhoneNumber'] ?? "",
+      companyCode: json['CompanyCode'] ?? "",
+      personCode: json['PersonCode'] ?? "",
+      address: json['Address'] ?? "",
+      used: json['Used'] ?? "",
+      mappingCode: json['MappingCode'] ?? "",
+      gender: json['Gender'] ?? 0,
+      dateOfBirth: DateTime.parse(json['DateOfBirth']),
+      faceImageURL: json['FaceImageURL'] ?? "",
+      classRoom: json['ClassRoom'] ?? "",
+      className: json['ClassName'] ?? "",
+      companyName: json['CompanyName'] ?? "",
+      schoolYear: json['SchoolYear'] ?? "",
+      schoolYearName: json['SchoolYearName'] ?? "",
+    );
 
     if (json['GTS_ClassRoom'] != null) {
-      student.classRoom = <ClassInfo>[];
+      student.listClassRoom = <ClassInfo>[];
       json['GTS_ClassRoom'].forEach((v) {
-        student.classRoom.add(ClassInfo.fromJson(v));
+        student.listClassRoom!.add(ClassInfo.fromJson(v));
       });
     }
     // try {

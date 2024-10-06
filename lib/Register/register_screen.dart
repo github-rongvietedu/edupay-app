@@ -75,7 +75,7 @@ class _BodyLoginState extends State<RegisterScreen>
       return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('HTS Minh Đức'),
+          title: Text('Edupay'),
           content: Text('Bạn có chắc là bạn muốn thoát ứng dụng'),
           actions: <Widget>[
             TextButton(

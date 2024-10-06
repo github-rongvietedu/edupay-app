@@ -7,10 +7,11 @@ class Profile {
   static String? phoneNumber;
   static String currentYear = "";
   static String companyCode = "TEST01";
+  static int typeUser = 0;
   static String parentID = "";
   static String employeeCode = "";
   static Student currentStudent =
-      Student(dateOfBirth: DateTime.now(), classRoom: []);
+      Student(dateOfBirth: DateTime.now(), listClassRoom: []);
   static ClassInfo currentClassRoom = ClassInfo();
   static int selectedStudent = 0;
   static DateTime currentDateAtten = DateTime.now();

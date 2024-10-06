@@ -133,7 +133,7 @@ class _RVEPopupChooseOptionState extends State<RVEPopupChooseOption> {
                                                                     formattedDate
                                                                         .format(e
                                                                             .value
-                                                                            .dateOfBirth),
+                                                                            .dateOfBirth!),
                                                                     style:
                                                                         kTextStyleBlackBold,
                                                                   ),
@@ -260,7 +260,7 @@ class _RVEPopupChooseOptionState extends State<RVEPopupChooseOption> {
                                                     text1: "Ngày sinh:",
                                                     text2: formattedDate.format(
                                                         currentStudent
-                                                            .dateOfBirth),
+                                                            .dateOfBirth!),
                                                     textStyle1:
                                                         kTextStyleProfile,
                                                     textStyle2:

@@ -202,6 +202,9 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                                               //         .difference(fromDate)
                                               //         .inDays +
                                               //     1;
+                                              if (fromDate.isAfter(toDate)) {
+                                                toDate = fromDate;
+                                              }
                                               setState(() {});
                                               print(fromDate);
                                             },
@@ -391,6 +394,13 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                                 RoundedButton(
                                   text: "Xác nhận",
                                   press: () async {
+                                    if (_isEnableButton == false) {
+                                      _showSnackBar(
+                                          context,
+                                          "Mật khẩu không chính xác, vui lòng kiểm tra lại !!!",
+                                          Colors.red);
+                                      return;
+                                    }
                                     StudentLeaveOfAbsenceModel temp =
                                         StudentLeaveOfAbsenceModel();
                                     temp.companyCode = Profile.companyCode;
@@ -422,7 +432,7 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                                       }
                                     });
                                   },
-                                  enable: _isEnableButton,
+                                  enable: true,
                                 )
                               ],
                             ),

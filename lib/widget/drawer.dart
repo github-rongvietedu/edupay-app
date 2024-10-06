@@ -73,21 +73,21 @@ class _MyDrawerState extends State<MyDrawer> {
                               ),
                             );
                           }),
-                      // Divider(),
-                      // ListTile(
-                      //     title: Text("Xin nghỉ phép"),
-                      //     leading: Icon(
-                      //       Icons.checklist,
-                      //       color: kPrimaryColor,
-                      //     ),
-                      //     onTap: () {
-                      //       Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //           builder: (context) => LeaveApplicationScreen(),
-                      //         ),
-                      //       );
-                      //     })
+                      Divider(),
+                      ListTile(
+                          title: Text("Xin nghỉ phép"),
+                          leading: Icon(
+                            Icons.checklist,
+                            color: kPrimaryColor,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LeaveApplicationScreen(),
+                              ),
+                            );
+                          })
                     ],
                   )
                 : SizedBox(),

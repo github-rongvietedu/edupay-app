@@ -1,4 +1,5 @@
 import 'package:edupay/Login/splash_screen.dart';
+import 'package:edupay/utilities.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,8 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'ChangePassword/bloc/change_password_bloc.dart';
 import 'HomePageTeacher/homepage_tearcher.dart';
+import 'Login/SplashScreen/splash_screen.dart';
 import 'Login/bloc/login_bloc.dart';
 import 'Register/bloc/register_bloc.dart';
 
@@ -16,6 +22,7 @@ import 'Register/bloc/register_bloc.dart';
 import 'Login/login.dart';
 import 'bloc_observer.dart';
 import 'firebase_options.dart';
+import 'routes/app_pages.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -142,36 +149,77 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LoginBloc>(
-          create: (BuildContext context) => LoginBloc(context),
-        ),
-        BlocProvider<ChangePasswordBloc>(
-          create: (BuildContext context) => ChangePasswordBloc(context),
-        ),
-        BlocProvider<RegisterBloc>(
-          create: (BuildContext context) => RegisterBloc(context),
-        ),
-      ],
-      child: MaterialApp(
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('vi', ''), // Vietnamese, no country code
-          ],
+    const double hdPlusDpiThreshold = 2.0; // Example threshold for HD+
+
+    // Get the device pixel ratio
+    double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    // Determine the textScaleFactor based on the DPI
+    double textScaleFactor;
+    if (devicePixelRatio <= hdPlusDpiThreshold) {
+      textScaleFactor = 0.8;
+    } else {
+      textScaleFactor = 1.0;
+    }
+    return OverlaySupport.global(
+      child: GetMaterialApp(
+          //theme: appThemeData[AppTheme.LIGHT],
           debugShowCheckedModeBanner: false,
-          title: 'Edupay',
+          enableLog: true,
+          logWriterCallback: Logger.write,
+          // initialRoute: AppPages.INITIAL,
+          home: const SplashScreen(),
+          getPages: AppPages.routes,
           theme: ThemeData(
-            primarySwatch: Colors.orange,
+            fontFamily: GoogleFonts.inter().fontFamily,
           ),
-          home: const SplashScreen()),
+          builder: (context, child) {
+            return ScreenUtilInit(
+              child: MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: TextScaler.linear(1.0),
+                  ),
+                  child: child!),
+            );
+          }),
     );
   }
 }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiBlocProvider(
+//       providers: [
+//         BlocProvider<LoginBloc>(
+//           create: (BuildContext context) => LoginBloc(context),
+//         ),
+//         BlocProvider<ChangePasswordBloc>(
+//           create: (BuildContext context) => ChangePasswordBloc(context),
+//         ),
+//         BlocProvider<RegisterBloc>(
+//           create: (BuildContext context) => RegisterBloc(context),
+//         ),
+//       ],
+//       child: MaterialApp(
+//           localizationsDelegates: const [
+//             GlobalMaterialLocalizations.delegate,
+//             GlobalWidgetsLocalizations.delegate,
+//             GlobalCupertinoLocalizations.delegate,
+//           ],
+//           supportedLocales: const [
+//             Locale('vi', ''), // Vietnamese, no country code
+//           ],
+//           debugShowCheckedModeBanner: false,
+//           title: 'Edupay',
+//           theme: ThemeData(
+//             primarySwatch: Colors.orange,
+//           ),
+//           home: const SplashScreen()),
+//     );
+//   }
+// }

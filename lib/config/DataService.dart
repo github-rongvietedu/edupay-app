@@ -302,7 +302,7 @@ class DataService {
         "api_key": apiKey
       },
     );
-    Student student = Student(dateOfBirth: DateTime.now(), classRoom: []);
+    Student student = Student(dateOfBirth: DateTime.now(), listClassRoom: []);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       student = Student.fromJson(jsonData);

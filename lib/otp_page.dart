@@ -1,4 +1,5 @@
 import 'package:edupay/Login/login.dart';
+import 'package:edupay/Login/login_page.dart';
 import 'package:edupay/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric_keyboard/numeric_keyboard.dart';
@@ -103,7 +104,7 @@ class _OtpPageState extends State<OtpPage> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => const LoginScreen()));
+                    builder: (BuildContext context) => LoginPage()));
           },
         ),
         elevation: 0,

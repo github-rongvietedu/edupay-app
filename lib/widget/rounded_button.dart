@@ -21,19 +21,22 @@ class RoundedButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       backgroundColor: enable == true ? color : Colors.grey,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
     );
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.8,
+      width: size.width * 0.9,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(29),
+        borderRadius: BorderRadius.circular(16),
         child: TextButton(
           style: flatButtonStyle,
           onPressed: enable == true ? press : null,
           child: Text(
             text,
-            style: TextStyle(color: textColor),
+            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
           ),
         ),
       ),
