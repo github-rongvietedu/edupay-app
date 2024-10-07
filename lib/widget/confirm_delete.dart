@@ -143,7 +143,7 @@ class _ConfirmDeleteState extends State<ConfirmDelete> {
                                 ),
                                 child: Center(
                                   child: Text('Quay lại',
-                                      style: text12.blackColor.copyWith(
+                                      style: textInter12.blackColor.copyWith(
                                         fontWeight: FontWeight.w900,
                                       )),
                                 ),
@@ -201,7 +201,7 @@ class _ConfirmDeleteState extends State<ConfirmDelete> {
                                 ),
                                 child: Center(
                                   child: Text('Xác nhận',
-                                      style: text12.whiteColor.copyWith(
+                                      style: textInter12.whiteColor.copyWith(
                                         fontWeight: FontWeight.w900,
                                       )),
                                 ),

@@ -146,7 +146,7 @@ class _HomePageTeacherScreenState extends State<HomePageTeacherScreen> {
 
                   searchText.value = value;
                 },
-                style: text14.blackColor,
+                style: textInter14.blackColor,
                 cursorColor: kPrimaryColor,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(left: 10, right: 10),
@@ -154,7 +154,7 @@ class _HomePageTeacherScreenState extends State<HomePageTeacherScreen> {
                       borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
                       borderRadius: BorderRadius.circular(25.0)),
                   hintText: 'Nhập tên học viên hoặc SDT phụ huynh',
-                  hintStyle: text14.black54Color,
+                  hintStyle: textInter14..copyWith(color: Colors.black54),
                   border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey, width: 32.0),
                       borderRadius: BorderRadius.circular(25.0)),
@@ -304,7 +304,7 @@ class _HomePageTeacherScreenState extends State<HomePageTeacherScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(currentClassroom.name,
-                                    style: text16.primaryColor.bold),
+                                    style: textInter16.primaryColor.bold),
                                 // Icon(Icons.arrow_drop_down)
                               ],
                             ),

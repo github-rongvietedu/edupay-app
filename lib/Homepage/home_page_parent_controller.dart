@@ -40,24 +40,35 @@ class HomePageParentController extends BaseController {
       'key': 'attendance',
       'title': 'Điểm danh',
       'icon': "images/icon/diem_danh.png",
+      'color': Colors.red,
       'route': Routes.ATTENDANCE
+    },
+    {
+      'key': 'tuition',
+      'title': 'Xin nghỉ phép',
+      'icon': 'images/icon/checklist.png',
+      'color': Colors.orange,
+      'route': Routes.TUITION
     },
     {
       'key': 'lesson',
       'title': 'Giáo trình',
       'icon': 'images/icon/giao_trinh.png',
+      'color': Colors.blue,
       'route': Routes.TIMETABLE
     },
     {
       'key': 'foodmenu',
       'title': 'Thực đơn',
       'icon': 'images/icon/TD.png',
+      'color': Colors.green,
       'route': Routes.FOODMENU
     },
     {
       'key': 'tuition',
       'title': 'Học phí',
       'icon': 'images/icon/hoc_phi.png',
+      'color': Colors.yellow,
       'route': Routes.TUITION
     },
 

@@ -136,7 +136,7 @@ showConfirmDialog({
                       child: Text(
                     message,
                     textAlign: TextAlign.center,
-                    style: text22.blackColor,
+                    style: textInter22.blackColor,
                   ))
                 ],
               ),
@@ -155,7 +155,8 @@ showConfirmDialog({
                                 borderRadius: BorderRadius.circular(15)),
                             child: Text(submitTitle,
                                 textAlign: TextAlign.center,
-                                style: text22.copyWith(color: Colors.white)),
+                                style:
+                                    textInter22.copyWith(color: Colors.white)),
                           ))),
                   const SizedBox(width: 15),
                   Expanded(
@@ -170,7 +171,8 @@ showConfirmDialog({
                             ),
                             child: Text(cancelTitle,
                                 textAlign: TextAlign.center,
-                                style: text22.copyWith(color: Colors.white)),
+                                style:
+                                    textInter22.copyWith(color: Colors.white)),
                           ))),
                 ],
               )
@@ -215,7 +217,7 @@ showTrySyncFaceDialog({
                       child: Text(
                     message,
                     textAlign: TextAlign.center,
-                    style: text22.blackColor,
+                    style: textInter22.blackColor,
                   ))
                 ],
               ),
@@ -234,7 +236,8 @@ showTrySyncFaceDialog({
                                 borderRadius: BorderRadius.circular(15)),
                             child: Text(submitTitle,
                                 textAlign: TextAlign.center,
-                                style: text22.copyWith(color: Colors.white)),
+                                style:
+                                    textInter22.copyWith(color: Colors.white)),
                           ))),
                   const SizedBox(width: 15),
                   Expanded(
@@ -249,7 +252,8 @@ showTrySyncFaceDialog({
                             ),
                             child: Text(cancelTitle,
                                 textAlign: TextAlign.center,
-                                style: text22.copyWith(color: Colors.white)),
+                                style:
+                                    textInter22.copyWith(color: Colors.white)),
                           ))),
                 ],
               )
@@ -343,13 +347,13 @@ showConfirmDialogWidget(
                         Text(
                           caption,
                           textAlign: TextAlign.center,
-                          style: captionStyle ?? text16.bold.blackColor,
+                          style: captionStyle ?? textInter16.bold.blackColor,
                         ),
                         SizedBox(height: 10),
                         Text(
                           content,
                           textAlign: TextAlign.center,
-                          style: captionStyle ?? text16.blackColor,
+                          style: captionStyle ?? textInter16.blackColor,
                           maxLines: 3,
                         ),
                       ],
@@ -499,7 +503,7 @@ buildDialogConfirm(
         ),
         child: Center(
           child: Text(textButtonFirst ?? 'Quay lại',
-              style: text12.blackColor.copyWith(
+              style: textInter12.blackColor.copyWith(
                 fontWeight: FontWeight.w900,
               )),
         ),
@@ -517,7 +521,7 @@ buildDialogConfirm(
         ),
         child: Center(
           child: Text(textButtonSecond ?? 'Xác nhận',
-              style: text12.whiteColor.copyWith(
+              style: textInter12.whiteColor.copyWith(
                 fontWeight: FontWeight.w900,
               )),
         ),

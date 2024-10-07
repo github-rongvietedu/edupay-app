@@ -85,130 +85,138 @@ class _MenuWeekState extends State<MenuWeek> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              // Icon(Icons.person, size: 30, color: Colors.grey[500]),
-              const SizedBox(
-                width: 8,
-              ),
-              Text("Thực đơn:", style: kTextStyleTitle),
-              const SizedBox(
-                width: 8,
-              ),
-            ],
-          ),
-          Expanded(
-            child: ValueListenableBuilder<String>(
-              valueListenable: stateNotifier,
-              builder: (context, state, _) {
-                if (state == "loading") {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == "empty") {
-                  return Card(
-                    color: Colors.white,
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14.0),
-                    ),
-                    child: Center(
-                      child: Container(
-                          height: 100,
-                          width: size.width,
-                          child: Center(
-                            child: Text('Chưa có thực đơn',
-                                style: kTextStyleRowBlue),
-                          )),
-                    ),
-                  );
-                } else if (state == "failed") {
-                  return Card(
-                    color: Colors.white,
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14.0),
-                    ),
-                    child: Center(
-                      child: Container(
-                          height: 100,
-                          width: size.width,
-                          child: Center(
-                            child: Text('Chưa có thực đơn',
-                                style: kTextStyleRowBlue),
-                          )),
-                    ),
-                  );
-                } else {
-                  // return SizedBox();
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: listFoodMenu.length,
-                    itemBuilder: (context, index) {
-                      FoodMenu menu = listFoodMenu[index];
-                      return Container(
-                        margin: EdgeInsets.only(
-                            left: 12, right: 12, top: 5, bottom: 5),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(60, 64, 67, 0.3),
-                                spreadRadius: 0,
-                                blurRadius: 2,
-                                offset: Offset(0, 1),
+    return Scaffold(
+      appBar: AppBar(
+          foregroundColor: Colors.white,
+          backgroundColor: kPrimaryColor,
+          title: Text("Thực đơn tuần"),
+          centerTitle: true),
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     // Icon(Icons.person, size: 30, color: Colors.grey[500]),
+            //     const SizedBox(
+            //       width: 8,
+            //     ),
+            //     Text("Thực đơn:", style: kTextStyleTitle),
+            //     const SizedBox(
+            //       width: 8,
+            //     ),
+            //   ],
+            // ),
+            Expanded(
+              child: ValueListenableBuilder<String>(
+                valueListenable: stateNotifier,
+                builder: (context, state, _) {
+                  if (state == "loading") {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state == "empty") {
+                    return Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: Center(
+                        child: Container(
+                            height: 100,
+                            width: size.width,
+                            child: Center(
+                              child: Text('Chưa có thực đơn',
+                                  style: kTextStyleRowBlue),
+                            )),
+                      ),
+                    );
+                  } else if (state == "failed") {
+                    return Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: Center(
+                        child: Container(
+                            height: 100,
+                            width: size.width,
+                            child: Center(
+                              child: Text('Chưa có thực đơn',
+                                  style: kTextStyleRowBlue),
+                            )),
+                      ),
+                    );
+                  } else {
+                    // return SizedBox();
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: listFoodMenu.length,
+                      itemBuilder: (context, index) {
+                        FoodMenu menu = listFoodMenu[index];
+                        return Container(
+                          margin: EdgeInsets.only(
+                              left: 12, right: 12, top: 5, bottom: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(60, 64, 67, 0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 1),
+                                ),
+                                BoxShadow(
+                                  color: Color.fromRGBO(60, 64, 67, 0.15),
+                                  spreadRadius: 2,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                )
+                              ]),
+                          child: Theme(
+                            data: ThemeData()
+                                .copyWith(dividerColor: Colors.transparent),
+                            child: ExpansionTile(
+                              tilePadding: EdgeInsets.all(8),
+                              childrenPadding: EdgeInsets.zero,
+                              title: Text("${menu.menuName}" ?? "",
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: kPrimaryColor)),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      "Áp dụng từ ${DateFormat('dd/MM/yyyy').format(menu.fromDate ?? DateTime.now())} - ${DateFormat('dd/MM/yyyy').format(menu.toDate ?? DateTime.now())}"),
+                                  menu.menuDescription != ""
+                                      ? Text("Ghi chú: ${menu.menuDescription}")
+                                      : SizedBox()
+                                ],
                               ),
-                              BoxShadow(
-                                color: Color.fromRGBO(60, 64, 67, 0.15),
-                                spreadRadius: 2,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              )
-                            ]),
-                        child: Theme(
-                          data: ThemeData()
-                              .copyWith(dividerColor: Colors.transparent),
-                          child: ExpansionTile(
-                            tilePadding: EdgeInsets.all(8),
-                            childrenPadding: EdgeInsets.zero,
-                            title: Text("${menu.menuName}" ?? "",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: kPrimaryColor)),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    "Áp dụng từ ${DateFormat('dd/MM/yyyy').format(menu.fromDate ?? DateTime.now())} - ${DateFormat('dd/MM/yyyy').format(menu.toDate ?? DateTime.now())}"),
-                                menu.menuDescription != ""
-                                    ? Text("Ghi chú: ${menu.menuDescription}")
-                                    : SizedBox()
+                                Container(
+                                    height: size.height * 0.4,
+                                    width: size.width,
+                                    child: FoodMenuDetailView(
+                                        menuDetails:
+                                            menu.foodMenuDetail ?? [])),
                               ],
                             ),
-                            children: [
-                              Container(
-                                  height: size.height * 0.4,
-                                  width: size.width,
-                                  child: FoodMenuDetailView(
-                                      menuDetails: menu.foodMenuDetail ?? [])),
-                            ],
                           ),
-                        ),
-                      );
-                    },
-                  );
-                }
-              },
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

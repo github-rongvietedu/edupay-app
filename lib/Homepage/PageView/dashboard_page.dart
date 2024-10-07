@@ -15,7 +15,9 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+          backgroundColor: Colors.white,
           bottom: PreferredSize(
               preferredSize: Size(size.width, 60),
               child: Obx(
@@ -64,13 +66,100 @@ class DashboardPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final item = controller.items[index];
                           return itemDashboard(
+                            color: item['color'].withOpacity(0.1),
                             size: size,
                             item: item,
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(item['route']!);
+                            },
                           );
                         },
                       ),
-                    )
+                    ),
+              IconWithTextWidget(
+                  size: size,
+                  margin: const EdgeInsets.only(bottom: 10, top: 10),
+                  image: "images/svg/icon-category-2.svg",
+                  text: Text(
+                    'Thông tin thêm',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  )),
+              Container(
+                height: 220,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.zero,
+                    // padding: EdgeInsets.only(top: 8, bottom: 8),
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.zero,
+                        width: size.height * 0.3,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(60, 64, 67, 0.3),
+                                offset: Offset(0, 1),
+                                blurRadius: 2,
+                                spreadRadius: 0,
+                              ),
+                              BoxShadow(
+                                color: Color.fromRGBO(60, 64, 67, 0.15),
+                                offset: Offset(0, 2),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                              ),
+                            ]),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  flex: 60,
+                                  child: Container(
+                                    // height: 220,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                'images/background/background-1.png'),
+                                            fit: BoxFit.cover),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(12),
+                                            topRight: Radius.circular(12))),
+                                  )),
+                              Expanded(
+                                flex: 30,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 5, right: 5),
+                                  child: Text("Tite trang thông báo chung",
+                                      style: TextStyle(
+                                          color: Colors.black.withOpacity(0.7),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 10,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 5, right: 5),
+                                    child: Text("01/10/2024",
+                                        style: TextStyle(
+                                            color: Colors.grey.withOpacity(0.8),
+                                            fontSize: 12)),
+                                  )),
+                            ]),
+                      );
+                    }),
+              ),
             ],
           ),
         ),
@@ -78,35 +167,41 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget itemDashboard({required size, item, void Function()? onTap}) {
+  Widget itemDashboard(
+      {required size,
+      item,
+      void Function()? onTap,
+      Color color = kPrimaryColor}) {
     return InkWell(
       onTap: onTap,
       child: Container(
         height: size.width * 0.25,
         width: size.width * 0.3,
-        child: Card(
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              item['icon'] != ''
-                  ? Image.asset(
-                      item['icon'],
-                      height:
-                          size.width * 0.13, // Ensure the height is a double
-                      width: size.width * 0.13, // Ensure the width is a double
-                    )
-                  : SizedBox(),
-              SizedBox(height: 5),
-              Text(
-                item['title'],
-                style: TextStyle(
-                    color: Colors.black.withOpacity(0.7),
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: color, borderRadius: BorderRadius.circular(50)),
+                child: item['icon'] != ''
+                    ? Image.asset(
+                        item['icon'],
+                        height:
+                            size.width * 0.11, // Ensure the height is a double
+                        width:
+                            size.width * 0.11, // Ensure the width is a double
+                      )
+                    : SizedBox()),
+            SizedBox(height: 5),
+            Text(
+              item['title'],
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.7),
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );
@@ -225,8 +320,34 @@ class DashboardPage extends StatelessWidget {
                 .elementAt(index); // Lấy giá trị từ Map
 
             return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(student.faceImageURL),
+              leading: Container(
+                width: 50.0,
+                height: 50.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: Colors.white, width: 2.0), // White border
+                ),
+                child: CachedNetworkImage(
+                    placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                    errorWidget: (context, url, error) => CircleAvatar(
+                          child: ClipRRect(
+                            child: Image.asset("images/img_avatar.png",
+                                fit: BoxFit.contain),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                        ),
+                    imageBuilder: (context, imageProvider) => Container(
+                        // width: 100.0,
+                        // height: 100.0,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.contain))),
+                    fit: BoxFit.contain,
+                    imageUrl: controller.selectedStudent.value.faceImageURL),
               ),
               title: Text(student.studentName),
               subtitle:

@@ -31,7 +31,7 @@ import '../models/student.dart';
 
 class DataService {
   static String devChannel = 'prod';
-  static String baseAddress = 'https://apidev-edupay.rveapp.com/';
+  static String baseAddress = 'https://apidev-pg-edupay.rveapp.com/';
   static String baseSocket = 'http://rveapp.com';
   static String apiKey =
       'Qyu3lS+WYmhFrPtysA9Qwam+CQAjjDTIZpYT2EtMO7DvVZ7W/pk767nW7LuNP5BXBHAHN29oo1qyAJO8ms7YJA==';
