@@ -1,3 +1,5 @@
+import 'package:edupay/Homepage/home_page_parent.dart';
+import 'package:edupay/Login/login_page.dart';
 import 'package:edupay/about_us.dart';
 import 'package:flutter/material.dart';
 
@@ -67,9 +69,7 @@ class _MyDrawerState extends State<MyDrawer> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePageScreen(
-                                  warningLog: false,
-                                ),
+                                builder: (context) => HomePageParent(),
                               ),
                             );
                           }),
@@ -231,7 +231,7 @@ class _MyDrawerState extends State<MyDrawer> {
     Navigator.pushAndRemoveUntil<dynamic>(
       context,
       MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => const BodyLogin(),
+        builder: (BuildContext context) => LoginPage(),
       ),
       (route) => false, //if you want to disable back feature set to false
     );

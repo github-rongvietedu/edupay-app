@@ -44,11 +44,11 @@ class HomePageParentController extends BaseController {
       'route': Routes.ATTENDANCE
     },
     {
-      'key': 'tuition',
+      'key': 'leaveapplication',
       'title': 'Xin nghỉ phép',
       'icon': 'images/icon/checklist.png',
       'color': Colors.orange,
-      'route': Routes.TUITION
+      'route': Routes.LEAVEAPPLICATION
     },
     {
       'key': 'lesson',
@@ -70,6 +70,13 @@ class HomePageParentController extends BaseController {
       'icon': 'images/icon/hoc_phi.png',
       'color': Colors.yellow,
       'route': Routes.TUITION
+    },
+    {
+      'key': 'attendance',
+      'title': 'Điểm danh học viên',
+      'icon': "images/icon/diem_danh.png",
+      'color': Colors.red,
+      'route': Routes.ATTENDANCESTUDENT
     },
 
     // Add more items if needed

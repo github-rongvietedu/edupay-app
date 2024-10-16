@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:edupay/Homepage/PageView/SocialPage/social_page.dart';
 import 'package:edupay/Homepage/PageView/dashboard_page.dart';
 import 'package:edupay/Homepage/PageView/setting_page.dart';
 import 'package:edupay/constants.dart';
@@ -21,7 +22,12 @@ class HomePageParent extends BaseView<HomePageParentController> {
         onPageChanged: (index) {
           controller.changeTabIndex(index);
         },
-        children: [SizedBox(), DashboardPage(), SizedBox(), SettingScreen()],
+        children: [
+          SocialListView(),
+          DashboardPage(),
+          SizedBox(),
+          SettingScreen()
+        ],
       ),
       bottomNavigationBar: Obx(() => BottomNavigationBar(
             backgroundColor: Colors.white,

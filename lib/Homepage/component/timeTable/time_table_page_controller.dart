@@ -1,8 +1,11 @@
+import 'package:darq/darq.dart';
 import 'package:edupay/core/base/base_controller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:edupay/models/TimeTable/time_table.dart';
 import 'package:flutter/material.dart';
+
+import '../../../models/profile.dart';
 
 enum TimeTableStatus { initial, changed, success, failure }
 
@@ -41,6 +44,31 @@ class TimeTableController extends BaseController
       7: "CHỦ NHẬT"
     };
     // Load data logic here
+
+    List<TimeTable> listTimeTable = [];
+    try {
+      // listTimeTable =
+      if (Profile.listTimeTable.isNotEmpty) {
+        listTimeTable = Profile.listTimeTable;
+      }
+
+      if (listTimeTable.isNotEmpty) {
+        List<TimeTable> distinctList =
+            listTimeTable.distinct((d) => d.scheduleDay as int).toList();
+
+        listTimeTable.forEach((e) {
+          if (e.scheduleDay == dayWeek) {
+            listDisplay.add(e);
+          }
+        });
+
+        status.value = TimeTableStatus.success;
+      } else {
+        status.value = TimeTableStatus.failure;
+      }
+    } catch (ex) {
+      status.value = TimeTableStatus.failure;
+    }
     status.value = TimeTableStatus.success;
     // Populate listDisplay based on the loaded timetable
   }

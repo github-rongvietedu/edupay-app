@@ -59,6 +59,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
+
     }
     signingConfigs {
         release {
@@ -77,6 +79,7 @@ android {
             minifyEnabled true
             crunchPngs false 
             shrinkResources false
+            
             // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

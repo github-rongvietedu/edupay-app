@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'dart:async';
@@ -21,6 +23,17 @@ DateTime findFirstDateOfTheWeek(DateTime dateTime) {
 /// Find last date of the week which contains provided date.
 DateTime findLastDateOfTheWeek(DateTime dateTime) {
   return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
+}
+
+String encodeBase64AndTruncate(String input) {
+  // Mã hóa chuỗi thành Base64
+  String base64Encoded = base64Encode(utf8.encode(input));
+
+  // Cắt chuỗi Base64 thành 23 ký tự
+  if (base64Encoded.length <= 23) {
+    return base64Encoded;
+  }
+  return base64Encoded.substring(0, 23);
 }
 
 class LoadingDialog {

@@ -1,3 +1,4 @@
+import 'package:edupay/Login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -222,7 +223,7 @@ class _ConfirmDeleteState extends State<ConfirmDelete> {
     Navigator.pushAndRemoveUntil<dynamic>(
       context,
       MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => const BodyLogin(),
+        builder: (BuildContext context) => LoginPage(),
       ),
       (route) => false, //if you want to disable back feature set to false
     );

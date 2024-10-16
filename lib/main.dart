@@ -1,4 +1,5 @@
 import 'package:edupay/Login/splash_screen.dart';
+import 'package:edupay/constants.dart';
 import 'package:edupay/utilities.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -164,6 +165,14 @@ class MyApp extends StatelessWidget {
     }
     return OverlaySupport.global(
       child: GetMaterialApp(
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('vi', ''), // Vietnamese, no country code
+          ],
           //theme: appThemeData[AppTheme.LIGHT],
           debugShowCheckedModeBanner: false,
           enableLog: true,
@@ -173,6 +182,8 @@ class MyApp extends StatelessWidget {
           getPages: AppPages.routes,
           theme: ThemeData(
             fontFamily: GoogleFonts.inter().fontFamily,
+            primarySwatch:
+                Colors.blue, // Replace with your desired MaterialColor
           ),
           builder: (context, child) {
             return ScreenUtilInit(

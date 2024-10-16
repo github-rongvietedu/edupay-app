@@ -6,6 +6,10 @@ const ksecondaryColor = Color(0xFFB5BFD0);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
 const kBlack = Colors.black;
 const kTextColor = Color(0xFF50505D);
+const kBlueColor = Color(0xff1890FF);
+const kDarkBlueColor = Color(0xff1D4CA7);
+const kOrangeCode = Color(0xffF6662D);
+const kBackgroundBorder = Color(0xff64748B);
 const kTextLightColor = Color(0xFF6A727D);
 const Color textColor = Color(0xffE8E0D2);
 
@@ -85,7 +89,7 @@ extension TextStyleExtColor on TextStyle {
   TextStyle get whiteColor => this.copyWith(color: Color(0xffFFFFFF));
   TextStyle get blackColor => this.copyWith(color: Color(0xff334155));
   TextStyle get blueColor => this.copyWith(color: Color(0xff1890FF));
-
+  TextStyle get darkBlueColor => this.copyWith(color: kDarkBlueColor);
   TextStyle get greyColor => this.copyWith(color: Color(0xff64748B));
   TextStyle get lightColor => this.copyWith(color: Color(0xffE8E0D2));
   TextStyle get creamColor => this.copyWith(color: Color(0xffE8E0D2));

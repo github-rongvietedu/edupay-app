@@ -139,7 +139,7 @@ class DashboardPage extends StatelessWidget {
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.only(left: 5, right: 5),
-                                  child: Text("Tite trang thông báo chung",
+                                  child: Text("Thông báo chung",
                                       style: TextStyle(
                                           color: Colors.black.withOpacity(0.7),
                                           fontSize: 14,
@@ -180,26 +180,33 @@ class DashboardPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: color, borderRadius: BorderRadius.circular(50)),
-                child: item['icon'] != ''
-                    ? Image.asset(
-                        item['icon'],
-                        height:
-                            size.width * 0.11, // Ensure the height is a double
-                        width:
-                            size.width * 0.11, // Ensure the width is a double
-                      )
-                    : SizedBox()),
+            Expanded(
+              flex: 65,
+              child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: color, borderRadius: BorderRadius.circular(50)),
+                  child: item['icon'] != ''
+                      ? Image.asset(
+                          item['icon'],
+                          height: size.width *
+                              0.11, // Ensure the height is a double
+                          width:
+                              size.width * 0.11, // Ensure the width is a double
+                        )
+                      : SizedBox()),
+            ),
             SizedBox(height: 5),
-            Text(
-              item['title'],
-              style: TextStyle(
-                  color: Colors.black.withOpacity(0.7),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
+            Expanded(
+              flex: 35,
+              child: Text(
+                item['title'],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black.withOpacity(0.7),
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),

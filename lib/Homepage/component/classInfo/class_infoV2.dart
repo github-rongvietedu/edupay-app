@@ -9,7 +9,7 @@ import '../../../models/profile.dart';
 import '../../../models/schoolYear/school_year.dart';
 import '../../../widget/rve_popup_choose_option_default.dart';
 import '../../../widget/text_with_space.dart';
-import '../attendance/attendanceV2.dart';
+import '../../attendance/attendanceV2.dart';
 import '../schoolYear/bloc/school_year_bloc.dart';
 import '../schoolYear/bloc/school_year_event.dart';
 import '../schoolYear/bloc/school_year_state.dart';

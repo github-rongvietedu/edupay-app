@@ -1,3 +1,4 @@
+import 'package:edupay/Homepage/home_page_parent.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,12 +37,8 @@ class _ChangePasswordState extends State<ChangePassword> {
         }
         if (status == ChangePasswordStatus.success) {
           _showSnackBar(context, state.message, Colors.green);
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomePageScreen(
-                        warningLog: false,
-                      )));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => HomePageParent()));
         }
       },
       child: Scaffold(

@@ -410,6 +410,7 @@ showConfirmDialogWidget(
 //       false;
 // }
 // MyGenerator _generator = new MyGenerator(_paperSize, _profile);
+
 Future<Uint8List> createImage(int paperWidth, int lineHeight) async {
   // Tạo một đối tượng PictureRecorder để ghi lại quá trình vẽ.
   final recorder = ui.PictureRecorder();
