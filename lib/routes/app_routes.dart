@@ -5,7 +5,8 @@ abstract class Routes {
   static const LOGIN = '/login';
   static const HOMEPAGEPARENT = '/homepageparent';
   static const ATTENDANCE = '/attendance';
-  static const ATTENDANCESTUDENT = '/attendanceStudent';
+  static const ATTENDANCEMENU = '/attendanceMenu';
+  static const QUICKATTENDANCESTUDENT = '/attendanceStudent';
 
   static const TIMETABLE = '/timetable';
   static const LESSON = '/lesson';

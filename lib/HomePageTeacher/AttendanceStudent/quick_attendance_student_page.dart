@@ -7,9 +7,10 @@ import 'package:get/get.dart';
 
 import '../../Homepage/Widget/edupay_appbar.dart';
 import '../../core/base/base_view_view_model.dart';
-import 'attendance_student_controller.dart';
+import 'quick_attendance_student_controller.dart';
 
-class AttendanceStudentPage extends BaseView<AttendanceStudentController> {
+class QuickAttendanceStudentPage
+    extends BaseView<QuickAttendanceStudentController> {
   @override
   Widget baseBuilder(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -39,7 +40,7 @@ class AttendanceStudentPage extends BaseView<AttendanceStudentController> {
             EdupayAppBar(
               titleWidget: Center(
                 child: Text(
-                  'Điểm danh học viên',
+                  'Điểm danh nhanh',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -66,7 +67,7 @@ class AttendanceStudentPage extends BaseView<AttendanceStudentController> {
                       controller: controller.tabController,
                       tabs: [
                         Tab(text: 'Chưa điểm danh'),
-                        Tab(text: 'Đã điểm danh'),
+                        Tab(text: 'Có mặt'),
                       ],
                     ),
                     // Student list and first-time guide

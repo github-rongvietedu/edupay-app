@@ -1,3 +1,4 @@
+import 'package:edupay/HomePageTeacher/AttendanceStudent/attendance_menu_page.dart';
 import 'package:edupay/Homepage/attendance/attendance_page.dart';
 import 'package:edupay/Homepage/attendance/attendance_page_controller.dart';
 import 'package:edupay/Homepage/foodMenu/menu_week.dart';
@@ -10,8 +11,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
-import '../HomePageTeacher/AttendanceStudent/attendance_student_controller.dart';
-import '../HomePageTeacher/AttendanceStudent/attendance_student_page.dart';
+import '../HomePageTeacher/AttendanceStudent/attendance_menu_controller.dart';
+import '../HomePageTeacher/AttendanceStudent/quick_attendance_student_controller.dart';
+import '../HomePageTeacher/AttendanceStudent/quick_attendance_student_page.dart';
 import '../Homepage/component/timeTable/time_table_page.dart';
 import '../Homepage/component/timeTable/time_table_page_controller.dart';
 import '../Homepage/home_page_parent.dart';
@@ -63,9 +65,14 @@ class AppPages {
       binding: TuitionFeePageBinding(),
     ),
     GetPage(
-      name: Routes.ATTENDANCESTUDENT,
-      page: () => AttendanceStudentPage(),
-      binding: AttendanceStudentBinding(),
+      name: Routes.QUICKATTENDANCESTUDENT,
+      page: () => QuickAttendanceStudentPage(),
+      binding: QuickAttendanceStudentBinding(),
+    ),
+    GetPage(
+      name: Routes.ATTENDANCEMENU,
+      page: () => AttendanceMenuPage(),
+      binding: AttendanceMenuBinding(),
     ),
 
     ///

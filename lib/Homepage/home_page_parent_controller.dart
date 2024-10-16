@@ -76,7 +76,7 @@ class HomePageParentController extends BaseController {
       'title': 'Điểm danh học viên',
       'icon': "images/icon/diem_danh.png",
       'color': Colors.red,
-      'route': Routes.ATTENDANCESTUDENT
+      'route': Routes.ATTENDANCEMENU
     },
 
     // Add more items if needed

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:edupay/models/profile.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +8,38 @@ import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../core/base/base_controller.dart';
 
-class AttendanceStudentBinding extends Bindings {
+class AttendanceMenuBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AttendanceStudentController());
+    Get.lazyPut(() => AttendanceMenuController());
   }
 }
 
-class AttendanceStudentController extends BaseController
-    with GetSingleTickerProviderStateMixin {
+class AttendanceMenuController extends BaseController
+    with GetTickerProviderStateMixin {
   late TabController tabController;
+  var selectedTabIndex = 0.obs; // Observable variable
+  late AnimationController controllerAnimation;
+  late Animation<double> animation;
+  Timer? _timer;
+
+  final List<Color> colors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.cyan,
+  ];
+  var shuffledColors =
+      <Color>[].obs; // Observable list to store shuffled colors
+
+  var selectedIndex = 0.obs; // Initialize with -1 (no selection)
+  void selectContainer(int index) {
+    // controller.forward(from: 0); // Restart the animation
+    selectedIndex.value = index; // Update selected index
+  }
+
+  bool isSelected(int index) =>
+      selectedIndex.value == index; // Check if the container is selected
   final List<Student> students = [
     Student(
         id: 1,
@@ -36,16 +60,33 @@ class AttendanceStudentController extends BaseController
         rollNo: 3,
         isPresent: true),
   ].obs;
-  late CameraController cameraController;
-  var selectedStudent = Rxn<Student>();
-  // Observable to track camera initialized state
-  var isCameraInitialized = false.obs;
-  var isFirstTimeUsingApp = true.obs;
+
+  void startColorChangeTimer() {
+    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+      // Shuffle the colors every second
+      shuffledColors.shuffle();
+    });
+  }
+
   @override
   void onInit() {
+    // Shuffle the colors initially
+    shuffledColors.addAll(colors); // Add all colors to shuffledColors
+    shuffledColors.shuffle(); // Shuffle the list
+
+    controllerAnimation = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true);
+    animation = Tween<double>(begin: 0.75, end: 1).animate(CurvedAnimation(
+      parent: controllerAnimation,
+      curve: Curves.linear,
+    ));
+
     super.onInit();
-    tabController = TabController(length: 2, vsync: this);
-    initializeCamera();
+    tabController = TabController(length: 3, vsync: this);
+    // startColorChangeTimer();
+    // initializeCamera();
   }
 
   Future<void> checkPermissions() async {
@@ -53,47 +94,13 @@ class AttendanceStudentController extends BaseController
 
     if (status.isGranted) {
       // Quyền đã được cấp, bạn có thể sử dụng camera
-      initializeCamera();
+      // initializeCamera();
     } else if (status.isDenied) {
       // Quyền bị từ chối, hiển thị thông báo
       _showPermissionDeniedDialog(Get.context!);
     } else if (status.isPermanentlyDenied) {
       // Quyền bị từ chối vĩnh viễn, yêu cầu người dùng mở cài đặt
       _showPermissionPermanentlyDeniedDialog(Get.context!);
-    }
-  }
-
-  confirmIntroduce() {
-    isFirstTimeUsingApp.value = false;
-  }
-
-  attendanceStudent() {
-    if (selectedStudent.value == null) return;
-    students.forEach((element) {
-      if (element.id == selectedStudent.value!.id) {
-        element.isPresent = true;
-      }
-    });
-    update();
-  }
-
-  markedStudent(Student student) {
-    selectedStudent.value = student;
-    selectedStudent.value!.isMarked = true;
-    // selectedStudent.value =
-    //     students.firstWhere((element) => element.id == studentID);
-  }
-
-  Future<void> initializeCamera() async {
-    try {
-      final cameras = await availableCameras();
-      cameraController = CameraController(cameras.first, ResolutionPreset.high);
-      await cameraController.initialize();
-
-      // Set camera initialized state to true
-      isCameraInitialized.value = true;
-    } catch (e) {
-      print('Error initializing camera: $e');
     }
   }
 
@@ -152,24 +159,9 @@ class AttendanceStudentController extends BaseController
     );
   }
 
-  Future<void> takePicture() async {
-    if (isCameraInitialized.value) {
-      try {
-        final image = await cameraController.takePicture();
-        Get.snackbar('Hình ảnh đã chụp', image.path);
-        // Handle the captured image path (e.g., display or save)
-      } catch (e) {
-        print('Error taking picture: $e');
-      }
-    } else {
-      Get.snackbar('Camera chưa được khởi tạo', 'Vui lòng thử lại sau.');
-    }
-  }
-
   @override
   void dispose() {
-    // TODO: implement dispose
-
+    // TODO: implement disposed
     super.dispose();
   }
 }
