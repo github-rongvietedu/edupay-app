@@ -1,4 +1,3 @@
-import 'package:edupay/Login/splash_screen.dart';
 import 'package:edupay/constants.dart';
 import 'package:edupay/utilities.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +19,6 @@ import 'Login/bloc/login_bloc.dart';
 import 'Register/bloc/register_bloc.dart';
 
 // import 'package:package_info_plus/package_info_plus.dart';
-import 'Login/login.dart';
 import 'bloc_observer.dart';
 import 'firebase_options.dart';
 import 'routes/app_pages.dart';

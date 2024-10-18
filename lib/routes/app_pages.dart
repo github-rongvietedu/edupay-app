@@ -4,7 +4,6 @@ import 'package:edupay/Homepage/attendance/attendance_page_controller.dart';
 import 'package:edupay/Homepage/foodMenu/menu_week.dart';
 import 'package:edupay/Homepage/lesson/lesson_controller.dart';
 import 'package:edupay/Homepage/lesson/lesson_page.dart';
-import 'package:edupay/Login/login.dart';
 import 'package:edupay/Welcome/welcome_page.dart';
 import 'package:edupay/Welcome/welcome_page_controller.dart';
 import 'package:edupay/leave_application.dart';

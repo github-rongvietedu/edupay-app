@@ -33,7 +33,7 @@ class DetailAttendance extends StatelessWidget {
                     child: attendance == null
                         ? Image.asset('images/noimage.jpg')
                         : Image.network(
-                            attendance.uRLCaptureImage,
+                            attendance.faceImageURL,
                             errorBuilder: (BuildContext context,
                                 Object exception, StackTrace? stackTrace) {
                               return Image.asset('images/noimage.jpg');
@@ -103,11 +103,11 @@ class DetailAttendance extends StatelessWidget {
               children: [
                 Text(
                     dateFormatDay
-                        .format(attendance.captureAt ?? DateTime.now()),
+                        .format(attendance.captureTime ?? DateTime.now()),
                     style: kTextStyleTable),
                 _textWithSpace(
                     "Giờ điểm danh:",
-                    dateFormat.format(attendance.captureAt ?? DateTime.now()),
+                    dateFormat.format(attendance.captureTime ?? DateTime.now()),
                     size),
                 _textWithSpace("Vị trí:", attendance.deviceName ?? "", size),
                 // TextWithDot(

@@ -31,37 +31,37 @@ class FaceAttendanceResult {
 }
 
 class Attendance {
-  String? mappingCode;
-  String? personName;
+  String? studentCode;
+  String? studentName;
   DateTime? dateOfBirth;
-  late String uRLCaptureImage;
-  DateTime? captureAt;
+  late String faceImageURL;
+  DateTime? captureTime;
   String? deviceName;
 
   Attendance(
-      {this.mappingCode = "",
-      this.personName = "",
+      {this.studentCode = "",
+      this.studentName = "",
       this.dateOfBirth,
-      this.uRLCaptureImage = "",
+      this.faceImageURL = "",
       this.deviceName = "",
-      this.captureAt});
+      this.captureTime});
 
   Attendance.fromJson(Map<String, dynamic> json) {
-    mappingCode = json['MappingCode'] ?? "";
-    personName = json['PersonName'] ?? "";
+    studentCode = json['StudentCode'] ?? "";
+    studentName = json['StudentName'] ?? "";
     dateOfBirth = DateTime.parse(json['DateOfBirth']);
-    uRLCaptureImage = json['URLCaptureImage'] ?? "";
+    faceImageURL = json['FaceImageURL'] ?? "";
     deviceName = json['DeviceName'] ?? "";
-    captureAt = DateTime.parse(json['CaptureAt']);
+    captureTime = DateTime.parse(json['CaptureAt']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['MappingCode'] = mappingCode;
-    data['PersonName'] = personName;
+    data['MappingCode'] = studentCode;
+    data['PersonName'] = studentName;
     data['DateOfBirth'] = dateOfBirth;
-    data['URLCaptureImage'] = uRLCaptureImage;
-    data['CaptureAt'] = captureAt;
+    data['URLCaptureImage'] = faceImageURL;
+    data['CaptureAt'] = captureTime;
     return data;
   }
 }

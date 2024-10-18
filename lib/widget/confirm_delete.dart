@@ -4,7 +4,6 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
-import '../Login/body.dart';
 import '../config/DataService.dart';
 import '../constants.dart';
 import '../models/profile.dart';

@@ -219,13 +219,13 @@ class AttendancePage extends BaseView<AttendancePageController> {
                     children: [
                       Text(
                         dateFormatDay.format(
-                            attendance[index].captureAt ?? DateTime.now()),
+                            attendance[index].captureTime ?? DateTime.now()),
                         style: kTextStyleTitleColor,
                       ),
                       _textWithSpace(
                         "Giờ điểm danh:",
                         dateFormat.format(
-                            attendance[index].captureAt ?? DateTime.now()),
+                            attendance[index].captureTime ?? DateTime.now()),
                         5,
                         5,
                       ),
@@ -241,7 +241,7 @@ class AttendancePage extends BaseView<AttendancePageController> {
                     child: attendance == null
                         ? Image.asset('images/noimage.jpg')
                         : Image.network(
-                            attendance[index].uRLCaptureImage,
+                            attendance[index].faceImageURL,
                             errorBuilder: (BuildContext context,
                                 Object exception, StackTrace? stackTrace) {
                               return Image.asset('images/noimage.jpg');
