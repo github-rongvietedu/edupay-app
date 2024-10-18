@@ -7,6 +7,7 @@ import '../../constants.dart';
 import '../../core/base/base_view_view_model.dart';
 import '../../models/face_attendance_result.dart';
 import '../../models/profile.dart';
+import '../Widget/edupay_appbar.dart';
 import 'attendance_page_controller.dart';
 import 'detail_attendance.dart';
 
@@ -15,75 +16,116 @@ class AttendancePage extends BaseView<AttendancePageController> {
 
   @override
   Widget baseBuilder(BuildContext context) {
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: kPrimaryColor,
-          title: Text("Điểm danh"),
-          centerTitle: true),
-      body: ConstrainedBox(
-        constraints: BoxConstraints(
-          minHeight: size.height * 0.1,
-          minWidth: size.width,
-          maxHeight: double.infinity,
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //     foregroundColor: Colors.white,
+      //     backgroundColor: kPrimaryColor,
+      //     title: Text("Điểm danh"),
+      //     centerTitle: true),
+      body: Container(
+        decoration: BoxDecoration(
+          color: kPrimaryColor,
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [Color(0xffED5627), Colors.red.shade700],
+          // ),
         ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  controller.pickDateRange();
-                },
-                child: Container(
-                  height: 40,
-                  color: Colors.transparent,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 8),
-                      Text("Điểm danh:", style: kTextStyleTitle),
-                      const Spacer(),
-                      const Icon(Icons.calendar_month,
-                          size: 36, color: Colors.blue),
-                    ],
-                  ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: statusBarHeight,
+            ),
+            EdupayAppBar(
+              onBackPressed: () => Get.back(),
+              titleWidget: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Danh sách điểm danh',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Obx(() {
-                switch (controller.attendanceStatus.value) {
-                  case AttendanceStatus.failure:
-                    return Center(child: Text('Failed to fetch Attendance'));
-                  case AttendanceStatus.initial:
-                  case AttendanceStatus.changed:
-                    return Center(
-                        child: Container(
-                            height: 50,
-                            width: 50,
-                            child: CircularProgressIndicator()));
-                  case AttendanceStatus.success:
-                    return controller.listAttendance.isNotEmpty
-                        ? Flexible(
-                            child: ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: controller.listAttendance.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return buildWidgetAttendance(
-                                      size, controller.listAttendance, index);
-                                }),
-                          )
-                        : buildWidgetNotAttendance(size);
-                }
-              }),
-            ],
-          ),
+            ),
+            Spacer(),
+            Container(
+              padding: const EdgeInsets.all(8),
+              height: size.height * 0.87,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      controller.pickDateRange();
+                    },
+                    child: Container(
+                      height: 40,
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(width: 8),
+                          Text("Điểm danh:", style: kTextStyleTitle),
+                          const Spacer(),
+                          const Icon(Icons.calendar_month,
+                              size: 36, color: Colors.blue),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Obx(() {
+                    switch (controller.attendanceStatus.value) {
+                      case AttendanceStatus.failure:
+                        return Center(
+                            child: Text('Failed to fetch Attendance'));
+                      case AttendanceStatus.initial:
+                      case AttendanceStatus.changed:
+                        return Center(
+                            child: Container(
+                                height: 50,
+                                width: 50,
+                                child: CircularProgressIndicator()));
+                      case AttendanceStatus.success:
+                        return controller.listAttendance.isNotEmpty
+                            ? Flexible(
+                                child: ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: controller.listAttendance.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return buildWidgetAttendance(size,
+                                          controller.listAttendance, index);
+                                    }),
+                              )
+                            : buildWidgetNotAttendance(size);
+                    }
+                  }),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -63,6 +63,19 @@ class QuickAttendanceStudentController extends BaseController
     }
   }
 
+  Future<void> initializeCamera() async {
+    try {
+      final cameras = await availableCameras();
+      cameraController = CameraController(cameras.first, ResolutionPreset.high);
+      await cameraController.initialize();
+
+      // Set camera initialized state to true
+      isCameraInitialized.value = true;
+    } catch (e) {
+      print('Error initializing camera: $e');
+    }
+  }
+
   confirmIntroduce() {
     isFirstTimeUsingApp.value = false;
   }
@@ -82,19 +95,6 @@ class QuickAttendanceStudentController extends BaseController
     selectedStudent.value!.isMarked = true;
     // selectedStudent.value =
     //     students.firstWhere((element) => element.id == studentID);
-  }
-
-  Future<void> initializeCamera() async {
-    try {
-      final cameras = await availableCameras();
-      cameraController = CameraController(cameras.first, ResolutionPreset.high);
-      await cameraController.initialize();
-
-      // Set camera initialized state to true
-      isCameraInitialized.value = true;
-    } catch (e) {
-      print('Error initializing camera: $e');
-    }
   }
 
   void _showPermissionDeniedDialog(BuildContext context) {

@@ -55,7 +55,7 @@ class HomePageParentController extends BaseController {
       'title': 'Giáo trình',
       'icon': 'images/icon/giao_trinh.png',
       'color': Colors.blue,
-      'route': Routes.TIMETABLE
+      'route': Routes.LESSON
     },
     {
       'key': 'foodmenu',
@@ -102,6 +102,7 @@ class HomePageParentController extends BaseController {
     selectedStudent.value = student;
     // Save the student ID to secure storage
     await secureStore.writeSecureData("selectedStudent", student.id);
+    Profile.currentStudent = student;
   }
 
   Future<void> loadStudent() async {
@@ -120,6 +121,8 @@ class HomePageParentController extends BaseController {
       // Default to the first student if no ID is found
       selectedStudent.value = listStudent.values.first;
     }
+    Profile.currentStudent = selectedStudent.value;
+
     isLoading.value = false;
   }
 }

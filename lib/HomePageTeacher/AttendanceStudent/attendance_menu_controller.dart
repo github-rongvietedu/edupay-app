@@ -21,6 +21,12 @@ class AttendanceMenuController extends BaseController
   var selectedTabIndex = 0.obs; // Observable variable
   late AnimationController controllerAnimation;
   late Animation<double> animation;
+  var startAnimation = false.obs;
+
+  var lengthAll = 0.obs;
+  var lengthPresent = 0.obs;
+  var lengthAbsent = 0.obs;
+
   Timer? _timer;
 
   final List<Color> colors = [
@@ -34,8 +40,24 @@ class AttendanceMenuController extends BaseController
 
   var selectedIndex = 0.obs; // Initialize with -1 (no selection)
   void selectContainer(int index) {
-    // controller.forward(from: 0); // Restart the animation
     selectedIndex.value = index; // Update selected index
+    // startAnimation.value = false;
+    // filteredStudents.clear();
+    startAnimation.value = false;
+
+    if (index == 0) {
+      filteredStudents.assignAll(students);
+    } else if (index == 1) {
+      filteredStudents.assignAll(
+          students.where((element) => element.isPresent == false).toList());
+    } else if (index == 2) {
+      filteredStudents.assignAll(
+          students.where((element) => element.isPresent == true).toList());
+    }
+    Future.delayed(Duration(milliseconds: 400), () {
+      // startAnimation.value = true;
+      startAnimation.value = true;
+    });
   }
 
   bool isSelected(int index) =>
@@ -43,7 +65,187 @@ class AttendanceMenuController extends BaseController
   final List<Student> students = [
     Student(
         id: 1,
-        name: 'Nguyen Van A',
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
+        className: 'Class 1',
+        rollNo: 1,
+        isPresent: false),
+    Student(
+        id: 2,
+        name: 'Tran Thi B',
+        className: 'Class 1',
+        rollNo: 2,
+        isPresent: false),
+    Student(
+        id: 3,
+        name: 'Le Van C',
+        className: 'Class 1',
+        rollNo: 3,
+        isPresent: true),
+    Student(
+        id: 1,
+        name: 'Nguyen Van Aaaaaaaaaaaaaa',
         className: 'Class 1',
         rollNo: 1,
         isPresent: false),
@@ -61,11 +263,21 @@ class AttendanceMenuController extends BaseController
         isPresent: true),
   ].obs;
 
+  var filteredStudents = <Student>[].obs;
+
   void startColorChangeTimer() {
     _timer = Timer.periodic(Duration(seconds: 2), (timer) {
       // Shuffle the colors every second
       shuffledColors.shuffle();
     });
+  }
+
+  loadStudent() {
+    lengthAll.value = students.length;
+    lengthPresent.value =
+        students.where((element) => element.isPresent == true).length;
+    lengthAbsent.value =
+        students.where((element) => element.isPresent == false).length;
   }
 
   @override
@@ -75,16 +287,21 @@ class AttendanceMenuController extends BaseController
     shuffledColors.shuffle(); // Shuffle the list
 
     controllerAnimation = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     )..repeat(reverse: true);
-    animation = Tween<double>(begin: 0.75, end: 1).animate(CurvedAnimation(
+    animation = Tween<double>(begin: 0.7, end: 1).animate(CurvedAnimation(
       parent: controllerAnimation,
       curve: Curves.linear,
     ));
 
     super.onInit();
     tabController = TabController(length: 3, vsync: this);
+    filteredStudents.assignAll(students);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      startAnimation.value = true;
+    });
+    loadStudent();
     // startColorChangeTimer();
     // initializeCamera();
   }

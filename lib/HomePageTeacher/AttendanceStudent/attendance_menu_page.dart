@@ -3,6 +3,7 @@ import 'package:edupay/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../Homepage/Widget/DialogCapture/dialog_capture_widget.dart';
 import '../../Homepage/Widget/edupay_appbar.dart';
 import '../../constants.dart';
 import '../../core/base/base_view_view_model.dart';
@@ -80,6 +81,7 @@ class AttendanceMenuPage extends BaseView<AttendanceMenuController> {
                   height: statusBarHeight,
                 ),
                 EdupayAppBar(
+                  onBackPressed: () => Get.back(),
                   titleWidget: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -109,18 +111,33 @@ class AttendanceMenuPage extends BaseView<AttendanceMenuController> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                          // topLeft: Radius.circular(24),
-                          // topRight: Radius.circular(24),
-                          )),
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      )),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 50,
+                        height: 60,
                       ),
-                      buildStudentItem(size, "", 0),
-                      buildStudentItem(size, "", 0),
-                      buildStudentItem(size, "", 0),
-                      buildStudentItem(size, "", 0),
+                      Expanded(
+                          child: Obx(
+                        () => ListView.builder(
+                            padding: EdgeInsets.only(bottom: 5),
+                            itemCount: controller.filteredStudents.length,
+                            itemBuilder: (context, index) {
+                              Student student =
+                                  controller.filteredStudents[index];
+                              return buildStudentItem(
+                                  context, size, student, index);
+                            }),
+                      )),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      // buildStudentItem(size, "", 0),
+                      // buildStudentItem(size, "", 0),
+                      // buildStudentItem(size, "", 0),
+                      // buildStudentItem(size, "", 0),
                     ],
                   ),
                 ),
@@ -139,152 +156,185 @@ class AttendanceMenuPage extends BaseView<AttendanceMenuController> {
   ) {
     return Container(
       width: size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // First container
-          AttendanceBoxAnimation(
-            index: 0,
-            countStudent: 1,
-            title: 'Chưa điểm danh',
-          ),
-          SizedBox(width: 20), // Khoảng cách giữa 2 container
-          // Second container
-          AttendanceBoxAnimation(
-            index: 1,
-            countStudent: 2,
-            title: 'Có mặt',
-            color: Colors.green,
-          ),
-          SizedBox(width: 20),
-          AttendanceBoxAnimation(
-              index: 2, countStudent: 3, title: 'Tất cả', color: Colors.blue)
-        ],
+      child: Obx(
+        () => Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AttendanceBoxAnimation(
+                index: 0,
+                countStudent: controller.lengthAll.value,
+                title: 'Tất cả',
+                color: Colors.blue),
+            SizedBox(width: 20),
+
+            // First container
+            AttendanceBoxAnimation(
+              index: 1,
+              countStudent: controller.lengthAbsent.value,
+              title: 'Chưa điểm danh',
+            ),
+            SizedBox(width: 20), // Khoảng cách giữa 2 container
+            // Second container
+            AttendanceBoxAnimation(
+              index: 2,
+              countStudent: controller.lengthPresent.value,
+              title: 'Có mặt',
+              color: Colors.green,
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Container buildStudentItem(Size size, var display, int index) {
-    return Container(
-      margin: EdgeInsets.only(top: 5),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 6.0),
-            margin: EdgeInsets.only(
-              left: 8,
-              right: 8,
-              top: 6,
-            ),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.red,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.red.withOpacity(0.1),
+  Widget buildStudentItem(
+      BuildContext context, Size size, Student student, int index) {
+    Color color = Colors.red;
+    String status = "Chưa điểm danh";
+    Icon icon = Icon(Icons.check, color: Colors.green);
+    if (student.isPresent) {
+      color = Colors.green;
+      status = "Có mặt";
+      icon = Icon(Icons.close, color: Colors.red);
+    }
 
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: Offset(1, 2), // changes position of shadow
-                  ),
-                ]),
-            height: 70,
-            width: size.width,
-            child: Container(
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(6.0),
-                    bottomRight: Radius.circular(6.0)),
-                color: Colors.white,
+    return Obx(
+      () => AnimatedContainer(
+        curve: Curves.easeInOut,
+        duration: Duration(
+            milliseconds:
+                controller.startAnimation.value ? 300 + (index * 150) : 300),
+        transform: Matrix4.translationValues(
+            controller.startAnimation.value ? 0 : size.width, 0, 0),
+        margin: EdgeInsets.only(top: 8),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 6.0),
+              margin: EdgeInsets.only(
+                left: 8,
+                right: 8,
+                top: 6,
               ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ClipOval(
-                      child: Image.network(
-                        'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif', // URL ảnh học sinh
-                        width: 45,
-                        height: 45,
-                        fit: BoxFit.cover,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: color,
+                  boxShadow: [
+                    BoxShadow(
+                      color: color.withOpacity(0.1),
+
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset: Offset(1, 2), // changes position of shadow
+                    ),
+                  ]),
+              height: 70,
+              width: size.width,
+              child: Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(6.0),
+                      bottomRight: Radius.circular(6.0)),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ClipOval(
+                        child: Image.network(
+                          'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif', // URL ảnh học sinh
+                          width: 45,
+                          height: 45,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                        flex: 65,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Lê Hùng Quý",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "07/07/1999",
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
-                            ),
-                          ],
-                        )),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Trạng thái",
-                          style: TextStyle(fontSize: 12),
-                        ),
-                        Text(
-                          "Chưa điểm danh",
-                          style: TextStyle(fontSize: 10, color: Colors.red),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                        flex: 12,
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-
-                                    spreadRadius: 2,
-                                    blurRadius: 2,
-                                    offset: Offset(
-                                        0, 1), // changes position of shadow
-                                  ),
-                                ]),
-                            child: Icon(
-                              Icons.check,
-                              color: Colors.green,
-                            ),
-
-                            // Text('Điểm danh',
-                            //     style: TextStyle(
-                            //         color: Colors.green,
-                            //         fontSize: 12,
-                            //         fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                          flex: 65,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                student.name,
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "07/07/1999",
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.grey),
+                              ),
+                            ],
+                          )),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Trạng thái",
+                            style: TextStyle(fontSize: 12),
                           ),
-                        )),
-                  ],
+                          Text(
+                            status,
+                            style: TextStyle(fontSize: 10, color: color),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Expanded(
+                          flex: 12,
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return DialogCaptureFaceWidget(); // Gọi dialog chụp ảnh điểm danh
+                                  },
+                                );
+
+                                // DialogCaptureFaceWidget();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+
+                                        spreadRadius: 2,
+                                        blurRadius: 2,
+                                        offset: Offset(
+                                            0, 1), // changes position of shadow
+                                      ),
+                                    ]),
+                                child: icon,
+
+                                // Text('Điểm danh',
+                                //     style: TextStyle(
+                                //         color: Colors.green,
+                                //         fontSize: 12,
+                                //         fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

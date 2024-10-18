@@ -33,7 +33,7 @@ class EdupayAppBar extends StatelessWidget {
               ),
               child: Icon(
                 Icons.arrow_back,
-                size: 16,
+                size: 20,
                 color: Colors.black,
               ),
             ),

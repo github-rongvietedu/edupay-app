@@ -22,14 +22,14 @@ class AttendanceBoxAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        controller.selectContainer(index); // Set the selected container
+        controller.selectContainer(index);
       },
       child: AnimatedBuilder(
         animation: controller.controllerAnimation,
         builder: (context, child) {
           return Container(
-            height: 85,
-            width: 85,
+            height: 95,
+            width: 95,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.transparent,
@@ -65,7 +65,7 @@ class AttendanceBoxAnimation extends StatelessWidget {
                 ],
                 // Main container
                 Container(
-                  margin: EdgeInsets.all(5),
+                  margin: EdgeInsets.all(6),
                   height: 85,
                   width: 85,
                   decoration: BoxDecoration(

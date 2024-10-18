@@ -43,8 +43,8 @@ class AttendancePageController extends BaseController
     // Simulate data fetch (Replace with actual API call)
     try {
       faceAttendaceResult = await DataService().faceAttendanceDateRange(
-          "BTS-STD00000008",
-          "BTS",
+          "TEST01-ST0001",
+          "Test01",
           DateTime(2021, 10, 13),
           DateTime(2024, 10, 15));
 

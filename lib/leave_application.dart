@@ -356,41 +356,41 @@ class _LeaveApplicationScreenState extends State<LeaveApplicationScreen> {
                                       maxLines: 6,
                                     )),
                                 Divider(),
-                                Container(
-                                  height: 50,
-                                  padding: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black45),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: TextField(
-                                    obscureText: _isHidden,
-                                    controller: _passwordController,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        if (value == plantextPassword) {
-                                          _isEnableButton = true;
-                                        } else {
-                                          _isEnableButton = false;
-                                        }
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                        hintText: "Nhập mật khẩu để xác nhận.",
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              _isHidden = !_isHidden;
-                                            });
-                                          },
-                                          icon: !_isHidden
-                                              ? const Icon(Icons.visibility_off)
-                                              : const Icon(Icons.visibility),
-                                          color: kPrimaryColor,
-                                        ),
-                                        border: InputBorder.none),
-                                  ),
-                                ),
-                                SizedBox(height: 20),
+                                // Container(
+                                //   height: 50,
+                                //   padding: EdgeInsets.all(5),
+                                //   decoration: BoxDecoration(
+                                //       border: Border.all(color: Colors.black45),
+                                //       borderRadius: BorderRadius.circular(8)),
+                                //   child: TextField(
+                                //     obscureText: _isHidden,
+                                //     controller: _passwordController,
+                                //     onChanged: (value) {
+                                //       setState(() {
+                                //         if (value == plantextPassword) {
+                                //           _isEnableButton = true;
+                                //         } else {
+                                //           _isEnableButton = false;
+                                //         }
+                                //       });
+                                //     },
+                                //     decoration: InputDecoration(
+                                //         hintText: "Nhập mật khẩu để xác nhận.",
+                                //         suffixIcon: IconButton(
+                                //           onPressed: () {
+                                //             setState(() {
+                                //               _isHidden = !_isHidden;
+                                //             });
+                                //           },
+                                //           icon: !_isHidden
+                                //               ? const Icon(Icons.visibility_off)
+                                //               : const Icon(Icons.visibility),
+                                //           color: kPrimaryColor,
+                                //         ),
+                                //         border: InputBorder.none),
+                                //   ),
+                                // ),
+                                // SizedBox(height: 20),
                                 RoundedButton(
                                   text: "Xác nhận",
                                   press: () async {

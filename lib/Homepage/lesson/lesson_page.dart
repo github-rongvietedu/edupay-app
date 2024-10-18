@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../constants.dart';
 import '../../core/base/base_view_view_model.dart';
 import '../../models/classRoom/class_lesson_detail.dart';
+import '../Widget/edupay_appbar.dart';
 import 'lesson_controller.dart'; // Import your LessonController
 
 class LessonPage extends BaseView<LessonController> {
@@ -13,52 +14,111 @@ class LessonPage extends BaseView<LessonController> {
   @override
   Widget baseBuilder(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+          color: kPrimaryColor,
+        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              height: 40,
-              color: Colors.transparent,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text("Giáo trình:", style: kTextStyleTitle),
-                  const Spacer(),
-                ],
+            SizedBox(
+              height: statusBarHeight,
+            ),
+            EdupayAppBar(
+              onBackPressed: () => Get.back(),
+              titleWidget: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Danh sách giáo trình',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            Obx(() {
-              switch (controller.status.value) {
-                case LessonStatus.failure:
-                  return Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14.0),
+            Spacer(),
+            Container(
+              height: size.height * 0.87,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 40,
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Text("Giáo trình:", style: kTextStyleTitle),
+                          const Spacer(),
+                        ],
+                      ),
                     ),
-                    child: Center(
-                      child: Container(
-                          height: 100,
-                          width: size.width,
-                          child: Center(
-                            child: Text('Chưa có thông tin bài giảng ',
-                                style: kTextStyleRowBlue),
-                          )),
-                    ),
-                  );
-                case LessonStatus.success:
-                  // Add your success state UI here
-                  return Container(); // Replace with actual UI
-                case LessonStatus.loading:
-                default:
-                  return Center(child: CircularProgressIndicator());
-              }
-            }),
+                    Obx(() {
+                      switch (controller.status.value) {
+                        case LessonStatus.failure:
+                          return Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14.0),
+                            ),
+                            child: Center(
+                              child: Container(
+                                  height: 100,
+                                  width: size.width,
+                                  child: Center(
+                                    child: Text('Chưa có thông tin bài giảng ',
+                                        style: kTextStyleRowBlue),
+                                  )),
+                            ),
+                          );
+                        case LessonStatus.success:
+                          // Add your success state UI here
+                          return controller.listLesson.isNotEmpty
+                              ? Flexible(
+                                  child: ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: controller.listLesson.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return buildWidgetLesson(size,
+                                            controller.listLesson.value, index);
+                                      }),
+                                )
+                              : buildWidgetNotLesson(size);
+                          ; // Replace with actual UI
+                        case LessonStatus.loading:
+                        default:
+                          return Center(child: CircularProgressIndicator());
+                      }
+                    }),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
