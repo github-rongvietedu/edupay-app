@@ -13,7 +13,7 @@ class RVEPopupChooseOption extends StatefulWidget {
       required this.data,
       required this.selected,
       required this.onChange,
-      required this.enable})
+      required this.enable,})
       : super(key: key);
   final String label;
   final Map<int, Student> data;

@@ -7,6 +7,8 @@ import 'package:edupay/Homepage/lesson/lesson_page.dart';
 import 'package:edupay/Welcome/welcome_page.dart';
 import 'package:edupay/Welcome/welcome_page_controller.dart';
 import 'package:edupay/leave_application.dart';
+import 'package:edupay/leave_application/leace_application_controller.dart';
+import 'package:edupay/leave_application/leace_application_view.dart';
 import 'package:edupay/models/foodmenu/foodmenu.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
@@ -58,7 +60,8 @@ class AppPages {
         binding: AttendanceBinding()),
     GetPage(
       name: Routes.LEAVEAPPLICATION,
-      page: () => LeaveApplicationScreen(),
+      page: () => LeaveApplicationPage(),
+      binding: LeavePageBinding(),
     ),
     GetPage(
       name: Routes.TUITION,
@@ -81,6 +84,7 @@ class AppPages {
       page: () => LessonPage(),
       binding: LessonBinding(),
     ),
+
 
     ///
   ];

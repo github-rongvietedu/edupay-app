@@ -592,6 +592,8 @@ class DataService {
     List<Reason> lstReson = [];
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
+      print(jsonData);
+
       temp = ReasonResult.fromJson(jsonData);
       if (temp.status == 2) {
         lstReson = temp.data!;
