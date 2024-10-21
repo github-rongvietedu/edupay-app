@@ -84,11 +84,8 @@ class CreateAbsencePage extends BaseView<CreateAbsencePageController> {
               child: controller.fromDate != null
                   ? dateContainer(formatDate(controller.fromDate!), 'Từ ngày')
                   : LinearGradientButton(
-               // iconColor:const Color.fromRGBO(100, 116, 139, 1),
                 borderColor: Colors.grey.withOpacity(0.5),
                 borderRadius: 16.0,
-                //icon: 'images/icon/email.png',
-                //iconSize: 24,
                 fontSize: 14,
                 text: 'Từ ngày',
                 textColor: const Color.fromRGBO(100, 116, 139, 1),
@@ -135,13 +132,6 @@ class CreateAbsencePage extends BaseView<CreateAbsencePageController> {
               ),
             ),
           ),
-          // GestureDetector(
-          //     onTap: () {
-          //       controller.listAbsence.remove(selectDate);
-          //       controller.update();              },
-          //     child: Image.asset('images/icon/delete.png',
-          //         width: 18, fit: BoxFit.contain)),
-
         ],
       ),
     );
@@ -151,12 +141,7 @@ class CreateAbsencePage extends BaseView<CreateAbsencePageController> {
 
   @override
   Widget baseBuilder(BuildContext context) {
-    Color iconFocusColor = const Color.fromRGBO(74, 127, 249, 1);
-    double inputHeight = 48;
-    double padding = 6;
-    Size size = MediaQuery.of(context).size;
-
-    return GestureDetector(onTap: () {
+       return GestureDetector(onTap: () {
       FocusScope.of(context)
           .unfocus(); // Dismiss the keyboard when tapping outside
     }, child: LayoutBuilder(

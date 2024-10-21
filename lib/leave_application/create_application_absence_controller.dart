@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:edupay/config/DataService.dart';
 import 'package:edupay/core/base/base_view_view_model.dart';
+import 'package:edupay/models/SchoolLeaveOfAbsence/reason.dart';
 import 'package:edupay/models/SchoolLeaveOfAbsence/student_leave_of_absence.dart';
+import 'package:edupay/models/data_response.dart';
 import 'package:edupay/models/profile.dart';
 import 'package:edupay/models/result.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +24,7 @@ class AbsenceDate
 
 class CreateAbsencePageController extends BaseController {
   var edit = false.obs;
- var allReasonAbsence;
+ List<dynamic>? allReasonAbsence=[];
   List<AbsenceDate> listAbsence=[];
   DateTime? fromDate;
   DateTime? toDate;
@@ -45,14 +47,18 @@ class CreateAbsencePageController extends BaseController {
 
 getAllReason() async
 {DataService data=DataService();
-  allReasonAbsence=await data.getAllReason(Profile.phoneNumber??'',Profile.companyCode??'');
-  print('getall reason.................');
-  print(allReasonAbsence);
-  allReasonAbsence ??= [];
+List<Reason> result=await data.getAllReason(Profile.phoneNumber??'',Profile.companyCode??'');
+allReasonAbsence=[];
+  try {
+    for(int i=0;i<result.length;i++) {
+      allReasonAbsence!.add(result[i].toJson());
+    }
+  } catch (y) {
+    }
   update();
 }
  createAbsence() async
- {  print('...............');
+ {
 DataService data=DataService();
  DateFormat dateFormatToJson = DateFormat("yyyy/MM/dd");
  StudentLeaveOfAbsenceModel temp =
@@ -70,6 +76,7 @@ DataService data=DataService();
 if(result!=null &&result.status==2) {
   return '';
 } else {
+  print(result.message);
   return result.message??'';
 }
   }}

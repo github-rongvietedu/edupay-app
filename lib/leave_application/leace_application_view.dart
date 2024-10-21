@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:edupay/Homepage/Widget/edupay_appbar.dart';
 import 'package:edupay/Homepage/tuition/card_student_info.dart';
 import 'package:edupay/config/DataService.dart';
@@ -28,24 +30,6 @@ import '../../models/student.dart';
 class LeaveApplicationPage extends BaseView<LeavePageController> {
   ValueNotifier<int> selectedStudent =
   ValueNotifier<int>(Profile.selectedStudent);
-  Student currentStudent = Profile.currentStudent;
-  final secureStore = SecureStore();
-  DateFormat dateFormatDay = DateFormat("dd/MM/yyyy");
-  DateFormat dateFormatToJson = DateFormat("yyyy/MM/dd");
-  DateTime fromDate = DateTime.now();
-  DateTime toDate = DateTime.now();
-  bool _isHidden = true;
-  bool _isEnableButton = false;
-  TextEditingController _soNgayNghiController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  Map<int, Student> data = Profile.listStudent;
-  String endcodepassword = "";
-  String plantextPassword = "";
-  List<String> list = <String>['Nghỉ bệnh', "Nghỉ đi du lịch"];
-  List<Reason> listReason = [];
-  int countDate = 0;
-
-  Reason? dropdownValue;
   final RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 
@@ -75,7 +59,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
                 body = const Text("No more Data");
                 break;
             }
-            return Container(
+            return SizedBox(
               height: 5.0,
               child: Center(child: body),
             );
@@ -110,7 +94,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
         .format(DateTime.parse(shift['StartTime'].toString()));}
     catch (e) {}
     return
-      Container(
+      SizedBox(
           height: 66,
           child:
           Container(
@@ -123,13 +107,13 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
               children: [//Text(shift.toString())
                 Row(
                   children: [
-                    status==''?Container(width: 20,height: 20):
+                    status==''?SizedBox(width: 20,height: 20):
                     Image.asset(
                       status=='OnTime'?
-                      'images/icon/shift_item_icon.png':
-                      status=='Late'?'images/icon/shift_item_icon.png':
-                      status=='Off'?'images/icon/shift_item_icon.png':
-                      'images/icon/shift_item_icon.png',
+                      'images/icon/icon1.png':
+                      status=='Late'?'images/icon/icon2.png':
+                      status=='Off'?'images/icon/icon3.png':
+                      'images/icon/icon4.png',
                       fit: BoxFit.contain,
                       color:
                       status=='OnTime'?const Color.fromRGBO(11, 161, 88, 1):
@@ -140,7 +124,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
                       height: 20,
                     ),
                     const SizedBox(width: 12),
-                    Container(height: 20,
+                    SizedBox(height: 20,
                         child: Text(
                           shift['ShiftName']??'',
                           style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -151,7 +135,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
                 const SizedBox(height: 2),
                 Row(
                   children: [
-                    Container(width: 32, height: 8),
+                    SizedBox(width: 32, height: 8),
                     Container(
                       alignment: Alignment.centerRight,
                       child: Text(date??'' ,
@@ -195,7 +179,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
       isScrollControlled: true,
       builder: (context) {
         Get.lazyPut(() =>
-            CreateAbsencePageController(student: currentStudent));
+            CreateAbsencePageController(student: Profile.currentStudent));
         var modal = CreateAbsencePage();
         return modal;
       },
@@ -207,36 +191,6 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
   }
 
 
-
-  Future<DateTime> _selectDate(BuildContext context, DateTime date,
-      DateTime firstDate, DateTime lastDate) async {
-    final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        builder: (BuildContext context, Widget? child) {
-          return Theme(
-            data: ThemeData(
-              primarySwatch: Colors.grey,
-              colorScheme: const ColorScheme.light(
-                primary: kPrimaryColor,
-                onSecondary: Colors.black,
-                onPrimary: Colors.white,
-              ),
-              dialogBackgroundColor: Colors.white,
-            ),
-            child: child ?? const Text(""),
-          );
-        },
-        locale: const Locale('vi', ''),
-        initialDate: date,
-        firstDate: firstDate,
-        lastDate: lastDate);
-    if (pickedDate != null) {
-      date = pickedDate;
-
-      print(date);
-    }
-    return date;
-  }
   tab()
   {return
     Container(
@@ -248,7 +202,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
               onTap: () { controller.showType.value='list';
               controller.update();
               },
-              child: Container(
+              child: SizedBox(
                 height: 38,
                 child: LinearGradientButton(
                   padding: 0,
@@ -271,7 +225,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
                 controller.showType.value='calendar';
                     controller.update();
               },
-              child: Container(
+              child: SizedBox(
                 height: 38,
                 child: LinearGradientButton(
                   padding: 0,
@@ -328,106 +282,144 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
     );
   }
 
-
   @override
   Widget baseBuilder(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double statusBarHeight = MediaQuery.of(context).padding.top;
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    double statusBarHeight = MediaQuery
+        .of(context)
+        .padding
+        .top;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true,
+      // Prevent overflow issues when keyboard appears
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [const Color(0xffED5627), Colors.red.shade700],
+            colors: [kPrimaryColor, Colors.red.shade700],
           ),
         ),
-        child:
-
-        Stack(children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
           children: [
-            SizedBox(
-              height: statusBarHeight,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: statusBarHeight,
+                ),
+                const EdupayAppBar(
+                  titleWidget: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'EduPay',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Thông tin học sinh nghỉ',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded( // Use Expanded to make the container take available space
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: CustomScrollView(
+                            slivers: [
+                              SliverList(
+                                delegate: SliverChildListDelegate([
+                                  CardStudentInfo(),
+                                ]),
+                              ),
+                              SliverPersistentHeader(
+                                pinned: true, // Sticky header behavior
+                                delegate: ShiftCalendarStatus(
+                                  child:SizedBox(height: 48,child: tab()), // Sticky tab widget
+                                ),
+                              ),
+                               SliverFillRemaining(
+                                hasScrollBody: true,
+                                child:
+                                controller.showType.value=='list'?
+                                HistoryBillWidget():CalendarShiftWidget(controller)
+                                )
+                            //]),
+                         // ),
+                      ],
+                    ),
+                  ),
+                ])
+              ))],
             ),
-            const EdupayAppBar(
-              titleWidget: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'EduPay',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+            // Bottom Button
+            Positioned(
+              bottom: 12, // Make the button float at the bottom
+              left: 0,
+              right: 0,
+              child: InkWell(
+                onTap: () => onCreateAbsencePressed(context),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12, vertical: 16),
+                  width: size.width,
+                  child: LinearGradientButton(
+                    fontSize: 16,
+                    text: 'Xin nghỉ',
+                    textColor: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    color2: const Color.fromRGBO(251, 192, 0, 1),
+                    color1: const Color.fromRGBO(254, 239, 159, 1),
+                    margin: 18,
                   ),
-                  Text(
-                    'Thông tin học sinh nghỉ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            Container(
-              height: size.height * 0.82,
-              // alignment: Alignment.bottomCenter,
-              padding: const EdgeInsets.all(12),
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(16)),
-              child:
-              SingleChildScrollView(
-                child:
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CardStudentInfo(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-               tab(),
-                controller.showType.value=='list'?
-                ListTypeView()
-
-                //   Container(height: 500,child:
-                // Column(children: [
-                //   ListTypeView(),
-                // HistoryBillWidget()]))
-                :CalendarShiftWidget(controller),
-                  const SizedBox(height: 70)
-               ],
-              )),
             ),
           ],
         ),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-          InkWell(
-              onTap: () => {onCreateAbsencePressed(context)},
-              child: Container(
-                padding: const EdgeInsets.only(left: 12,right: 12,bottom: 32),
-                  width: MediaQuery.of(context).size.width,
-                  child: LinearGradientButton(
-                      fontSize: 16,
-                      text: 'Xin nghỉ',
-                      textColor: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      color2: const Color.fromRGBO(251, 192, 0, 1),
-                      color1: const Color.fromRGBO(254,239, 159, 1),
-                      margin: 18)))]),
-        ])
       ),
     );
   }
 }
 
-//////
+
+class ShiftCalendarStatus extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  ShiftCalendarStatus({required this.child});
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.white, // You can customize the background color
+      child: child,
+    );
+  }
+  @override
+  double get maxExtent => 48.0; // The height when the header is fully expanded
+  @override
+  double get minExtent => 48.0; // The height when the header is collapsed
+  @override
+  bool shouldRebuild(ShiftCalendarStatus oldDelegate) {
+    return oldDelegate.child != child;
+  }
+}
