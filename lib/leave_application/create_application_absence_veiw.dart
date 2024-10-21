@@ -192,7 +192,7 @@ class CreateAbsencePage extends BaseView<CreateAbsencePageController> {
                       header:'Chọn lý do' ,
                       list:controller.allReasonAbsence ,
                       valueController: controller.reasonId,
-                      hintText: 'Lý do',
+                      hintText: 'Chọn lý do',
                       hintTextColor: const Color.fromRGBO(100, 116, 139, 1),
                       valueNAme: 'ID',
                       displayNAme: 'ReasonName',
