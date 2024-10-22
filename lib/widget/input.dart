@@ -221,19 +221,17 @@ class _InputState extends State<Input> {
                 child: ValueListenableBuilder<bool>(
                   valueListenable: _isFocused,
                   builder: (context, isFocused, child) {
-                    return Container(
-                      child: Center(
-                        child:  Container(
-                          width: widget.leftIconSize,
-                          height: widget.rightIconSize,
-                          padding: const EdgeInsets.all(0),
-                          child: Image.asset(
-                            widget.rightIcon,
-                            fit: BoxFit.contain,
-                            color: (isFocused??false)
-                                ? widget.rightIconFocusedIconColor
-                                : widget.rightIconColor,
-                          ),
+                    return Center(
+                      child:  Container(
+                        width: widget.leftIconSize,
+                        height: widget.rightIconSize,
+                        padding: const EdgeInsets.all(0),
+                        child: Image.asset(
+                          widget.rightIcon,
+                          fit: BoxFit.contain,
+                          color: (isFocused??false)
+                              ? widget.rightIconFocusedIconColor
+                              : widget.rightIconColor,
                         ),
                       ),
                     );

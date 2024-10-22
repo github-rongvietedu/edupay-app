@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:edupay/Homepage/Message/message_box.dart';
 import 'package:edupay/Homepage/PageView/SocialPage/social_page.dart';
 import 'package:edupay/Homepage/PageView/dashboard_page.dart';
 import 'package:edupay/Homepage/PageView/setting_page.dart';
@@ -25,7 +26,7 @@ class HomePageParent extends BaseView<HomePageParentController> {
         children: [
           SocialListView(),
           DashboardPage(),
-          SizedBox(),
+          Message_Box(),
           SettingScreen()
         ],
       ),

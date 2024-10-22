@@ -1,4 +1,7 @@
 import 'package:edupay/HomePageTeacher/AttendanceStudent/attendance_menu_page.dart';
+import 'package:edupay/Homepage/Message/message_box.dart';
+import 'package:edupay/Homepage/Message/message_detail.dart';
+import 'package:edupay/Homepage/Message/message_detail_controller.dart';
 import 'package:edupay/Homepage/attendance/attendance_page.dart';
 import 'package:edupay/Homepage/attendance/attendance_page_controller.dart';
 import 'package:edupay/Homepage/foodMenu/menu_week.dart';
@@ -84,7 +87,11 @@ class AppPages {
       page: () => LessonPage(),
       binding: LessonBinding(),
     ),
-
+    GetPage(
+      name: Routes.MESSAGEDETAIL,
+      page: () => MessageDetailPage(),
+      binding: MessageDetailPageBinding(),
+    ),
 
     ///
   ];
