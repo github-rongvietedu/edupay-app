@@ -290,6 +290,36 @@ class DataService {
     return faceAttendanceResult;
   }
 
+  Future<FaceAttendanceResult> attendanceDateRange(
+      String mappingCode, DateTime fromDate, DateTime toDate) async {
+    DateFormat datefm = DateFormat("yyyy-MM-dd");
+    final body = jsonEncode({
+      "StudentCode": mappingCode,
+      "FromDate": datefm.format(fromDate),
+      "ToDate": datefm.format(toDate)
+    });
+
+    http.Response response = await http.post(
+        Uri.parse(baseAddress +
+            // ignore: unnecessary_brace_in_string_interps
+            'Attendance/getAll'),
+        headers: <String, String>{
+          "content-type": "application/json",
+          "accept": "application/json",
+          "authorization": basicAuth,
+          "api_key": apiKey
+        },
+        body: body);
+
+    late FaceAttendanceResult faceAttendanceResult = FaceAttendanceResult();
+    // loginModelResult.authentication = false;
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      faceAttendanceResult = FaceAttendanceResult.fromJson(jsonData);
+    }
+    return faceAttendanceResult;
+  }
+
   /////////////////////////////////////////////////////////////////////////////////////
 //////////////////////// STUDENT //////////////
   Future<Student> getStudentByID(String id) async {

@@ -42,11 +42,8 @@ class AttendancePageController extends BaseController
     FaceAttendanceResult faceAttendaceResult = FaceAttendanceResult();
     // Simulate data fetch (Replace with actual API call)
     try {
-      faceAttendaceResult = await DataService().faceAttendanceDateRange(
-          "TEST01-ST0001",
-          "Test01",
-          DateTime(2021, 10, 13),
-          DateTime(2024, 10, 15));
+      faceAttendaceResult = await DataService()
+          .attendanceDateRange(Profile.currentStudent.id, firstDate, lastDate);
 
       if (faceAttendaceResult.status == 2) {
         Future.delayed(const Duration(seconds: 1), () {

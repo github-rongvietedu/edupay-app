@@ -1,4 +1,3 @@
-import 'package:edupay/Login/login.dart';
 import 'package:edupay/Login/login_page.dart';
 import 'package:edupay/constants.dart';
 import 'package:flutter/material.dart';
