@@ -192,7 +192,7 @@ class CreateAbsencePage extends BaseView<CreateAbsencePageController> {
                       maxLine: 4,
                       fontsSze: 14.0,
                       hintTextColor: const Color.fromRGBO(100, 116, 139, 1),
-                      hintText: 'Nhập lý do xin nghỉ',
+                      hintText: 'Ghi chú',
                      valueController: controller.reasonAbsence,
                     ),
                   const SizedBox(height: 12),

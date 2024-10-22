@@ -33,6 +33,21 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
   final RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 
+  void _onPreviousMonthPressed() {
+    controller.displayedMonth = DateTime(
+      controller.displayedMonth.year,
+      controller.displayedMonth.month - 1,
+      );
+      controller.update();
+  }
+
+  void _onNextMonthPressed() {
+    controller.displayedMonth = DateTime(
+        controller.displayedMonth.year,
+        controller.displayedMonth.month + 1);
+      controller.update();
+
+  }
   HistoryBillWidget() {
     return
       SmartRefresher(
@@ -194,7 +209,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
   tab()
   {return
     Container(
-      padding: const EdgeInsets.only(left: 12, right: 12),
+      padding: const EdgeInsets.all(12),
       child: Row(
         children: [
           Expanded(
@@ -245,9 +260,8 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
       ),
     );
   }
-  ListTypeView()
-  {  DateTime _displayedMonth = DateTime.now();
-
+  monthSelector()
+  {
   return
     Padding(
       padding: const EdgeInsets.all(0.0),
@@ -256,7 +270,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
         children: [
           IconButton(
             icon: const Icon(Icons.arrow_back,size: 20,color: Color.fromRGBO(100, 116, 139, 1)),
-            onPressed:() {},
+            onPressed:() {_onPreviousMonthPressed();},
           ),
           const Expanded(child: SizedBox()),
           Image.asset('images/icon/shift_item_icon.png',
@@ -266,7 +280,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
           ),
           const SizedBox(width: 12),
           Text(
-            'Tháng ${DateFormat('MM / yyyy').format(_displayedMonth)}',
+            'Tháng ${DateFormat('MM / yyyy').format(controller.displayedMonth)}',
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -275,7 +289,7 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
           const Expanded(child: SizedBox()),
           IconButton(
             icon: const Icon(Icons.arrow_forward,size: 20,color: Color.fromRGBO(100, 116, 139, 1)),
-            onPressed: () {},
+            onPressed: () {_onNextMonthPressed();},
           ),
         ],
       ),
@@ -356,14 +370,19 @@ class LeaveApplicationPage extends BaseView<LeavePageController> {
                               SliverPersistentHeader(
                                 pinned: true, // Sticky header behavior
                                 delegate: ShiftCalendarStatus(
-                                  child:SizedBox(height: 48,child: tab()), // Sticky tab widget
+                                  child:
+                                  SizedBox(height: 124,child:
+                                  Column(children: [
+                                  tab(), monthSelector()
+                                  ])), // Sticky tab widget
                                 ),
                               ),
                                SliverFillRemaining(
                                 hasScrollBody: true,
                                 child:
                                 controller.showType.value=='list'?
-                                HistoryBillWidget():CalendarShiftWidget(controller)
+                                HistoryBillWidget():
+                                CalendarShiftWidget(controller)
                                 )
                             //]),
                          // ),
@@ -415,9 +434,9 @@ class ShiftCalendarStatus extends SliverPersistentHeaderDelegate {
     );
   }
   @override
-  double get maxExtent => 48.0; // The height when the header is fully expanded
+  double get maxExtent => 124.0; // The height when the header is fully expanded
   @override
-  double get minExtent => 48.0; // The height when the header is collapsed
+  double get minExtent => 124.0; // The height when the header is collapsed
   @override
   bool shouldRebuild(ShiftCalendarStatus oldDelegate) {
     return oldDelegate.child != child;

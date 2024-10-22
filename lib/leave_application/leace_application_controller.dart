@@ -11,6 +11,7 @@ class LeavePageBinding extends Bindings {
 }
 
 class LeavePageController extends BaseController {
+  DateTime displayedMonth = DateTime.now();
   var showType='list'.obs;
   var currentPage = 0;
   var historyTimeSheet;

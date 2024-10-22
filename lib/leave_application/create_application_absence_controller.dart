@@ -72,6 +72,7 @@ DataService data=DataService();
     dateFormatToJson.format(toDate!);
     temp.parent = Profile.parentID;
     temp.reasonDescription =reasonAbsence.value??'';
+    print('createLeaveOfAbsence..............');
  Result result= await data.createLeaveOfAbsence(temp);
 if(result!=null &&result.status==2) {
   return '';

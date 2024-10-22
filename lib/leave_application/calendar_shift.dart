@@ -11,41 +11,18 @@ class CalendarShiftWidget extends StatefulWidget {
 }
 
 class _CalendarShiftWidgetState extends State<CalendarShiftWidget> {
-  DateTime _displayedMonth = DateTime.now();
-  DateTime _currentDate = DateTime.now();
-  List<DateTime?> singleDatePickerValueWithDefaultValue = [DateTime.now()];
-
-  void _onPreviousMonthPressed() {
-    setState(() {
-      _displayedMonth = DateTime(
-        _displayedMonth.year,
-        _displayedMonth.month - 1,
-      );
-      _currentDate = DateTime(_displayedMonth.year, _displayedMonth.month, 1);
-      singleDatePickerValueWithDefaultValue = [_currentDate];
-    });
-  }
-
-  void _onNextMonthPressed() {
-    setState(() {
-      _displayedMonth = DateTime(
-        _displayedMonth.year,
-        _displayedMonth.month + 1,
-      );
-      _currentDate = DateTime(_displayedMonth.year, _displayedMonth.month, 1);
-      singleDatePickerValueWithDefaultValue = [_currentDate];
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    late DateTime _currentDate ;
+    late List<DateTime?> singleDatePickerValueWithDefaultValue = [widget.controller.displayedMonth];
     final config = CalendarDatePicker2Config(
       disableModePicker: true,
       disableMonthPicker: true,
-      lastMonthIcon: SizedBox(), // Hide previous month icon
-      nextMonthIcon: SizedBox(), // Hide next month icon
+      lastMonthIcon: const SizedBox(), // Hide previous month icon
+      nextMonthIcon: const SizedBox(), // Hide next month icon
       selectedDayHighlightColor: Colors.white,
-      dayBorderRadius: BorderRadius.all(Radius.circular(6)),
+      dayBorderRadius: const BorderRadius.all(Radius.circular(6)),
       selectedDayTextStyle: const TextStyle(
         color: Colors.black,
         //  fontWeight: FontWeight.bold,
@@ -103,56 +80,22 @@ class _CalendarShiftWidgetState extends State<CalendarShiftWidget> {
     );
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back,size: 20,color: Color.fromRGBO(100, 116, 139, 1)),
-                onPressed: _onPreviousMonthPressed,
-              ),
-              Expanded(child: SizedBox()),
-              Image.asset('images/icon/shift_item_icon.png',
-                fit: BoxFit.contain,
-                width: 22,
-                height: 22,
-              ),
-              SizedBox(width: 12),
-              Text(
-                'Tháng ${DateFormat('M / yyyy').format(_displayedMonth)}',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Expanded(child: SizedBox()),
-              IconButton(
-                icon: Icon(Icons.arrow_forward,size: 20,color: Color.fromRGBO(100, 116, 139, 1)),
-                onPressed: _onNextMonthPressed,
-              ),
-            ],
-          ),
-        ),
         CalendarDatePicker2(
-          key: ValueKey(_displayedMonth), // Use key to force rebuild
+          key: ValueKey(widget.controller.displayedMonth), // Use key to force rebuild
           config: config,
           value: singleDatePickerValueWithDefaultValue,
           onDisplayedMonthChanged: (dateTime) {
-            setState(() {
-              _displayedMonth = dateTime;
+              widget.controller.displayedMonth = dateTime;
               _currentDate = DateTime(dateTime.year, dateTime.month, 1);
               singleDatePickerValueWithDefaultValue = [_currentDate];
-            });
+              widget.controller.update();
           },
           onValueChanged: (values) {
-            setState(() {
               singleDatePickerValueWithDefaultValue = values;
-            });
+              widget.controller.update();
           },
         ),
         calendarStatus(),
-
       ],
     );
   }
@@ -161,14 +104,14 @@ class _CalendarShiftWidgetState extends State<CalendarShiftWidget> {
   List<Widget> l=[];
   for(var i=_list.length-1;i>=0;i--) {
     Color? color;
-    if (_list[i] == 'OnTime') color = Color.fromRGBO(11, 162, 89, 1);
+    if (_list[i] == 'OnTime') color = const Color.fromRGBO(11, 162, 89, 1);
     else
-    if (_list[i] == 'Late') color = Color.fromRGBO(250,173, 20,1);
+    if (_list[i] == 'Late') color = const Color.fromRGBO(250,173, 20,1);
     else
-    if (_list[i] == 'Off') color = Color.fromRGBO(148, 163,184, 1);
+    if (_list[i] == 'Off') color = const Color.fromRGBO(148, 163,184, 1);
     else color=Colors.transparent;
     l.add(
-        Container(padding: EdgeInsets.only(left: 2, right: 2), child:
+        Container(padding: const EdgeInsets.only(left: 2, right: 2), child:
         Circle(size: 4.5, color: color)));
   }
   return Row(

@@ -10,7 +10,7 @@ void showCustomSnackbar(BuildContext context, String text,Color color) {
   overlay.insert(overlayEntry);
 
   // Remove the Snackbar after 3 seconds with animation
-  Future.delayed(Duration(seconds: 3), () {
+  Future.delayed(const Duration(seconds: 3), () {
     overlayEntry.remove();
   });
 }
@@ -36,12 +36,12 @@ class __CustomSnackbarState extends State<_CustomSnackbar>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
 
     _offsetAnimation = Tween<Offset>(
-      begin: Offset(0, 1.0), // Start below the screen
-      end: Offset(0, 0),     // End at its normal position
+      begin: const Offset(0, 1.0), // Start below the screen
+      end: const Offset(0, 0),     // End at its normal position
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
@@ -68,9 +68,14 @@ class __CustomSnackbarState extends State<_CustomSnackbar>
         child: Material(
           color: Colors.transparent,
           child: Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(1),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.green.withOpacity(1), Colors.white],
+              ),
+              //color: Colors.green.withOpacity(1),
               borderRadius: BorderRadius.circular(8.5),
             ),
             child: Text(
