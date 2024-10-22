@@ -119,7 +119,8 @@ class _Message_Box extends State<Message_Box> {
               },
             child:
             Container(padding: const EdgeInsets.only(left: 16),
-            child: Row(
+          decoration:  BoxDecoration(),
+          child: Row(
               children: [
                 CircleAvatar(
                   radius: 22,
