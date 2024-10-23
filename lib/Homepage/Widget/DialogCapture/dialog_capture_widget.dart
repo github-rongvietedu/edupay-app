@@ -52,7 +52,7 @@ class DialogCaptureFaceWidget extends StatelessWidget {
                               child: CameraPreview(controller.cameraController),
                             ),
                             Positioned(
-                              left: 0,
+                              right: 100,
                               bottom: 10,
                               child: GestureDetector(
                                 onTap: () async {

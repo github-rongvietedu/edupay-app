@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../../constants.dart';
 import '../../models/face_attendance_result.dart';
 import '../../widget/text_with_dot.dart';
+import '../Widget/edupay_appbar.dart';
 
 class DetailAttendance extends StatelessWidget {
   final Attendance attendance;
@@ -14,51 +15,109 @@ class DetailAttendance extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     DateFormat dateFormat = DateFormat("HH:mm:ss");
+    double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Điểm danh nhận diện khuôn mặt"),
-          backgroundColor: kPrimaryColor,
-          elevation: 0,
-        ),
+        // backgroundColor: Colors.white,
+        // appBar: AppBar(
+        //   title: const Text("Điểm danh nhận diện khuôn mặt"),
+        //   backgroundColor: kPrimaryColor,
+        //   elevation: 0,
+        // ),
         body: Container(
-            child: SingleChildScrollView(
-          child: Column(children: [
-            Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 10, // 70%
-                    child: attendance == null
-                        ? Image.asset('images/noimage.jpg')
-                        : Image.network(
-                            attendance.faceImageURL,
-                            errorBuilder: (BuildContext context,
-                                Object exception, StackTrace? stackTrace) {
-                              return Image.asset('images/noimage.jpg');
-                            },
-                            loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                          ),
-                  )
-                ]),
-            buildWidgetAttendance(size, attendance)
-          ]),
-        )));
+      decoration: BoxDecoration(
+        color: kPrimaryColor,
+        // gradient: LinearGradient(
+        //   begin: Alignment.topCenter,
+        //   end: Alignment.bottomCenter,
+        //   colors: [Color(0xffED5627), Colors.red.shade700],
+        // ),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: statusBarHeight,
+          ),
+          EdupayAppBar(
+            onBackPressed: () => Navigator.of(context).pop(),
+            titleWidget: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Chi tiết điểm danh',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Spacer(),
+          SizedBox(
+            height: 16,
+          ),
+          Expanded(
+            child: Container(
+                padding: const EdgeInsets.all(12),
+                // height: size.height * 0.87,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 10, // 70%
+                            child: attendance == null
+                                ? Image.asset('images/noimage.jpg')
+                                : Image.network(
+                                    attendance.faceImageURL,
+                                    errorBuilder: (BuildContext context,
+                                        Object exception,
+                                        StackTrace? stackTrace) {
+                                      return Image.asset('images/noimage.jpg');
+                                    },
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      }
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                          )
+                        ]),
+                    buildWidgetAttendance(size, attendance)
+                  ]),
+                )),
+          ),
+        ],
+      ),
+    ));
   }
 
   Row _textWithSpace(String text1, String text2, Size size) {

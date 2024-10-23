@@ -15,20 +15,20 @@ const Color textColor = Color(0xffE8E0D2);
 
 const kDefaultPaddin = 20.0;
 TextStyle kTextStyleTable =
-    GoogleFonts.robotoCondensed(fontSize: 18, fontWeight: FontWeight.bold);
+    GoogleFonts.robotoCondensed(fontSize: 16, fontWeight: FontWeight.bold);
 
 TextStyle kTextStyleBold = GoogleFonts.robotoCondensed(
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: FontWeight.bold,
     color: Colors.black.withOpacity(0.7));
 TextStyle kTextStyleNomalBrown = GoogleFonts.robotoCondensed(
-    fontSize: 18, color: Colors.black.withOpacity(0.7), wordSpacing: 0.5);
+    fontSize: 14, color: Colors.black.withOpacity(0.7), wordSpacing: 0.5);
 TextStyle kTextStyleNomal =
-    GoogleFonts.robotoCondensed(fontSize: 18, wordSpacing: 0.5);
+    GoogleFonts.robotoCondensed(fontSize: 14, wordSpacing: 0.5);
 TextStyle kTextStyleNomal22 =
     GoogleFonts.robotoCondensed(fontSize: 20, wordSpacing: 0.5);
 TextStyle kTextStyleBlackBold = GoogleFonts.robotoCondensed(
-    fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black);
+    fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black);
 TextStyle kTextStyleTitle = GoogleFonts.ptSansNarrow(
     fontSize: 20, fontWeight: FontWeight.w600, color: Colors.blue);
 

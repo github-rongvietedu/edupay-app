@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -30,7 +33,10 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -43,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBiB1fy2Hh6Yq6lUTGtMBV3h5JM1C4ew7Q',
-    appId: '1:617538271214:web:6b205d5233687371af80ff',
-    messagingSenderId: '617538271214',
-    projectId: 'edupay-a5f33',
-    authDomain: 'edupay-a5f33.firebaseapp.com',
-    storageBucket: 'edupay-a5f33.appspot.com',
-    measurementId: 'G-0VL6PFHB6H',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCgwUIUFcxkCes7BMMq26wKpCKPDmxfi9Y',
-    appId: '1:617538271214:android:30ca6276a14fe142af80ff',
+    appId: '1:617538271214:android:7d98370ced792b5eaf80ff',
     messagingSenderId: '617538271214',
     projectId: 'edupay-a5f33',
     storageBucket: 'edupay-a5f33.appspot.com',
@@ -70,13 +66,4 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.hdg.edupay',
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBiB1fy2Hh6Yq6lUTGtMBV3h5JM1C4ew7Q',
-    appId: '1:617538271214:web:bc7f888a966ea617af80ff',
-    messagingSenderId: '617538271214',
-    projectId: 'edupay-a5f33',
-    authDomain: 'edupay-a5f33.firebaseapp.com',
-    storageBucket: 'edupay-a5f33.appspot.com',
-    measurementId: 'G-Z1XN06PJGN',
-  );
 }

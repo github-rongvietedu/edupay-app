@@ -50,18 +50,18 @@ class Attendance {
     studentCode = json['StudentCode'] ?? "";
     studentName = json['StudentName'] ?? "";
     dateOfBirth = DateTime.parse(json['DateOfBirth']);
-    faceImageURL = json['FaceImageURL'] ?? "";
+    faceImageURL = json['CaptureImageURL'] ?? "";
     deviceName = json['DeviceName'] ?? "";
-    captureTime = DateTime.parse(json['CaptureAt']);
+    captureTime = DateTime.parse(json['CaptureTime']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['MappingCode'] = studentCode;
-    data['PersonName'] = studentName;
+    data['StudentCode'] = studentCode;
+    data['StudentName'] = studentName;
     data['DateOfBirth'] = dateOfBirth;
-    data['URLCaptureImage'] = faceImageURL;
-    data['CaptureAt'] = captureTime;
+    data['CaptureImageURL'] = faceImageURL;
+    data['CaptureTime'] = captureTime;
     return data;
   }
 }

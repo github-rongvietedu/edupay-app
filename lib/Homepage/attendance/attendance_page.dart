@@ -109,8 +109,8 @@ class AttendancePage extends BaseView<AttendancePageController> {
                         return controller.listAttendance.isNotEmpty
                             ? Flexible(
                                 child: ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
+                                    // physics:
+                                    //     const NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: controller.listAttendance.length,
                                     itemBuilder:
