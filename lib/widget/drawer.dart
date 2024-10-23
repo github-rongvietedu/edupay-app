@@ -1,7 +1,9 @@
 import 'package:edupay/Homepage/home_page_parent.dart';
 import 'package:edupay/Login/login_page.dart';
 import 'package:edupay/about_us.dart';
+import 'package:edupay/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../ChangePassword/change_password.dart';
 
@@ -78,13 +80,8 @@ class _MyDrawerState extends State<MyDrawer> {
                             Icons.checklist,
                             color: kPrimaryColor,
                           ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LeaveApplicationScreen(),
-                              ),
-                            );
+                          onTap: () async{
+                              Get.toNamed(Routes.LEAVEAPPLICATION);
                           })
                     ],
                   )

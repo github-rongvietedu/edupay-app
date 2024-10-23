@@ -16,4 +16,5 @@ abstract class Routes {
   static const FOODMENU = '/foodmenu';
   static const WellComeBack = '/wellcomeback';
   static const LEAVEAPPLICATION = '/leaveapplication';
+  static const MESSAGEDETAIL='/messagedetail';
 }
