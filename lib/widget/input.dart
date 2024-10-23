@@ -81,7 +81,7 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   late FocusNode _focusNode;
   late ValueNotifier<bool> _isFocused;
   late bool _obscureText;
@@ -293,6 +293,111 @@ class _InputState extends State<Input> {
         filled: true,
         contentPadding:
         const EdgeInsets.only(top: 12.0, bottom: 12, left: 8, right: 8),
+      ),
+      style: TextStyle(fontSize: widget.fontsSze, color: widget.textColor),
+    );
+  }
+}
+
+class InputMessage extends StatefulWidget {
+  final int maxLine;
+  Function(String)? onTextChanged;
+  Function()? onImagePressed;
+  Function()? onRightIconPressed; // Callback passed to widget
+  final String hintText;
+  var valueController;
+  final bool readonly;
+  final Color borderColor;
+  final fontsSze;
+  double padding;
+  Color hintTextColor;
+  Color textColor;
+  Color backgroundColor;
+  double? borderRadius;
+  InputMessage({
+    this.borderColor = Colors.transparent,
+    this.maxLine = 1,
+    this.fontsSze = 14.0,
+    this.hintTextColor = const Color.fromRGBO(148, 163, 184, 1),
+    required this.hintText,
+    required this.valueController,
+    this.readonly = false,
+    this.backgroundColor = Colors.white,
+    this.padding = 0,
+    this.borderRadius = 0,
+    this.textColor = Colors.black,
+    this.onTextChanged,
+    this.onRightIconPressed,
+    this.onImagePressed
+  });
+
+  @override
+  _InputMessageState createState() => _InputMessageState();
+}
+
+class _InputMessageState extends State<InputMessage> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    _controller.text = widget.valueController.value;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _controller.text = widget.valueController.value;
+    return TextField(
+      readOnly: widget.readonly,
+      onChanged: (String s) {
+        setState(() {
+        });
+        widget.valueController.value = s;
+        if (widget.onTextChanged != null) {
+          widget.onTextChanged!(s);
+        }
+      },
+      controller: _controller,
+      minLines: widget.maxLine,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(
+          Icons.insert_emoticon_outlined,
+          size: 26,
+          color: Colors.grey,
+        ),
+        suffixIcon:
+        GestureDetector(onTap: () {
+       if((widget.valueController.value??'')!=''){
+         if (widget.onRightIconPressed != null){
+         widget.onRightIconPressed!();}}
+       else
+         {if (widget.onImagePressed != null){
+           widget.onImagePressed!();}
+         }
+        },child:
+        (_controller.text??'')=='' ?
+        const Icon(
+          Icons.image_rounded,
+          size: 26,
+          color: Colors.grey,
+        ):const Icon(
+          Icons.send,
+          size: 26,
+          color: Colors.blue,
+        )),
+        hintText: widget.hintText,
+        hintStyle: TextStyle(fontSize: widget.fontsSze, color: widget.hintTextColor),
+        fillColor: Colors.white,
+        filled: true,
+        contentPadding: const EdgeInsets.only(top: 12.0, bottom: 12, left: 8, right: 8),
+        border: InputBorder.none, // No border
+        focusedBorder: InputBorder.none, // No border on focus
+        enabledBorder: InputBorder.none, // No border when enabled
       ),
       style: TextStyle(fontSize: widget.fontsSze, color: widget.textColor),
     );

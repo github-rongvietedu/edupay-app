@@ -20,35 +20,35 @@ class _Message_Box extends State<Message_Box> {
       'date':DateTime.now().toString(),
       'notReadYet':false.toString()
     },
-    {'name':'Nguyen van A',
+    {'name':'Nguyen van B',
       'imageUrl': 'https://teddy.vn/wp-content/uploads/2017/08/minion-mat-bong-4.jpg',
       'header': 'Another Header',
       'detail': 'More detailed message',
       'date':DateTime.now().toString(),
       'notReadYet':false.toString()
     },
-    {'name':'Nguyen van A',
+    {'name':'Nguyen van C',
       'imageUrl': 'https://teddy.vn/wp-content/uploads/2017/08/minion-mat-bong-4.jpg',
       'header': 'Another Header',
       'detail': 'More detailed message',
       'date':DateTime.now().toString(),
       'notReadYet':true.toString()
     },
-    {'name':'Nguyen van A',
+    {'name':'Nguyen van D',
       'imageUrl': 'https://teddy.vn/wp-content/uploads/2017/08/minion-mat-bong-4.jpg',
       'header': 'Another Header',
       'detail': 'More detailed message',
       'date':DateTime.now().toString(),
       'notReadYet':false.toString()
     },
-    {'name':'Nguyen van A',
-      'imageUrl': 'https://teddy.vn/wp-content/uploads/2017/08/minion-mat-bong-4.jpg',
+    {'name':'Nguyen van E',
+      //'imageUrl': 'https://teddy.vn/wp-content/uploads/2017/08/minion-mat-bong-4.jpg',
       'header': 'Another Header',
       'detail': 'More detailed message',
       'date':DateTime.now().toString(),
       'notReadYet':true.toString()
     },
-    {'name':'Nguyen van A',
+    {'name':'Nguyen van F',
       'imageUrl': 'https://teddy.vn/wp-content/uploads/2017/08/minion-mat-bong-4.jpg',
       'header': 'Another Header',
       'detail': 'More detailed message fsefsef sdfsdf sdfsdfsd sdf',
@@ -72,11 +72,8 @@ class _Message_Box extends State<Message_Box> {
   }
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double statusBarHeight = MediaQuery.of(context).padding.top;
 
     onSearchPressed() async {
-      // Perform search functionality here
     }
 
     return Scaffold(
@@ -115,17 +112,33 @@ class _Message_Box extends State<Message_Box> {
           return
             GestureDetector(onTap: ()
               {
-                Get.toNamed(Routes.MESSAGEDETAIL);
+                       Get.toNamed(Routes.MESSAGEDETAIL,arguments: message);
+
               },
             child:
             Container(padding: const EdgeInsets.only(left: 16),
-          decoration:  BoxDecoration(),
+          decoration:  const BoxDecoration(),
           child: Row(
               children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundImage: NetworkImage(message['imageUrl']??''),
+
+
+                ClipOval(
+                  child: SizedBox(
+                    width: 44, // Must be equal to height for a perfect circle
+                    height: 44,
+                    child: Image.network(
+                      message['imageUrl'] ?? '', // The image URL
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'images/icon/FaceID.png', // Fallback error image path
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
                 ),
+
                 const SizedBox(width: 12),
                 Expanded(
                   child:
@@ -138,7 +151,7 @@ class _Message_Box extends State<Message_Box> {
                      // Container(height: 1,color: Colors.red),
                       const SizedBox(height: 12),
                       Text(
-                        message['header']!,
+                        message['name']!,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -166,14 +179,14 @@ class _Message_Box extends State<Message_Box> {
                     const SizedBox(height: 4),
                     (message['notReadYet']==null)||!bool.parse(message['notReadYet']!)
                     ?  Container(
-                      padding: const EdgeInsets.only(left: 6,right: 6,top: 0,bottom: 0),
+                      padding: const EdgeInsets.only(left: 4,right: 4,top: 0,bottom: 0),
                       decoration:  BoxDecoration(
                         color: Colors.red,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child:const Text(
                         'N',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(fontSize: 10,color: Colors.white),
                       ) // Show 'N' if notReadYet is true
                     ): const Text(''), // Else show an empty SizedBox,
                   ],
